@@ -10,7 +10,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * <br/>created at 16-5-10
+ * <br>created at 16-5-10
  *
  * @author liuxh
  * @since 1.0.0

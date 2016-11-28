@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadFactory;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * <br/>created at 16-8-5
+ * <br>created at 16-8-5
  *
  * @author liuxh
  * @since 1.0.0

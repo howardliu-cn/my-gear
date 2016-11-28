@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <br/>created at 16-5-10
+ * <br>created at 16-5-10
  *
  * @author liuxh
  * @since 1.0.0

@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <br/>created at 16-9-12
+ * <br>created at 16-9-12
  *
  * @author liuxh
  * @since 1.0.0

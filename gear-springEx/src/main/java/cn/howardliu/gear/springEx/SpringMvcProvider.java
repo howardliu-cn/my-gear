@@ -11,7 +11,7 @@ import java.io.Closeable;
 import java.io.IOException;
 
 /**
- * <br/>created at 16-5-6
+ * <br>created at 16-5-6
  *
  * @author liuxh
  * @since 1.0.0

@@ -13,7 +13,7 @@ import java.util.Random;
 import java.util.concurrent.*;
 
 /**
- * <br/>created at 16-9-19
+ * <br>created at 16-9-19
  *
  * @author liuxh
  * @since 1.0.0

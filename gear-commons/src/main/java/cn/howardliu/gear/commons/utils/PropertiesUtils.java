@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
 import java.util.Properties;
 
 /**
- * <br/>created at 16-4-7
+ * <br>created at 16-4-7
  *
  * @author liuxh
  * @since 1.1.17

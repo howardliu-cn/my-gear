@@ -16,7 +16,7 @@ import java.util.Map;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * <br/>create at 16-3-8
+ * <br>created at 16-3-8
  *
  * @author liuxh
  * @since 1.0.0

@@ -11,6 +11,10 @@
     <artifactId>gear-kafka</artifactId>
     <packaging>jar</packaging>
 
+    <name>${project.artifactId}</name>
+    <description>kafka工具包</description>
+    <url>https://github.com/howardliu-cn/my-gear</url>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>

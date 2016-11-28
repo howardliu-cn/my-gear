@@ -13,7 +13,7 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 /**
- * <br/>created at 16-7-3
+ * <br>created at 16-7-3
  *
  * @author liuxh
  * @since 1.0.0

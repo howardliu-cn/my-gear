@@ -15,7 +15,7 @@ import java.util.Properties;
 import static org.apache.kafka.clients.producer.ProducerConfig.*;
 
 /**
- * <br/>created at 16-8-12
+ * <br>created at 16-8-12
  *
  * @author liuxh
  * @since 1.0.0

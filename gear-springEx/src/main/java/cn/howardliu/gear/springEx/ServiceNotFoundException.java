@@ -1,7 +1,7 @@
 package cn.howardliu.gear.springEx;
 
 /**
- * <br/>created at 16-9-26
+ * <br>created at 16-9-26
  *
  * @author liuxh
  * @since 1.0.0

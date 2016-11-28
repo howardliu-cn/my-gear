@@ -3,7 +3,7 @@ package cn.howardliu.gear.commons.utils;
 import java.security.MessageDigest;
 
 /**
- * <br/>created at 16-6-20
+ * <br>created at 16-6-20
  *
  * @author liuxh
  * @since 1.0.0

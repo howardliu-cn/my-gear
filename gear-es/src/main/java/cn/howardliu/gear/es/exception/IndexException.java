@@ -1,7 +1,7 @@
 package cn.howardliu.gear.es.exception;
 
 /**
- * <br/>created at 16-5-4
+ * <br>created at 16-5-4
  *
  * @author liuxh
  * @since 1.0.0

@@ -10,7 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>gear-springEx</artifactId>
     <packaging>jar</packaging>
+
+    <name>${project.artifactId}</name>
     <description>spring扩展</description>
+    <url>https://github.com/howardliu-cn/my-gear</url>
 
     <dependencies>
         <dependency>

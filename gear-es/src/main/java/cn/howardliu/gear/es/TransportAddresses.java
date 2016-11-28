@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * <br/>create at 16-5-17
+ * <br>created at 16-5-17
  *
  * @author liuxh
  * @since 1.0.0

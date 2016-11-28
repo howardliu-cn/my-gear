@@ -3,7 +3,7 @@ package cn.howardliu.gear.commons.utils
 import scala.util.control.Exception.allCatch
 
 /**
- * <br/>created at 16-3-24
+ * <br>created at 16-3-24
  * @author liuxh
  * @since 1.0.0
  */

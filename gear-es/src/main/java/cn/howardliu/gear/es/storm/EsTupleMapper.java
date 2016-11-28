@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * TupleMapper defines how to extract source, index, type, and id from tuple for ElasticSearch.
- * <br/>create at 16-3-8
+ * <br>created at 16-3-8
  *
  * @author liuxh
  * @since 1.0.0

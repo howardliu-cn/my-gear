@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <br/>created at 16-4-7
+ * <br>created at 16-4-7
  *
  * @author liuxh
  * @since 1.0.0

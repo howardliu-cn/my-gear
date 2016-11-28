@@ -4,7 +4,7 @@ import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 
 /**
- * <br/>created at 16-3-18
+ * <br>created at 16-3-18
  *
  * @author liuxh
  * @since 1.1.4

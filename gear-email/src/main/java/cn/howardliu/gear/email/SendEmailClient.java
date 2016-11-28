@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.Properties;
 
 /**
- * <br/>created at 16-3-18
+ * <br>created at 16-3-18
  *
  * @author liuxh
  * @since 1.1.4

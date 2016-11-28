@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 
 /**
- * <br/>created at 16-9-28
+ * <br>created at 16-9-28
  *
  * @author liuxh
  * @since 1.0.0

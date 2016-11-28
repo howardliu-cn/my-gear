@@ -3,7 +3,7 @@ package cn.howardliu.gear.email;
 import org.apache.commons.lang3.Validate;
 
 /**
- * <br/>created at 16-3-18
+ * <br>created at 16-3-18
  *
  * @author liuxh
  * @since 1.1.4

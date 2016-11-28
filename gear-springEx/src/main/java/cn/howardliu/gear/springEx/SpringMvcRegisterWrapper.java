@@ -14,7 +14,7 @@ import javax.annotation.PreDestroy;
 import java.io.IOException;
 
 /**
- * <br/>created at 16-7-30
+ * <br>created at 16-7-30
  *
  * @author liuxh
  * @since 1.0.0

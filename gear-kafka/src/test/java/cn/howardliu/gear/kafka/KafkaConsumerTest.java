@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
 /**
- * <br/>created at 16-8-12
+ * <br>created at 16-8-12
  *
  * @author liuxh
  * @since 1.0.0

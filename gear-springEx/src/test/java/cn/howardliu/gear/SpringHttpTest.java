@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
 import java.net.URI;
 
 /**
- * <br/>created at 16-10-10
+ * <br>created at 16-10-10
  *
  * @author liuxh
  * @since 1.0.0

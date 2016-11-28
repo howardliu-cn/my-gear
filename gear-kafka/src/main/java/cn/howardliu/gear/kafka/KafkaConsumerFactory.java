@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Properties;
 
 /**
- * <br/>created at 16-8-12
+ * <br>created at 16-8-12
  *
  * @author liuxh
  * @since 1.0.0

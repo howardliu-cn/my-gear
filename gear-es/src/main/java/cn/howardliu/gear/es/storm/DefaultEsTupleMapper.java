@@ -3,7 +3,7 @@ package cn.howardliu.gear.es.storm;
 import backtype.storm.tuple.ITuple;
 
 /**
- * <br/>create at 16-3-8
+ * <br>created at 16-3-8
  *
  * @author liuxh
  * @since 1.0.0

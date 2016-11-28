@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * <br/>created at 16-5-3
+ * <br>created at 16-5-3
  *
  * @author liuxh
  * @since 1.0.0

@@ -13,7 +13,7 @@ import org.apache.commons.io.IOUtils
 import scala.collection.immutable.HashMap
 
 /**
- * <br/>created at 16-3-21
+ * <br>created at 16-3-21
  * @author liuxh
  * @since 1.1.11
  */

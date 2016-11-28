@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Collection;
 
 /**
- * <br/>created at 16-5-6
+ * <br>created at 16-5-6
  *
  * @author liuxh
  * @since 1.0.0

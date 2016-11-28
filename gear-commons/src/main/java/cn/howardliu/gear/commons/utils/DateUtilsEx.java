@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * <br/>created at 16-5-5
+ * <br>created at 16-5-5
  *
  * @author liuxh
  * @since 1.0.0

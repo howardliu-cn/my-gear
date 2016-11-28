@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 import java.net.URI;
 
 /**
- * <br/>created at 16-8-4
+ * <br>created at 16-8-4
  *
  * @author liuxh
  * @since 1.0.0

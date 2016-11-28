@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * <br/>created at 16-8-11
+ * <br>created at 16-8-11
  *
  * @author liuxh
  * @since 1.0.0

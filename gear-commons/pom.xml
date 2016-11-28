@@ -10,7 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>gear-commons</artifactId>
     <packaging>jar</packaging>
+
+    <name>${project.artifactId}</name>
     <description>公共模块：用于提供基础工具类</description>
+    <url>https://github.com/howardliu-cn/my-gear</url>
 
     <dependencies>
         <dependency>

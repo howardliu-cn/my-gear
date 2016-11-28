@@ -3,7 +3,7 @@ package cn.howardliu.gear.springEx;
 import java.lang.annotation.*;
 
 /**
- * <br/>created at 16-5-5
+ * <br>created at 16-5-5
  *
  * @author liuxh
  * @since 1.0.0

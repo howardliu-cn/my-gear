@@ -3,7 +3,7 @@ package cn.howardliu.gear.commons.utils
 import java.util.{HashMap => JHashMap, Map => JMap}
 
 /**
- * <br/>created at 16-3-30
+ * <br>created at 16-3-30
  * @author liuxh
  * @since 1.1.16
  */

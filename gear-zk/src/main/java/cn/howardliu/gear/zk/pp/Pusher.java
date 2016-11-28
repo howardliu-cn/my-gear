@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <br/>created at 16-5-11
+ * <br>created at 16-5-11
  *
  * @author liuxh
  * @since 1.0.0

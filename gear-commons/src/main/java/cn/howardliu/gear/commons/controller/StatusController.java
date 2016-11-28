@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * <br/>created at 16-10-13
+ * <br>created at 16-10-13
  *
  * @author liuxh
  * @since 1.0.0

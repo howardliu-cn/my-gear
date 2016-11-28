@@ -18,7 +18,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * <br/>created at 16-9-12
+ * <br>created at 16-9-12
  *
  * @author liuxh
  * @since 1.0.0

@@ -5,7 +5,7 @@ import java.util.{HashMap => JHashMap, Map => JMap}
 /**
  * <br>created at 16-3-30
  * @author liuxh
- * @since 1.1.16
+ * @since 1.0.0
  */
 object Type {
   def >>(map: Map[String, Any]): JMap[String, Any] = {

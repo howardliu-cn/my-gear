@@ -29,7 +29,7 @@ import java.util.Map;
  * <br>created at 16-4-8
  *
  * @author liuxh
- * @since 1.1.19
+ * @since 1.0.0
  */
 public abstract class HttpRequester {
     private final Logger logger = LoggerFactory.getLogger(getClass());

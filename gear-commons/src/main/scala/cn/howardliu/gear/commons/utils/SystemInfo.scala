@@ -15,7 +15,7 @@ import scala.collection.immutable.HashMap
 /**
  * <br>created at 16-3-21
  * @author liuxh
- * @since 1.1.11
+ * @since 1.0.0
  */
 object SystemInfo {
   val ONE_KB: Double = 1024.toDouble

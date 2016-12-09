@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * <br>created at 16-4-8
  *
  * @author liuxh
- * @since 1.1.19
+ * @since 1.0.0
  */
 public class SimpleHttpRequester extends HttpRequester {
     private static final Logger logger = LoggerFactory.getLogger(SimpleHttpRequester.class);

@@ -15,7 +15,7 @@ import java.util.List;
  * <br>created at 16-4-7
  *
  * @author liuxh
- * @since 1.1.18
+ * @since 1.0.0
  */
 public class EsBulkIndexBolt extends AbstractEsBolt {
     private static final Logger logger = LoggerFactory.getLogger(EsBulkIndexBolt.class);

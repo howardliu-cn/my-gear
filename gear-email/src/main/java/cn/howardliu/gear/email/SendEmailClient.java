@@ -20,7 +20,7 @@ import java.util.Properties;
  * <br>created at 16-3-18
  *
  * @author liuxh
- * @since 1.1.4
+ * @since 1.0.0
  */
 public class SendEmailClient {
     private static final Logger logger = LoggerFactory.getLogger(SendEmailClient.class);

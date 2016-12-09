@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.howardliu</groupId>
     <artifactId>my-gear</artifactId>
-    <version>1.0.0-RELEASE</version>
+    <version>1.0.1-SNAPTSHOT</version>
     <modules>
         <module>gear-commons</module>
         <module>gear-email</module>
@@ -108,6 +108,11 @@
             <dependency>
                 <groupId>cn.howardliu</groupId>
                 <artifactId>gear-zk</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.howardliu</groupId>
+                <artifactId>gear-es</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

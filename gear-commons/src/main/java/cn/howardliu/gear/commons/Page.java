@@ -7,7 +7,7 @@ import java.util.List;
  * <br>created at 16-4-27
  *
  * @author liuxh
- * @since 1.1.27
+ * @since 1.0.0
  */
 public class Page<T> {
     private long total;

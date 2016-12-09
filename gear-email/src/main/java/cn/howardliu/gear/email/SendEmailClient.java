@@ -1,5 +1,6 @@
 package cn.howardliu.gear.email;
 
+import cn.howardliu.gear.commons.NameValuePair;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
@@ -76,7 +77,7 @@ public class SendEmailClient {
 
         MimeMessage message = new MimeMessage(session);
         try {
-            NameValuePair sendFrom = this.conf.getSendFrom();
+            NameValuePair<String> sendFrom = this.conf.getSendFrom();
             message.setFrom(new InternetAddress(sendFrom.getName(), sendFrom.getValue(), "UTF-8"));
         } catch (UnsupportedEncodingException ignored) {
         }

@@ -1,4 +1,4 @@
-package cn.howardliu.gear.email;
+package cn.howardliu.gear.commons;
 
 import org.apache.commons.lang3.Validate;
 
@@ -6,22 +6,25 @@ import org.apache.commons.lang3.Validate;
  * <br>created at 16-3-18
  *
  * @author liuxh
- * @since 1.1.4
+ * @since 1.0.0
  */
-public class NameValuePair {
+public class NameValuePair<V> {
     private final String name;
-    private final String value;
+    private final V value;
 
-    public NameValuePair(String name, String value) {
+    public NameValuePair(String name, V value) {
         this.name = Validate.notBlank(name, "name不能为空");
-        this.value = Validate.notBlank(value, "value不能为空");
+        if (value == null) {
+            throw new NullPointerException("value不能为空");
+        }
+        this.value = value;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getValue() {
+    public V getValue() {
         return value;
     }
 

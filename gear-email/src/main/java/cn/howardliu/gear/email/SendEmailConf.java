@@ -1,5 +1,6 @@
 package cn.howardliu.gear.email;
 
+import cn.howardliu.gear.commons.NameValuePair;
 import org.apache.commons.lang3.Validate;
 
 import javax.mail.internet.AddressException;
@@ -18,7 +19,7 @@ public class SendEmailConf {
     public static final String DEFAULT_PORT = "25";
     private final String host;
     private final String port;
-    private final NameValuePair sendFrom;
+    private final NameValuePair<String> sendFrom;
     private final List<String> to = new ArrayList<>();
     private final List<String> cc = new ArrayList<>();
     private final List<String> bcc = new ArrayList<>();
@@ -30,32 +31,32 @@ public class SendEmailConf {
     public SendEmailConf(String host, String port, String sendFrom, String sendFromAs) {
         this.host = host;
         this.port = port;
-        this.sendFrom = new NameValuePair(sendFrom, sendFromAs);
+        this.sendFrom = new NameValuePair<>(sendFrom, sendFromAs);
     }
 
-    public SendEmailConf(String host, NameValuePair sendFrom, Collection<String> to) {
+    public SendEmailConf(String host, NameValuePair<String> sendFrom, Collection<String> to) {
         this(host, DEFAULT_PORT, sendFrom, to);
     }
 
-    public SendEmailConf(String host, String port, NameValuePair sendFrom, Collection<String> to) {
+    public SendEmailConf(String host, String port, NameValuePair<String> sendFrom, Collection<String> to) {
         this(host, port, sendFrom, to, new ArrayList<String>());
     }
 
-    public SendEmailConf(String host, NameValuePair sendFrom, List<String> to, Collection<String> cc) {
+    public SendEmailConf(String host, NameValuePair<String> sendFrom, List<String> to, Collection<String> cc) {
         this(host, DEFAULT_PORT, sendFrom, to, cc);
     }
 
-    public SendEmailConf(String host, String port, NameValuePair sendFrom, Collection<String> to,
+    public SendEmailConf(String host, String port, NameValuePair<String> sendFrom, Collection<String> to,
             Collection<String> cc) {
         this(host, port, sendFrom, to, cc, new ArrayList<String>());
     }
 
-    public SendEmailConf(String host, NameValuePair sendFrom, Collection<String> to, Collection<String> cc,
+    public SendEmailConf(String host, NameValuePair<String> sendFrom, Collection<String> to, Collection<String> cc,
             Collection<String> bcc) {
         this(host, DEFAULT_PORT, sendFrom, to, cc, bcc);
     }
 
-    public SendEmailConf(String host, String port, NameValuePair sendFrom, Collection<String> to, Collection<String> cc,
+    public SendEmailConf(String host, String port, NameValuePair<String> sendFrom, Collection<String> to, Collection<String> cc,
             Collection<String> bcc) {
         this.host = host;
         this.port = port;
@@ -73,7 +74,7 @@ public class SendEmailConf {
         return port;
     }
 
-    public NameValuePair getSendFrom() {
+    public NameValuePair<String> getSendFrom() {
         return sendFrom;
     }
 

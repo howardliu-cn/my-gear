@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.howardliu</groupId>
     <artifactId>my-gear</artifactId>
-    <version>1.0.1-SNAPTSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <modules>
         <module>gear-commons</module>
         <module>gear-email</module>
@@ -13,6 +13,7 @@
         <module>gear-springEx</module>
         <module>gear-es</module>
         <module>gear-kafka</module>
+        <module>gear-toolkit</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -41,7 +42,7 @@
         <connection>scm:git:git://github.com/howardliu-cn/my-gear.git</connection>
         <developerConnection>scm:git:ssh://github.com:howardliu-cn/my-gear.git</developerConnection>
         <url>https://github.com/howardliu-cn/my-gear/tree/master</url>
-        <tag>v1.0.0</tag>
+        <tag>v1.0.1</tag>
     </scm>
 
     <properties>
@@ -61,6 +62,8 @@
         <dependency.storm-core.version>0.10.0</dependency.storm-core.version>
         <dependency.kafka_2.10.version>0.8.2.2</dependency.kafka_2.10.version>
         <dependency.fastjson.version>1.2.10</dependency.fastjson.version>
+        <dependency.validation-api.version>1.1.0.Final</dependency.validation-api.version>
+        <dependency.commons-beanutils.version>1.9.3</dependency.commons-beanutils.version>
     </properties>
 
     <dependencies>
@@ -134,6 +137,11 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${dependency.commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${dependency.validation-api.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
@@ -304,4 +312,21 @@
             </distributionManagement>
         </profile>
     </profiles>
+
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <layout>default</layout>
+            <name>本地Release仓库</name>
+            <uniqueVersion>false</uniqueVersion>
+            <url>http://nexus-server:8081/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <layout>default</layout>
+            <name>本地Snapshot仓库</name>
+            <uniqueVersion>false</uniqueVersion>
+            <url>http://nexus-server:8081/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

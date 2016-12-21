@@ -5,6 +5,7 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.utils.CloseableUtils;
 import org.apache.curator.x.discovery.*;
 import org.apache.curator.x.discovery.details.JsonInstanceSerializer;
+import org.apache.zookeeper.KeeperException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,7 +70,12 @@ public class ServiceRegisterWrapper implements Closeable {
             }
             InstanceDetails payload = serviceInstance.getPayload();
             payload.setDescription(description);
-            serviceDiscovery.updateService(serviceInstance);
+            try {
+                serviceDiscovery.updateService(serviceInstance);
+            } catch (KeeperException.NoNodeException e) {
+                logger.warn("找不到注册节点，重新注册，异常为：{}", e.toString());
+                serviceDiscovery.registerService(serviceInstance);
+            }
         }
     }
 

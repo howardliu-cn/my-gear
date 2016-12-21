@@ -14,6 +14,7 @@
         <module>gear-es</module>
         <module>gear-kafka</module>
         <module>gear-toolkit</module>
+        <module>gear-config</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -64,6 +65,7 @@
         <dependency.fastjson.version>1.2.10</dependency.fastjson.version>
         <dependency.validation-api.version>1.1.0.Final</dependency.validation-api.version>
         <dependency.commons-beanutils.version>1.9.3</dependency.commons-beanutils.version>
+        <dependency.mybatis.version>3.3.0</dependency.mybatis.version>
     </properties>
 
     <dependencies>
@@ -188,6 +190,11 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
                 <version>${dependency.spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${dependency.mybatis.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.elasticsearch</groupId>

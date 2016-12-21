@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.howardliu.gear.config.mapper.ConfigParamMapper">
+    <resultMap id="configParam" type="cn.howardliu.gear.config.pojo.ConfigParam">
+        <id property="sid" column="sid"/>
+        <result property="name" column="name"/>
+        <result property="type" column="type"/>
+        <result property="value" column="value"/>
+    </resultMap>
+    <insert id="setParam" useGeneratedKeys="true" keyProperty="sid">
+        INSERT INTO config_param (name, type, value)
+        VALUES (#{name}, #{type}, #{value})
+        ON DUPLICATE KEY UPDATE type = VALUES(type), value = VALUES(value)
+    </insert>
+    <select id="getParam" resultMap="configParam">
+        SELECT
+        sid,
+        name,
+        type,
+        value
+        FROM config_param
+        WHERE name = #{name}
+    </select>
+</mapper>

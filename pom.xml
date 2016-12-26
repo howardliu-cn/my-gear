@@ -15,6 +15,7 @@
         <module>gear-kafka</module>
         <module>gear-toolkit</module>
         <module>gear-config</module>
+        <module>gear-logback-kafka-appender</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -50,7 +51,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <dependency.junit.version>4.12</dependency.junit.version>
         <dependency.slf4j.version>1.7.12</dependency.slf4j.version>
-        <dependency.logback.version>1.1.3</dependency.logback.version>
+        <dependency.logback.version>1.1.6</dependency.logback.version>
         <dependency.spring.version>4.2.5.RELEASE</dependency.spring.version>
         <scala-lang.version>2.10.4</scala-lang.version>
         <dependency.commons-io.version>2.4</dependency.commons-io.version>
@@ -118,6 +119,16 @@
             <dependency>
                 <groupId>cn.howardliu</groupId>
                 <artifactId>gear-es</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.howardliu</groupId>
+                <artifactId>gear-kafka</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.howardliu</groupId>
+                <artifactId>gear-logback-kafka-appender</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

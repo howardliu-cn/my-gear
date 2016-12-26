@@ -27,7 +27,7 @@ public class KafkaProducerFactory<K, V> {
         config.put(COMPRESSION_TYPE_CONFIG, "none");// none, gzip, snappy
         config.put(RETRIES_CONFIG, "0");
         config.put(BATCH_SIZE_CONFIG, "16384");
-        config.put(CLIENT_ID_CONFIG, UUID.randomUUID().toString());
+        config.put(CLIENT_ID_CONFIG, "default-client-id");
         config.put(LINGER_MS_CONFIG, "0");
         config.put(MAX_REQUEST_SIZE_CONFIG, "1048576");
         config.put(RECEIVE_BUFFER_CONFIG, "32768");

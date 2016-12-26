@@ -1,6 +1,5 @@
 package cn.howardliu.gear.kafka;
 
-import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
@@ -17,40 +16,49 @@ import java.util.Properties;
  * @author liuxh
  * @since 1.0.1
  */
-public class KafkaProducerWrapper implements Closeable {
+public class KafkaProducerWrapper<K, V> implements Closeable {
     private static final Logger logger = LoggerFactory.getLogger(KafkaProducerWrapper.class);
-    private static KafkaProducer<String, String> kafkaProducer;
+    private KafkaProducer<K, V> kafkaProducer;
 
     public KafkaProducerWrapper(Properties config) {
-        kafkaProducer = new KafkaProducerFactory<String, String>(config).build();
+        kafkaProducer = new KafkaProducerFactory<K, V>(config).build();
     }
 
     public KafkaProducerWrapper(String bootstrapServers) {
-        kafkaProducer = new KafkaProducerFactory<String, String>(bootstrapServers).build();
+        kafkaProducer = new KafkaProducerFactory<K, V>(bootstrapServers).build();
     }
 
-    public static boolean send(String topic, String key, String msg) {
-        try {
-            ProducerRecord<String, String> record;
-            if (key == null) {
-                record = new ProducerRecord<>(topic, msg);
-            } else {
-                record = new ProducerRecord<>(topic, key, msg);
+    public boolean send(String topic, K key, V msg) {
+        return send(topic, key, msg, new Callback<K, V>() {
+            @Override
+            public void execute(K key, V value, RecordMetadata metadata, Exception exception) {
+                if (exception == null) {
+                    logger.debug("producer发送消息成功，topic={}, partition={}, offset={}",
+                            metadata.topic(), metadata.partition(), metadata.offset());
+                } else {
+                    logger.error("producer发送消息失败", exception);
+                }
             }
-            kafkaProducer.send(record, new Callback() {
+        });
+    }
+
+    public boolean send(final String topic, final K key, final V value, final Callback<K, V> callback) {
+        try {
+            ProducerRecord<K, V> record;
+            if (key == null) {
+                record = new ProducerRecord<>(topic, value);
+            } else {
+                record = new ProducerRecord<>(topic, key, value);
+            }
+            kafkaProducer.send(record, new org.apache.kafka.clients.producer.Callback() {
                 @Override
                 public void onCompletion(RecordMetadata metadata, Exception exception) {
-                    if (exception == null) {
-                        logger.debug("producer发送消息成功，topic={}, partition={}, offset={}",
-                                metadata.topic(), metadata.partition(), metadata.offset());
-                    } else {
-                        logger.error("producer发送消息失败", exception);
-                    }
+                    callback.execute(key, value, metadata, exception);
                 }
             });
             return true;
         } catch (Exception e) {
-            logger.error("消息发送失败, topic={}, key={}, msg={}", topic, key, msg, e);
+            logger.error("消息发送失败, topic={}, key={}, value={}", topic, key, value, e);
         }
         return false;
     }
@@ -58,5 +66,9 @@ public class KafkaProducerWrapper implements Closeable {
     @Override
     public void close() throws IOException {
         kafkaProducer.close();
+    }
+
+    public static interface Callback<K, V> {
+        void execute(K key, V value, RecordMetadata metadata, Exception exception);
     }
 }

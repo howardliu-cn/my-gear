@@ -27,7 +27,7 @@ public class KafkaProducerTest {
     @Before
     public void before() throws Exception {
         Properties properties = new Properties();
-        properties.put(BOOTSTRAP_SERVERS_CONFIG, "10.6.2.56:9092,10.6.2.57:9092,10.6.2.58:9092");
+        properties.put(BOOTSTRAP_SERVERS_CONFIG, "10.6.100.4:9092,10.6.100.5:9092,10.6.100.6:9092");
         properties.put(ACKS_CONFIG, "all");// 0, 1, all
         properties.put(BUFFER_MEMORY_CONFIG, "33554432");
         properties.put(COMPRESSION_TYPE_CONFIG, "none");// none, gzip, snappy
@@ -52,8 +52,8 @@ public class KafkaProducerTest {
 
     @Test
     public void test() throws Exception {
-        for (int i = 0; i < 100; i++) {
-            ProducerRecord<String, String> topic = new ProducerRecord<>("mq-job-topic-dev",
+        for (int i = 0; i < 1; i++) {
+            ProducerRecord<String, String> topic = new ProducerRecord<>("kafka-appender-topic",
                     "job-key-" + i % 20,
                     "{id:" + i + "}");
             kafkaProducer.send(topic, new Callback() {

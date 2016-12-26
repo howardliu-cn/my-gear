@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%-5le %d [%t] %C{30}.%M\(\) \(%F:%L\) - %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="kafkaAppender" class="cn.howardliu.gear.logback.appender.kafka.KafkaAppender">
+        <encoder class="cn.howardliu.gear.logback.appender.kafka.encode.LayoutKafkaMessageEncoder">
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>%-5le %d [%t] %C{30}.%M\(\) \(%F:%L\) - %m%n</pattern>
+            </layout>
+        </encoder>
+        <topic>kafka-appender-topic</topic>
+        <kafkaProducerConfig>bootstrap.servers=10.6.100.4:9092,10.6.100.5:9092,10.6.100.6:9092</kafkaProducerConfig>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="kafkaAppender"/>
+    </root>
+</configuration>

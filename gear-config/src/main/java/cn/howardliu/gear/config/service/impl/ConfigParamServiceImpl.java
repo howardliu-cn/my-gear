@@ -26,7 +26,7 @@ public class ConfigParamServiceImpl implements ConfigParamService {
     private ConfigParamMapper configParamMapper;
 
     @Override
-    @Cacheable(value = GEAR_CONFIG_PARAM_INFO, key = "'['+'#name'+']'", condition = "#name != null", unless = "#result == null")
+    @Cacheable(value = GEAR_CONFIG_PARAM_INFO, key = "'['+#name+']'", condition = "#name != null", unless = "#result == null")
     public ConfigParam getConfigByName(String name) throws Exception {
         if (StringUtils.isBlank(name)) {
             logger.warn("参数名[name={}]为空，查询结果为空", name);
@@ -36,7 +36,7 @@ public class ConfigParamServiceImpl implements ConfigParamService {
     }
 
     @Override
-    @CachePut(value = GEAR_CONFIG_PARAM_INFO, key = "'['+'#name'+']'", condition = "#name != null")
+    @CachePut(value = GEAR_CONFIG_PARAM_INFO, key = "'['+#name+']'", condition = "#name != null")
     public ConfigParam setConfigParam(String name, String type, String value) throws Exception {
         if (StringUtils.isBlank(name) || StringUtils.isBlank(value)) {
             logger.error("参数[name={}, type={}, value={}]不符合要求", name, type, value);

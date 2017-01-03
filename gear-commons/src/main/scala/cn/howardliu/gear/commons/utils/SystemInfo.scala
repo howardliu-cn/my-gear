@@ -1,14 +1,11 @@
 package cn.howardliu.gear.commons.utils
 
-import java.io.{InputStream, InputStreamReader}
 import java.lang.management.{ManagementFactory, OperatingSystemMXBean, RuntimeMXBean}
 import java.lang.reflect.Method
-import java.nio.charset.Charset
 import java.text.{DecimalFormat, DecimalFormatSymbols}
 import java.util.{Locale, Map => JMap}
 
-import Type._
-import org.apache.commons.io.IOUtils
+import cn.howardliu.gear.commons.utils.Type._
 
 import scala.collection.immutable.HashMap
 
@@ -95,26 +92,5 @@ object SystemInfo {
     }
   }
 
-  private def execute(cmd: String): String = {
-    var in: InputStream = null
-    var process: Process = null
-    try {
-      process = Runtime.getRuntime.exec(cmd)
-      in = process.getInputStream
-      IOUtils.toString(new InputStreamReader(in, Charset.defaultCharset))
-    } catch {
-      case ex: Exception => "(error executing: " + cmd + ")"
-      case err: Error =>
-        if (err.getMessage != null && (err.getMessage.contains("posix_spawn") || err.getMessage.contains("UNIXProcess"))) {
-          return "(error executing: " + cmd + ")"
-        }
-        throw err
-    } finally {
-      if (process != null) {
-        IOUtils.closeQuietly(process.getOutputStream)
-        IOUtils.closeQuietly(process.getInputStream)
-        IOUtils.closeQuietly(process.getErrorStream)
-      }
-    }
-  }
+  private def execute(cmd: String): String = Processor.execute(cmd)
 }

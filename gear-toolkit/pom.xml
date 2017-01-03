@@ -5,11 +5,12 @@
     <parent>
         <artifactId>my-gear</artifactId>
         <groupId>cn.howardliu</groupId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.1-RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>gear-toolkit</artifactId>
     <packaging>jar</packaging>
+
     <name>${project.artifactId}</name>
     <description>可单独运行工具包</description>
     <url>https://github.com/howardliu-cn/my-gear</url>

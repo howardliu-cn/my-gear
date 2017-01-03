@@ -1,5 +1,6 @@
 package cn.howardliu.gear.commons.httpclient.simple;
 
+import cn.howardliu.gear.commons.NameValuePair;
 import com.alibaba.fastjson.JSON;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -68,6 +69,29 @@ public class HttpRequesterTest {
             }, null);
         }
         countDownLatch.await();
+    }
+
+    @Test
+    public void test2() throws Exception {
+        for (int i = 0; i < 100; i++) {
+            try {
+                NameValuePair<String> pair = new NameValuePair<>(
+                        "http://10.6.4.22:8042/pcm-inner-sdc/categoryPis/getIndustryCategorys.htm",
+//                        "http://10.6.3.214:8942/pcm-inner-sdc/categoryPis/getIndustryCategorys.htm",
+                        "{\"StoreCode\":\"21011\"}"
+                );
+//                NameValuePair<String> pair = new NameValuePair<>(
+//                        "http://10.6.4.22:8042/pcm-inner-sdc/categoryPis/getIndustryCategorys.htm",
+////                        "http://10.6.3.214:8042/pcm-inner-sdc/pcmInnerSupplyInfo/getSupCodesFromPcmByShopCodeAndManager.htm",
+//                        "{\"paraList\":[{\"shopCode\":\"D001\",\"managerList\":[{\"level\":\"1\",\"manager\":\"02\"},{\"level\":\"1\",\"manager\":\"04\"},{\"level\":\"1\",\"manager\":\"08\"},{\"level\":\"1\",\"manager\":\"10\"},{\"level\":\"1\",\"manager\":\"90\"},{\"level\":\"2\",\"manager\":\"0101\"},{\"level\":\"2\",\"manager\":\"0702\"},{\"level\":\"2\",\"manager\":\"0703\"},{\"level\":\"2\",\"manager\":\"0704\"},{\"level\":\"2\",\"manager\":\"0716\"},{\"level\":\"2\",\"manager\":\"0717\"}]}]}"
+//                );
+                String result = SimpleHttpRequester.getHttpRequester().post(pair.getName(), pair.getValue());
+                JSON.parseArray(result);
+                System.out.println(i);
+            } catch (Exception e) {
+                logger.error("失败i={}", i, e);
+            }
+        }
     }
 
     @Test

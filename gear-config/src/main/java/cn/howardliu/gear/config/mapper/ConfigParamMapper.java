@@ -4,7 +4,7 @@ import cn.howardliu.gear.config.pojo.ConfigParam;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * <br/>created at 16-5-9
+ * <br>created at 16-5-9
  *
  * @author liuxh
  * @since 1.0.1

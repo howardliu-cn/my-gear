@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import static cn.howardliu.gear.config.ConfigConstants.GEAR_CONFIG_PARAM_INFO;
 
 /**
- * <br/>created at 16-5-9
+ * <br>created at 16-5-9
  *
  * @author liuxh
  * @since 1.2.0

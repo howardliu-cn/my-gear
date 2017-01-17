@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * <br/>created at 16-5-9
+ * <br>created at 16-5-9
  *
  * @author liuxh
  * @since 1.0.1

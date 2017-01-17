@@ -3,7 +3,7 @@ package cn.howardliu.gear.config.pojo;
 import java.io.Serializable;
 
 /**
- * <br/>created at 16-5-7
+ * <br>created at 16-5-7
  *
  * @author liuxh
  * @since 1.0.1

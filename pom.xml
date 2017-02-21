@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.howardliu</groupId>
     <artifactId>my-gear</artifactId>
-    <version>1.0.1-RELEASE</version>
+    <version>1.0.2-SNAPSHOT</version>
     <modules>
         <module>gear-commons</module>
         <module>gear-email</module>

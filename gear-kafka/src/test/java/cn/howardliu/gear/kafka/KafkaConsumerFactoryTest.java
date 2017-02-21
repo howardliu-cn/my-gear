@@ -61,22 +61,31 @@ public class KafkaConsumerFactoryTest {
 
     @Test
     public void test() throws Exception {
+        dumpMessage("sale-info", "sale-info-test");
+    }
+
+    @Test
+    public void test2() throws Exception {
+        dumpMessage("order-info", "order-info-test");
+    }
+
+    private void dumpMessage(final String topic, final String destTopic) throws InterruptedException {
         final ConsumerConnector consumer = factory.build();
 
         ExecutorService executorService = Executors.newFixedThreadPool(4, new ThreadFactory() {
             @Override
             public Thread newThread(Runnable r) {
                 Thread t = new Thread(r);
-                t.setName("sale-info-kafka-consumer-" + t.getId());
+                t.setName(topic + "-kafka-consumer-" + t.getId());
                 t.setDaemon(true);
                 return t;
             }
         });
 
         Map<String, Integer> topicCountMap = new HashMap<>();
-        topicCountMap.put("sale-info", 4);
+        topicCountMap.put(topic, 4);
         Map<String, List<KafkaStream<byte[], byte[]>>> messageStreams = consumer.createMessageStreams(topicCountMap);
-        List<KafkaStream<byte[], byte[]>> kafkaStreams = messageStreams.get("sale-info");
+        List<KafkaStream<byte[], byte[]>> kafkaStreams = messageStreams.get(topic);
         for (final KafkaStream<byte[], byte[]> kafkaStream : kafkaStreams) {
             executorService.submit(new Runnable() {
                 @Override
@@ -86,7 +95,7 @@ public class KafkaConsumerFactoryTest {
                             String key = new String(messageAndMetadata.key(), "UTF-8");
                             String value = new String(messageAndMetadata.message(), "UTF-8");
                             System.out.println("key=" + key + ", value=" + value);
-                            wrapper.send("sale-info", key, value);
+                            wrapper.send(destTopic, key, value);
                         } catch (Exception e) {
                             e.printStackTrace();
                         } finally {
@@ -97,7 +106,7 @@ public class KafkaConsumerFactoryTest {
             }, null);
         }
 
-        TimeUnit.MINUTES.sleep(1);
+        TimeUnit.HOURS.sleep(1);
         consumer.shutdown();
     }
 }

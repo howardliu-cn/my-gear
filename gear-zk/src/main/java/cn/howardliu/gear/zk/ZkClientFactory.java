@@ -5,6 +5,8 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 
+import java.util.Properties;
+
 /**
  * <br>created at 16-5-5
  *
@@ -17,6 +19,7 @@ public class ZkClientFactory {
     private Integer connectionTimeoutMs;
     private Integer sessionTimeoutMs;
     private String namespace;
+    private Properties properties;
 
     public CuratorFramework createClient() {
         CuratorFrameworkFactory.Builder builder = CuratorFrameworkFactory.builder();
@@ -29,6 +32,9 @@ public class ZkClientFactory {
         }
         if (sessionTimeoutMs != null) {
             builder.sessionTimeoutMs(sessionTimeoutMs);
+        }
+        if (properties != null) {
+            System.getProperties().putAll(properties);
         }
         CuratorFramework client = builder.build();
         client.start();
@@ -73,5 +79,13 @@ public class ZkClientFactory {
 
     public void setSessionTimeoutMs(Integer sessionTimeoutMs) {
         this.sessionTimeoutMs = sessionTimeoutMs;
+    }
+
+    public Properties getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Properties properties) {
+        this.properties = properties;
     }
 }

@@ -17,6 +17,7 @@
         <module>gear-config</module>
         <module>gear-logback-kafka-appender</module>
         <module>gear-monitor</module>
+        <module>gear-storm</module>
     </modules>
     <packaging>pom</packaging>
 

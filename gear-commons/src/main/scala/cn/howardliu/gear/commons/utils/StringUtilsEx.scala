@@ -37,6 +37,22 @@ object StringUtilsEx {
     }
   }
 
+  def unCapitalize (str: String): String = changeFirstCharacterCase(str, capitalize = false)
+
+  def changeFirstCharacterCase(str: String, capitalize: Boolean): String = {
+    if (str == null || str.length == 0) {
+      return str
+    }
+    val sb: StringBuilder = new StringBuilder(str.length)
+    if (capitalize) {
+      sb.append(Character.toUpperCase(str.charAt(0)))
+    } else {
+      sb.append(Character.toLowerCase(str.charAt(0)))
+    }
+    sb.append(str.substring(1))
+    sb.toString()
+  }
+
   def main(args: Array[String]) {
     println(isDigits("  1"))
     println(isLongNumber(" 1 "))
@@ -44,5 +60,6 @@ object StringUtilsEx {
     println(format1Decimals(100.001, "mb"))
     println(format1Decimals(100.011, "mb"))
     println(format1Decimals(100.111, "mb"))
+    println(unCapitalize("".getClass.getSimpleName))
   }
 }

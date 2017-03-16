@@ -18,7 +18,7 @@ public class TomcatInfoUtils {
 
     public static Integer getPort() throws Exception {
         MBeanServer server = MBeanServerFactory.findMBeanServer(null).get(0);
-        Set<ObjectName> names = server.queryNames(new ObjectName("Catalina:type=Connector,*"), null);
+        Set<ObjectName> names = server.queryNames(new ObjectName("*:type=Connector,*"), null);
         for (ObjectName name : names) {
             String protocol = server.getAttribute(name, "protocol").toString();
             String scheme = server.getAttribute(name, "scheme").toString();

@@ -11,10 +11,6 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.sort.SortOrder;
 import org.elasticsearch.search.sort.SortParseElement;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -25,29 +21,44 @@ import java.util.concurrent.TimeUnit;
  */
 public class EsDump {
     public static void main(String[] args) throws Exception {
-        Integer size = Integer.valueOf(args[0]);
-        int duration = Integer.valueOf(args[1]);
-        String sourceEsNodes = "10.6.3.24:9300,10.6.3.25:9300,10.6.3.26:9300,10.6.3.27:9300,10.6.3.28:9300";
-        String sourceEsClusterName = "wfj-es";
-        String destEsNodes = "10.6.100.29:9300,10.6.100.30:9300,10.6.100.31:9300,10.6.100.32:9300,10.6.100.33:9300";
-        String destEsClusterName = "wfj-es";
-        Map<String, List<String>> source = new HashMap<>();
-        source.put("message", Arrays.asList("tx-info", "message-log", "tx-info-log"));
-        Client sourceEsClient = new ElasticSearchClientFactory(new EsConfig(sourceEsClusterName, sourceEsNodes))
-                .construct();
-        Client destEsClient = new ElasticSearchClientFactory(new EsConfig(destEsClusterName, destEsNodes)).construct();
-
-        for (Map.Entry<String, List<String>> entry : source.entrySet()) {
-            String indexName = entry.getKey();
-            List<String> typeNames = entry.getValue();
-            for (String typeName : typeNames) {
-                dump(sourceEsClient, indexName, typeName, destEsClient, indexName, typeName, size, duration);
-            }
+        if (args == null || args.length < 8) {
+            throw new RuntimeException(
+                    "输入参数错误，请检查！\n" +
+                            "0. 源集群名称\n" +
+                            "1. 源集群地址\n" +
+                            "2. 源索引名称\n" +
+                            "3. 源类型名称\n" +
+                            "4. 目标集群名称\n" +
+                            "5. 目标集群地址\n" +
+                            "6. 目标索引名称\n" +
+                            "7. 目标类型名称\n" +
+                            "8. 分页数量（可选，默认1000）\n" +
+                            "9. 滚动读取有效时间（可选，默认3，单位：分钟）\n"
+            );
         }
+        Integer size = 1000;
+        Integer duration = 3;
+        if (args.length >= 8) {
+            size = Integer.valueOf(args[8]);
+        }
+        if (args.length >= 9) {
+            duration = Integer.valueOf(args[9]);
+        }
+        dump(
+                new ElasticSearchClientFactory(new EsConfig(args[0], args[1])).construct(),
+                args[2],
+                args[3],
+                new ElasticSearchClientFactory(new EsConfig(args[4], args[5])).construct(),
+                args[6],
+                args[7],
+                size,
+                duration
+        );
     }
 
     private static void dump(Client sourceEsClient, String sourceIndexName, String sourceTypeName,
             Client destEsClient, String destIndexName, String destTypeName, int size, int duration) throws Exception {
+        long time = -System.currentTimeMillis();
         long total = sourceEsClient
                 .prepareSearch(sourceIndexName)
                 .setTypes(sourceTypeName)
@@ -85,7 +96,8 @@ public class EsDump {
             } else {
                 count += hits.length;
             }
-            System.out.println("总数：" + total + "; 已迁移：" + count);
+            long usedSeconds = (System.currentTimeMillis() + time) / 1000;
+            System.out.println("总数：" + total + "; 已迁移：" + count + "; 已使用：" + usedSeconds);
             scrollResp = sourceEsClient
                     .prepareSearchScroll(scrollResp.getScrollId())
                     .setScroll(new TimeValue(duration, TimeUnit.MINUTES))

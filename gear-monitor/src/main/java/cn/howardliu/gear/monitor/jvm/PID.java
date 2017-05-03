@@ -32,7 +32,7 @@ public class PID {
             pid = getPidByCmd();
         }
         if (pid == null) {
-            pid = 0;
+            pid = Integer.MIN_VALUE;
         }
         return pid;
     }

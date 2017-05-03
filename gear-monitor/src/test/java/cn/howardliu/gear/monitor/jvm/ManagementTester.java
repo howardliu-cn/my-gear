@@ -2,7 +2,6 @@ package cn.howardliu.gear.monitor.jvm;
 
 import com.sun.management.HotSpotDiagnosticMXBean;
 import com.sun.management.VMOption;
-import jdk.management.cmm.SystemResourcePressureMXBean;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

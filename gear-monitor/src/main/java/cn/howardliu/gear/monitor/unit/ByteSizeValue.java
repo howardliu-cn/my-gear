@@ -77,6 +77,10 @@ public class ByteSizeValue implements Comparable<ByteSizeValue> {
         return ((double) getBytes()) / ByteSizeUnit.C5;
     }
 
+    public long getSize() {
+        return size;
+    }
+
     public static ByteSizeValue parseBytesSizeValue(String sValue, String settingName) throws ParseException {
         return parseBytesSizeValue(sValue, null, settingName);
     }
@@ -168,7 +172,7 @@ public class ByteSizeValue implements Comparable<ByteSizeValue> {
 
     @Override
     public int hashCode() {
-        return Double.hashCode(((double) size) * unit.toBytes(1));
+        return Double.valueOf(((double) size) * unit.toBytes(1)).hashCode();
     }
 
     @Override

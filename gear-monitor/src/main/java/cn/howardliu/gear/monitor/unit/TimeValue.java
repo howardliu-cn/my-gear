@@ -193,6 +193,10 @@ public class TimeValue implements Comparable<TimeValue> {
         return daysFrac();
     }
 
+    public long getDuration() {
+        return this.duration;
+    }
+
     @Override
     public boolean equals(Object o) {
         return this == o || !(o == null || getClass() != o.getClass()) && this.compareTo(((TimeValue) o)) == 0;
@@ -200,7 +204,7 @@ public class TimeValue implements Comparable<TimeValue> {
 
     @Override
     public int hashCode() {
-        return Double.hashCode(((double) duration) * timeUnit.toNanos(1));
+        return Double.valueOf(((double) duration) * timeUnit.toNanos(1)).hashCode();
     }
 
     public static long nsecToMSec(long ns) {

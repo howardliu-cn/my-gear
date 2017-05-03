@@ -4,9 +4,10 @@ import cn.howardliu.gear.monitor.unit.ByteSizeValue;
 
 import java.lang.management.*;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static cn.howardliu.gear.monitor.Constants.*;
 
 /**
  * <br>created at 16-12-27
@@ -15,15 +16,11 @@ import java.util.Map;
  * @since 1.0.2
  */
 public class JvmInfo {
-    private RuntimeInfo runtimeInfo = RuntimeInfo.instance();
-    private VMOptionInfo vmOptionInfo = VMOptionInfo.instance();
-    private MemoryInfo staticMemoryInfo = MemoryInfo.instance();
-    private String[] gcCollectors;
-    private String[] memoryPools;
+    private static final JvmInfo INSTANCE = new JvmInfo();
+    private static final String[] gcCollectors;
+    private static final String[] memoryPools;
 
-    private static JvmInfo INSTANCE = new JvmInfo();
-
-    {
+    static {
         List<GarbageCollectorMXBean> gcMxBeans = ManagementFactory.getGarbageCollectorMXBeans();
         gcCollectors = new String[gcMxBeans.size()];
         for (int i = 0; i < gcMxBeans.size(); i++) {
@@ -39,12 +36,20 @@ public class JvmInfo {
         }
     }
 
-    public static JvmInfo instance() {
+    private RuntimeInfo runtimeInfo = RuntimeInfo.instance();
+    private VMOptionInfo vmOptionInfo = VMOptionInfo.instance();
+    private MemoryInfo staticMemoryInfo = MemoryInfo.instance();
+
+    private JvmInfo() {
         SecurityManager sm = System.getSecurityManager();
         if (sm != null) {
             sm.checkPermission(new ManagementPermission("monitor"));
             sm.checkPropertyAccess("*");
         }
+        instance();
+    }
+
+    public static JvmInfo instance() {
         return INSTANCE;
     }
 
@@ -76,69 +81,47 @@ public class JvmInfo {
         return gcCollectors;
     }
 
-    public void setGcCollectors(String[] gcCollectors) {
-        this.gcCollectors = gcCollectors;
-    }
-
     public String[] getMemoryPools() {
         return memoryPools;
     }
 
-    public void setMemoryPools(String[] memoryPools) {
-        this.memoryPools = memoryPools;
-    }
-
     public static class RuntimeInfo {
-        private int pid;
-        private String name;
-        private String version;
-        private String vmName;
-        private String vmVersion;
-        private String vmVendor;
-        private long startTime;
-        private long upTime;
-        private String managementSpecVersion;
-        private String specName;
-        private String specVersion;
-        private String specVendor;
-        private List<String> inputArguments = new ArrayList<>();
-        private boolean bootClassPathSupported;
+        private static final RuntimeInfo INSTANCE = new RuntimeInfo();
+        private final int pid = PID.getPID();
+        private final String name;
+        private final String version = JAVA_VERSION;
+        private final String vmName = JVM_NAME;
+        private final String vmVersion = JVM_VERSION;
+        private final String vmVendor = JVM_VENDOR;
+        private final String managementSpecVersion;
+        private final String specName = JVM_SPEC_NAME;
+        private final String specVersion = JVM_SPEC_VERSION;
+        private final String specVendor = JVM_SPEC_VENDOR;
+        private final List<String> inputArguments;
+        private final boolean bootClassPathSupported;
+        private final String classPath = JAVA_CLASS_PATH;
+        private final String libraryPath = JAVA_LIBRARY_PATH;
+        private final Map<String, String> systemProperties;
+        private final long startTime;
         private String bootClassPath = "";
-        private String classPath;
-        private String libraryPath;
-        private Map<String, String> systemProperties;
-
-        private static RuntimeInfo INSTANCE = new RuntimeInfo();
 
         {
             RuntimeMXBean mxBean = ManagementFactory.getRuntimeMXBean();
-            pid = PID.getPID();
             name = mxBean.getName();
-            version = System.getProperty("java.version");
-            vmName = mxBean.getVmName();
-            vmVersion = mxBean.getVmVersion();
-            vmVendor = mxBean.getVmVendor();
             managementSpecVersion = mxBean.getManagementSpecVersion();
-            specName = mxBean.getSpecName();
-            specVersion = mxBean.getSpecVersion();
-            specVendor = mxBean.getSpecVendor();
             startTime = mxBean.getStartTime();
-            upTime = mxBean.getUptime();
             inputArguments = mxBean.getInputArguments();
             bootClassPathSupported = mxBean.isBootClassPathSupported();
-            bootClassPath = "";
             if (bootClassPathSupported) {
                 bootClassPath = mxBean.getBootClassPath();
             }
-            classPath = mxBean.getClassPath();
-            libraryPath = mxBean.getLibraryPath();
             systemProperties = mxBean.getSystemProperties();
         }
 
         private RuntimeInfo() {
         }
 
-        public static RuntimeInfo instance() {
+        static RuntimeInfo instance() {
             return INSTANCE;
         }
 
@@ -146,148 +129,77 @@ public class JvmInfo {
             return pid;
         }
 
-        public void setPid(int pid) {
-            this.pid = pid;
-        }
-
         public String getName() {
             return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
         }
 
         public String getVersion() {
             return version;
         }
 
-        public void setVersion(String version) {
-            this.version = version;
-        }
-
         public String getVmName() {
             return vmName;
-        }
-
-        public void setVmName(String vmName) {
-            this.vmName = vmName;
         }
 
         public String getVmVersion() {
             return vmVersion;
         }
 
-        public void setVmVersion(String vmVersion) {
-            this.vmVersion = vmVersion;
-        }
-
         public String getVmVendor() {
             return vmVendor;
-        }
-
-        public void setVmVendor(String vmVendor) {
-            this.vmVendor = vmVendor;
         }
 
         public long getStartTime() {
             return startTime;
         }
 
-        public void setStartTime(long startTime) {
-            this.startTime = startTime;
-        }
-
         public long getUpTime() {
-            return upTime;
-        }
-
-        public void setUpTime(long upTime) {
-            this.upTime = upTime;
+            return ManagementFactory.getRuntimeMXBean().getUptime();
         }
 
         public String getManagementSpecVersion() {
             return managementSpecVersion;
         }
 
-        public void setManagementSpecVersion(String managementSpecVersion) {
-            this.managementSpecVersion = managementSpecVersion;
-        }
-
         public String getSpecName() {
             return specName;
-        }
-
-        public void setSpecName(String specName) {
-            this.specName = specName;
         }
 
         public String getSpecVersion() {
             return specVersion;
         }
 
-        public void setSpecVersion(String specVersion) {
-            this.specVersion = specVersion;
-        }
-
         public String getSpecVendor() {
             return specVendor;
-        }
-
-        public void setSpecVendor(String specVendor) {
-            this.specVendor = specVendor;
         }
 
         public List<String> getInputArguments() {
             return inputArguments;
         }
 
-        public void setInputArguments(List<String> inputArguments) {
-            this.inputArguments = inputArguments;
-        }
-
         public boolean isBootClassPathSupported() {
             return bootClassPathSupported;
-        }
-
-        public void setBootClassPathSupported(boolean bootClassPathSupported) {
-            this.bootClassPathSupported = bootClassPathSupported;
         }
 
         public String getBootClassPath() {
             return bootClassPath;
         }
 
-        public void setBootClassPath(String bootClassPath) {
-            this.bootClassPath = bootClassPath;
-        }
-
         public String getClassPath() {
             return classPath;
-        }
-
-        public void setClassPath(String classPath) {
-            this.classPath = classPath;
         }
 
         public String getLibraryPath() {
             return libraryPath;
         }
 
-        public void setLibraryPath(String libraryPath) {
-            this.libraryPath = libraryPath;
-        }
-
         public Map<String, String> getSystemProperties() {
             return systemProperties;
-        }
-
-        public void setSystemProperties(Map<String, String> systemProperties) {
-            this.systemProperties = systemProperties;
         }
     }
 
     public static class VMOptionInfo {
+        private static final VMOptionInfo INSTANCE = new VMOptionInfo();
         private String onError = null;
         private String onOutOfMemoryError = null;
         private String useCompressedOops = "unknown";
@@ -295,8 +207,6 @@ public class JvmInfo {
         private String useSerialGC = "unknown";
         private long configuredInitialHeapSize = -1;
         private long configuredMaxHeapSize = -1;
-
-        private static VMOptionInfo INSTANCE = new VMOptionInfo();
 
         {
             try {
@@ -361,7 +271,7 @@ public class JvmInfo {
         private VMOptionInfo() {
         }
 
-        public static VMOptionInfo instance() {
+        static VMOptionInfo instance() {
             return INSTANCE;
         }
 
@@ -369,66 +279,38 @@ public class JvmInfo {
             return onError;
         }
 
-        public void setOnError(String onError) {
-            this.onError = onError;
-        }
-
         public String getOnOutOfMemoryError() {
             return onOutOfMemoryError;
-        }
-
-        public void setOnOutOfMemoryError(String onOutOfMemoryError) {
-            this.onOutOfMemoryError = onOutOfMemoryError;
         }
 
         public String getUseCompressedOops() {
             return useCompressedOops;
         }
 
-        public void setUseCompressedOops(String useCompressedOops) {
-            this.useCompressedOops = useCompressedOops;
-        }
-
         public String getUseG1GC() {
             return useG1GC;
-        }
-
-        public void setUseG1GC(String useG1GC) {
-            this.useG1GC = useG1GC;
         }
 
         public String getUseSerialGC() {
             return useSerialGC;
         }
 
-        public void setUseSerialGC(String useSerialGC) {
-            this.useSerialGC = useSerialGC;
-        }
-
         public long getConfiguredInitialHeapSize() {
             return configuredInitialHeapSize;
-        }
-
-        public void setConfiguredInitialHeapSize(long configuredInitialHeapSize) {
-            this.configuredInitialHeapSize = configuredInitialHeapSize;
         }
 
         public long getConfiguredMaxHeapSize() {
             return configuredMaxHeapSize;
         }
-
-        public void setConfiguredMaxHeapSize(long configuredMaxHeapSize) {
-            this.configuredMaxHeapSize = configuredMaxHeapSize;
-        }
     }
 
     public static class MemoryInfo {
-        private long heapInit;
-        private long heapMax;
-        private long nonHeapInit;
-        private long nonHeapMax;
+        private static final MemoryInfo INSTANCE = new MemoryInfo();
+        private final long heapInit;
+        private final long heapMax;
+        private final long nonHeapInit;
+        private final long nonHeapMax;
         private long directMemoryMax;
-        private static MemoryInfo INSTANCE = new MemoryInfo();
 
         {
             MemoryMXBean mxBean = ManagementFactory.getMemoryMXBean();
@@ -443,7 +325,7 @@ public class JvmInfo {
             }
         }
 
-        public static MemoryInfo instance() {
+        static MemoryInfo instance() {
             return INSTANCE;
         }
 

@@ -1,5 +1,6 @@
 package cn.howardliu.gear.monitor.jvm;
 
+import cn.howardliu.gear.monitor.memory.MemoryUsage;
 import cn.howardliu.gear.monitor.unit.ByteSizeValue;
 import cn.howardliu.gear.monitor.unit.TimeValue;
 
@@ -17,11 +18,10 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0.2
  */
 public class JvmStats {
-    private static final RuntimeMXBean runtimeMXBean;
-
-    static {
-        runtimeMXBean = ManagementFactory.getRuntimeMXBean();
-    }
+    private static final RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
+    private static final MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
+    private static final ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
+    private static final ClassLoadingMXBean classLoadingMXBean = ManagementFactory.getClassLoadingMXBean();
 
     private final long timestamp;
     private final long uptime;
@@ -31,7 +31,7 @@ public class JvmStats {
     private final List<BufferPool> bufferPools;
     private final Classes classes;
 
-    public JvmStats(long timestamp, long uptime, Mem mem, Threads threads,
+    private JvmStats(long timestamp, long uptime, Mem mem, Threads threads,
             List<GarbageCollector> gc, List<BufferPool> bufferPools, Classes classes) {
         this.timestamp = timestamp;
         this.uptime = uptime;
@@ -43,37 +43,52 @@ public class JvmStats {
     }
 
     public static JvmStats jvmStats() {
-        MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
-        MemoryUsage heapMemoryUsage = memoryMXBean.getHeapMemoryUsage();
-        MemoryUsage nonHeapMemoryUsage = memoryMXBean.getNonHeapMemoryUsage();
+        return new JvmStats(
+                System.currentTimeMillis(),
+                runtimeMXBean.getUptime(),
+                mem(),
+                threads(),
+                garbageCollectors(),
+                bufferPoolsList(),
+                classes()
+        );
+    }
 
+    private static Mem mem() {
+        return new Mem(
+                getJvmMemoryInfo(),
+                new MemoryUsage().clone(memoryMXBean.getHeapMemoryUsage()),
+                new MemoryUsage().clone(memoryMXBean.getNonHeapMemoryUsage()),
+                getMemoryPools()
+        );
+    }
+
+    private static List<MemoryPool> getMemoryPools() {
         List<MemoryPoolMXBean> memoryPoolMXBeans = ManagementFactory.getMemoryPoolMXBeans();
         List<MemoryPool> memoryPools = new ArrayList<>(memoryPoolMXBeans.size());
         for (MemoryPoolMXBean memoryPoolMXBean : memoryPoolMXBeans) {
             try {
                 String name = memoryPoolMXBean.getName();
                 MemoryType type = memoryPoolMXBean.getType();
-                MemoryUsage usage = memoryPoolMXBean.getUsage();
-                MemoryUsage peakUsage = memoryPoolMXBean.getPeakUsage();
-                MemoryUsage collectionUsage = memoryPoolMXBean.getCollectionUsage();
                 memoryPools.add(
                         new MemoryPool(
                                 name, type.name(),
-                                usage.getUsed(), usage.getMax(),
-                                peakUsage.getUsed(), peakUsage.getMax(),
-                                collectionUsage.getUsed(), collectionUsage.getMax()
+                                new MemoryUsage().clone(memoryPoolMXBean.getUsage()),
+                                new MemoryUsage().clone(memoryPoolMXBean.getPeakUsage()),
+                                new MemoryUsage().clone(memoryPoolMXBean.getCollectionUsage())
                         )
                 );
             } catch (Exception ignored) {
             }
         }
+        return memoryPools;
+    }
 
-        Mem mem = new Mem(heapMemoryUsage.getCommitted(), heapMemoryUsage.getUsed(), heapMemoryUsage.getMax(),
-                nonHeapMemoryUsage.getCommitted(), nonHeapMemoryUsage.getUsed(), memoryPools);
+    private static Threads threads() {
+        return new Threads(threadMXBean.getThreadCount(), threadMXBean.getPeakThreadCount());
+    }
 
-        ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
-        Threads threads = new Threads(threadMXBean.getThreadCount(), threadMXBean.getPeakThreadCount());
-
+    private static List<GarbageCollector> garbageCollectors() {
         List<GarbageCollectorMXBean> gcMxBeans = ManagementFactory.getGarbageCollectorMXBeans();
         List<GarbageCollector> garbageCollectors = new ArrayList<>(gcMxBeans.size());
         for (GarbageCollectorMXBean gcMxBean : gcMxBeans) {
@@ -85,7 +100,10 @@ public class JvmStats {
                     )
             );
         }
+        return garbageCollectors;
+    }
 
+    private static List<BufferPool> bufferPoolsList() {
         List<BufferPool> bufferPoolsList = Collections.emptyList();
         try {
             List<BufferPoolMXBean> bufferPools = ManagementFactory.getPlatformMXBeans(BufferPoolMXBean.class);
@@ -100,14 +118,21 @@ public class JvmStats {
             }
         } catch (Exception ignored) {
         }
+        return bufferPoolsList;
+    }
 
-        ClassLoadingMXBean classLoadingMXBean = ManagementFactory.getClassLoadingMXBean();
-        Classes classes = new Classes(classLoadingMXBean.getLoadedClassCount(),
+    private static Classes classes() {
+        return new Classes(classLoadingMXBean.getLoadedClassCount(),
                 classLoadingMXBean.getTotalLoadedClassCount(),
                 classLoadingMXBean.getUnloadedClassCount());
+    }
 
-        return new JvmStats(System.currentTimeMillis(), runtimeMXBean.getUptime(), mem, threads,
-                garbageCollectors, bufferPoolsList, classes);
+    private static JvmMemoryInfo getJvmMemoryInfo() {
+        long totalMemory = Runtime.getRuntime().totalMemory();
+        long freeMemory = Runtime.getRuntime().freeMemory();
+        long usedMemory = totalMemory - freeMemory;
+        long maxMemory = Runtime.getRuntime().maxMemory();
+        return new JvmMemoryInfo(totalMemory, freeMemory, usedMemory, maxMemory);
     }
 
     public long getTimestamp() {
@@ -139,17 +164,17 @@ public class JvmStats {
     }
 
     public static class Classes {
-        private final long loadedClassCount;
+        private final int loadedClassCount;
         private final long totalLoadedClassCount;
         private final long unloadedClassCount;
 
-        public Classes(long loadedClassCount, long totalLoadedClassCount, long unloadedClassCount) {
+        Classes(int loadedClassCount, long totalLoadedClassCount, long unloadedClassCount) {
             this.loadedClassCount = loadedClassCount;
             this.totalLoadedClassCount = totalLoadedClassCount;
             this.unloadedClassCount = unloadedClassCount;
         }
 
-        public long getLoadedClassCount() {
+        public int getLoadedClassCount() {
             return loadedClassCount;
         }
 
@@ -168,13 +193,12 @@ public class JvmStats {
         private final long totalCapacity;
         private final long used;
 
-        public BufferPool(String name, long count, long totalCapacity, long used) {
+        BufferPool(String name, long count, long totalCapacity, long used) {
             this.name = name;
             this.count = count;
             this.totalCapacity = totalCapacity;
             this.used = used;
         }
-
 
         public String getName() {
             return this.name;
@@ -194,20 +218,16 @@ public class JvmStats {
     }
 
     public static class Mem implements Iterable<MemoryPool> {
-        private final long heapCommitted;
-        private final long heapUsed;
-        private final long heapMax;
-        private final long nonHeapCommitted;
-        private final long nonHeapUsed;
+        private final JvmMemoryInfo jvmMemoryInfo;
+        private final MemoryUsage heapMemoryUsage;
+        private final MemoryUsage nonHeapMemoryUsage;
         private final List<MemoryPool> pools;
 
-        public Mem(long heapCommitted, long heapUsed, long heapMax, long nonHeapCommitted, long nonHeapUsed,
+        Mem(JvmMemoryInfo jvmMemoryInfo, MemoryUsage heapMemoryUsage, MemoryUsage nonHeapMemoryUsage,
                 List<MemoryPool> pools) {
-            this.heapCommitted = heapCommitted;
-            this.heapUsed = heapUsed;
-            this.heapMax = heapMax;
-            this.nonHeapCommitted = nonHeapCommitted;
-            this.nonHeapUsed = nonHeapUsed;
+            this.jvmMemoryInfo = jvmMemoryInfo;
+            this.heapMemoryUsage = heapMemoryUsage;
+            this.nonHeapMemoryUsage = nonHeapMemoryUsage;
             this.pools = pools;
         }
 
@@ -216,31 +236,20 @@ public class JvmStats {
             return pools.iterator();
         }
 
-        public ByteSizeValue getHeapCommitted() {
-            return new ByteSizeValue(heapCommitted);
+        public List<MemoryPool> getPools() {
+            return pools;
         }
 
-        public ByteSizeValue getHeapUsed() {
-            return new ByteSizeValue(heapUsed);
+        public JvmMemoryInfo getJvmMemoryInfo() {
+            return jvmMemoryInfo;
         }
 
-        public ByteSizeValue getHeapMax() {
-            return new ByteSizeValue(heapMax);
+        public MemoryUsage getHeapMemoryUsage() {
+            return heapMemoryUsage;
         }
 
-        public short getHeapUsedPercent() {
-            if (heapMax == 0) {
-                return -1;
-            }
-            return (short) (heapUsed * 100 / heapMax);
-        }
-
-        public ByteSizeValue getNonHeapCommitted() {
-            return new ByteSizeValue(nonHeapCommitted);
-        }
-
-        public ByteSizeValue getNonHeapUsed() {
-            return new ByteSizeValue(nonHeapUsed);
+        public MemoryUsage getNonHeapMemoryUsage() {
+            return nonHeapMemoryUsage;
         }
     }
 
@@ -250,7 +259,7 @@ public class JvmStats {
         private final long collectionCount;
         private final long collectionTime;
 
-        public GarbageCollector(String name, long collectionCount, long collectionTime) {
+        GarbageCollector(String name, long collectionCount, long collectionTime) {
             this.name = name;
             this.gcName = GcNames.getByGcName(name, name);
             this.collectionCount = collectionCount;
@@ -278,7 +287,7 @@ public class JvmStats {
         private final int count;
         private final int peakCount;
 
-        public Threads(int count, int peakCount) {
+        Threads(int count, int peakCount) {
             this.count = count;
             this.peakCount = peakCount;
         }
@@ -292,60 +301,99 @@ public class JvmStats {
         }
     }
 
+    public static class JvmMemoryInfo {
+        private final long totalMemory;
+        private final long freeMemory;
+        private final long usedMemory;
+        private final long maxMemory;
+
+        JvmMemoryInfo(long totalMemory, long freeMemory, long usedMemory, long maxMemory) {
+            this.totalMemory = totalMemory;
+            this.freeMemory = freeMemory;
+            this.usedMemory = usedMemory;
+            this.maxMemory = maxMemory;
+        }
+
+        public ByteSizeValue getTotalMemory() {
+            return new ByteSizeValue(totalMemory);
+        }
+
+        public ByteSizeValue getFreeMemory() {
+            return new ByteSizeValue(freeMemory);
+        }
+
+        public ByteSizeValue getUsedMemory() {
+            return new ByteSizeValue(usedMemory);
+        }
+
+        public ByteSizeValue getMaxMemory() {
+            return new ByteSizeValue(maxMemory);
+        }
+    }
+
     public static class MemoryPool {
         private final String name;
         private final String gcName;
         private final String type;
-        private final long used;
-        private final long max;
-        private final long peakUsed;
-        private final long peakMax;
-        private final long collectionUsed;
-        private final long collectionMax;
+        private final MemoryUsage usage;
+        private final MemoryUsage peakUsage;
+        private final MemoryUsage collectionUsage;
 
-        public MemoryPool(String name, String type, long used, long max, long peakUsed, long peakMax,
-                long collectionUsed, long collectionMax) {
+        MemoryPool(String name, String type, MemoryUsage usage, MemoryUsage peakUsage, MemoryUsage collectionUsage) {
             this.name = name;
             this.gcName = GcNames.getByMemoryPoolName(this.name, null);
             this.type = type;
-            this.used = used;
-            this.max = max;
-            this.peakUsed = peakUsed;
-            this.peakMax = peakMax;
-            this.collectionUsed = collectionUsed;
-            this.collectionMax = collectionMax;
+            this.usage = usage;
+            this.peakUsage = peakUsage;
+            this.collectionUsage = collectionUsage;
         }
 
         public String getName() {
             return this.name;
         }
 
+        public String getGcName() {
+            return gcName;
+        }
+
         public String getType() {
             return type;
         }
 
+        public MemoryUsage getUsage() {
+            return usage;
+        }
+
+        public MemoryUsage getPeakUsage() {
+            return peakUsage;
+        }
+
+        public MemoryUsage getCollectionUsage() {
+            return collectionUsage;
+        }
+
         public ByteSizeValue getUsed() {
-            return new ByteSizeValue(used);
+            return new ByteSizeValue(usage.getUsed());
         }
 
         public ByteSizeValue getMax() {
-            return new ByteSizeValue(max);
+            return new ByteSizeValue(usage.getMax());
         }
 
         public ByteSizeValue getPeakUsed() {
-            return new ByteSizeValue(peakUsed);
+            return new ByteSizeValue(peakUsage.getUsed());
         }
 
         public ByteSizeValue getPeakMax() {
-            return new ByteSizeValue(peakMax);
+            return new ByteSizeValue(peakUsage.getMax());
         }
 
         public ByteSizeValue getCollectionUsed() {
-            return new ByteSizeValue(collectionUsed);
+            return new ByteSizeValue(collectionUsage.getUsed());
         }
 
         public ByteSizeValue getCollectionMax() {
-            return new ByteSizeValue(collectionMax);
+            return new ByteSizeValue(collectionUsage.getMax());
         }
     }
 }

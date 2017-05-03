@@ -1,6 +1,7 @@
 package cn.howardliu.gear.commons.httpclient.simple;
 
 import cn.howardliu.gear.commons.NameValuePair;
+import cn.howardliu.gear.httpclient.simple.SimpleHttpRequester;
 import com.alibaba.fastjson.JSON;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -10,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -33,14 +33,11 @@ public class HttpRequesterTest {
 
     @Test
     public void testPost() throws Exception {
-        ExecutorService executorService = Executors.newFixedThreadPool(1000, new ThreadFactory() {
-            @Override
-            public Thread newThread(Runnable r) {
-                Thread t = new Thread(r);
-                t.setDaemon(true);
-                t.setName("post-request-thread-" + t.getId());
-                return t;
-            }
+        ExecutorService executorService = Executors.newFixedThreadPool(1000, r -> {
+            Thread t = new Thread(r);
+            t.setDaemon(true);
+            t.setName("post-request-thread-" + t.getId());
+            return t;
         });
 //        final String url = "http://10.6.3.214:8042/pcm-inner-sdc/pcmInnerSupplyInfo/getSupCodesFromPcmByShopCodeAndManager.htm";
         final String url = "http://10.6.3.118/pcm-inner-sdc/pcmInnerSupplyInfo/getSupCodesFromPcmByShopCodeAndManager.htm";
@@ -49,23 +46,20 @@ public class HttpRequesterTest {
         final CountDownLatch countDownLatch = new CountDownLatch(times);
         for (int i = 0; i < times; i++) {
             final int finalI = i;
-            executorService.submit(new Runnable() {
-                @Override
-                public void run() {
-                    String result = null;
-                    try {
-                        result = SimpleHttpRequester.getHttpRequester().post(url, requestBody);
-                    } catch (Exception e) {
-                        logger.error("请求数据异常:{}", e.getMessage());
-                    }
-                    logger.warn(finalI + "");
-                    try {
-                        JSON.parseObject(result);
-                    } catch (Exception e) {
-                        logger.error("解析结果发生异常，异常数据{}", result);
-                    }
-                    countDownLatch.countDown();
+            executorService.submit(() -> {
+                String result = null;
+                try {
+                    result = SimpleHttpRequester.getHttpRequester().post(url, requestBody);
+                } catch (Exception e) {
+                    logger.error("请求数据异常:{}", e.getMessage());
                 }
+                logger.warn(finalI + "");
+                try {
+                    JSON.parseObject(result);
+                } catch (Exception e) {
+                    logger.error("解析结果发生异常，异常数据{}", result);
+                }
+                countDownLatch.countDown();
             }, null);
         }
         countDownLatch.await();

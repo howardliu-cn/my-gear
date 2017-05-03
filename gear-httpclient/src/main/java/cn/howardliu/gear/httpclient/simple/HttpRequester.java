@@ -1,4 +1,4 @@
-package cn.howardliu.gear.commons.httpclient.simple;
+package cn.howardliu.gear.httpclient.simple;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.*;
@@ -46,8 +46,8 @@ public abstract class HttpRequester {
      *
      * @param url 请求地址
      * @return url响应结果，java.lang.String类型。
-     * @throws java.net.URISyntaxException 输入的url不合法
-     * @throws java.io.IOException         其他IO错误
+     * @throws URISyntaxException 输入的url不合法
+     * @throws IOException         其他IO错误
      */
     public String get(String url) throws URISyntaxException, IOException {
         return get(url, RequestConfig.DEFAULT);
@@ -58,7 +58,7 @@ public abstract class HttpRequester {
     }
 
     public String get(String url, RequestConfig config) throws URISyntaxException, IOException {
-        return get(url, new ArrayList<NameValuePair>(), config);
+        return get(url, new ArrayList<>(), config);
     }
 
     /**
@@ -67,8 +67,8 @@ public abstract class HttpRequester {
      * @param url    请求地址
      * @param params 请求参数
      * @return url响应结果，java.lang.String类型。
-     * @throws java.net.URISyntaxException 输入的url不合法
-     * @throws java.io.IOException         其他IO错误
+     * @throws URISyntaxException 输入的url不合法
+     * @throws IOException         其他IO错误
      */
     public String get(String url, Map<String, String> params) throws URISyntaxException, IOException {
         return get(url, params, RequestConfig.DEFAULT);
@@ -97,8 +97,8 @@ public abstract class HttpRequester {
      * @param url   请求地址
      * @param param 请求参数
      * @return url响应结果，java.lang.String类型。
-     * @throws java.net.URISyntaxException 输入的url不合法
-     * @throws java.io.IOException         其他IO错误
+     * @throws URISyntaxException 输入的url不合法
+     * @throws IOException         其他IO错误
      */
     public String get(String url, NameValuePair param) throws URISyntaxException, IOException {
         return get(url, param, RequestConfig.DEFAULT);
@@ -118,8 +118,8 @@ public abstract class HttpRequester {
      * @param url    请求地址
      * @param params 请求参数
      * @return url响应结果，java.lang.String类型。
-     * @throws java.net.URISyntaxException 输入的url不合法
-     * @throws java.io.IOException         其他IO错误
+     * @throws URISyntaxException 输入的url不合法
+     * @throws IOException         其他IO错误
      */
     public String get(String url, List<NameValuePair> params) throws URISyntaxException, IOException {
         return get(url, params, RequestConfig.DEFAULT);
@@ -153,8 +153,8 @@ public abstract class HttpRequester {
      * @param username 权限校验用户名
      * @param password 权限校验密码
      * @return url响应结果，java.lang.String类型。
-     * @throws java.net.URISyntaxException 输入的url不合法
-     * @throws java.io.IOException         其他IO错误
+     * @throws URISyntaxException 输入的url不合法
+     * @throws IOException         其他IO错误
      */
     public String get(String url, List<NameValuePair> params, String username, String password)
             throws URISyntaxException, IOException {
@@ -207,8 +207,8 @@ public abstract class HttpRequester {
      *
      * @param url 请求地址
      * @return url响应结果，java.lang.String类型。
-     * @throws java.net.URISyntaxException 输入的url不合法
-     * @throws java.io.IOException         其他IO错误
+     * @throws URISyntaxException 输入的url不合法
+     * @throws IOException         其他IO错误
      */
     public String post(String url) throws URISyntaxException, IOException {
         return get(url);
@@ -220,8 +220,8 @@ public abstract class HttpRequester {
      * @param url         请求地址
      * @param postMessage 请求体，直接将参数写入POST请求的body中。
      * @return url响应结果，java.lang.String类型。
-     * @throws java.net.URISyntaxException 输入的url不合法
-     * @throws java.io.IOException         其他IO错误
+     * @throws URISyntaxException 输入的url不合法
+     * @throws IOException         其他IO错误
      */
     public String post(String url, String postMessage) throws URISyntaxException, IOException {
         HttpEntity httpEntity = null;
@@ -238,8 +238,8 @@ public abstract class HttpRequester {
      * @param postMessage 请求体，直接将参数写入POST请求的body中。
      * @param timeout     超时时间，毫秒
      * @return url响应结果，java.lang.String类型。
-     * @throws java.net.URISyntaxException 输入的url不合法
-     * @throws java.io.IOException         其他IO错误
+     * @throws URISyntaxException 输入的url不合法
+     * @throws IOException         其他IO错误
      */
     public String post(String url, String postMessage, int timeout) throws URISyntaxException, IOException {
         HttpEntity httpEntity = null;
@@ -256,8 +256,8 @@ public abstract class HttpRequester {
      * @param url         请求地址
      * @param postMessage 请求体，直接将参数写入POST请求的body中。
      * @return url响应结果，java.lang.String类型。
-     * @throws java.net.URISyntaxException 输入的url不合法
-     * @throws java.io.IOException         其他IO错误
+     * @throws URISyntaxException 输入的url不合法
+     * @throws IOException         其他IO错误
      */
     public String post(String url, String postMessage, String contentType) throws URISyntaxException, IOException {
         HttpEntity httpEntity = null;
@@ -273,8 +273,8 @@ public abstract class HttpRequester {
      * @param url        请求地址
      * @param httpEntity 请求实体，包含http请求所需参数。
      * @return url响应结果，java.lang.String类型。
-     * @throws java.net.URISyntaxException 输入的url不合法
-     * @throws java.io.IOException         其他IO错误
+     * @throws URISyntaxException 输入的url不合法
+     * @throws IOException         其他IO错误
      */
     public String post(String url, HttpEntity httpEntity) throws URISyntaxException, IOException {
         return post(url, httpEntity, ContentType.APPLICATION_JSON.getMimeType());
@@ -287,8 +287,8 @@ public abstract class HttpRequester {
      * @param httpEntity 请求实体，包含http请求所需参数。
      * @param config     请求配置
      * @return url响应结果，java.lang.String类型。
-     * @throws java.net.URISyntaxException 输入的url不合法
-     * @throws java.io.IOException         其他IO错误
+     * @throws URISyntaxException 输入的url不合法
+     * @throws IOException         其他IO错误
      */
     public String post(String url, HttpEntity httpEntity, RequestConfig config) throws URISyntaxException, IOException {
         return post(url, httpEntity, ContentType.APPLICATION_JSON.getMimeType(), config);
@@ -301,8 +301,8 @@ public abstract class HttpRequester {
      * @param httpEntity  请求实体，包含http请求所需参数。
      * @param contentType 请求头
      * @return url响应结果，java.lang.String类型。
-     * @throws java.net.URISyntaxException 输入的url不合法
-     * @throws java.io.IOException         其他IO错误
+     * @throws URISyntaxException 输入的url不合法
+     * @throws IOException         其他IO错误
      */
     public String post(String url, HttpEntity httpEntity, String contentType) throws URISyntaxException, IOException {
         RequestConfig config = RequestConfig.custom().setSocketTimeout(30000).setConnectTimeout(30000).build();
@@ -317,8 +317,8 @@ public abstract class HttpRequester {
      * @param contentType 请求头
      * @param config      请求配置
      * @return url响应结果，java.lang.String类型。
-     * @throws java.net.URISyntaxException 输入的url不合法
-     * @throws java.io.IOException         其他IO错误
+     * @throws URISyntaxException 输入的url不合法
+     * @throws IOException         其他IO错误
      */
     public String post(String url, HttpEntity httpEntity, String contentType, RequestConfig config)
             throws URISyntaxException, IOException {
@@ -368,8 +368,8 @@ public abstract class HttpRequester {
      * @param url    请求地址
      * @param params 请求参数
      * @return url响应结果，java.lang.String类型。
-     * @throws java.net.URISyntaxException 输入的url不合法
-     * @throws java.io.IOException         其他IO错误
+     * @throws URISyntaxException 输入的url不合法
+     * @throws IOException         其他IO错误
      */
     public String form(String url, Map<String, String> params) throws URISyntaxException, IOException {
         return this.form(url, params, DEFAULT_CONTENT_TYPE);
@@ -382,8 +382,8 @@ public abstract class HttpRequester {
      * @param params      请求参数
      * @param contentType 请求数据类型
      * @return url响应结果，java.lang.String类型。
-     * @throws java.net.URISyntaxException 输入的url不合法
-     * @throws java.io.IOException         其他IO错误
+     * @throws URISyntaxException 输入的url不合法
+     * @throws IOException         其他IO错误
      */
     public String form(String url, Map<String, String> params, String contentType)
             throws URISyntaxException, IOException {
@@ -400,8 +400,8 @@ public abstract class HttpRequester {
      * @param url    请求地址
      * @param params 请求参数
      * @return url响应结果，java.lang.String类型。
-     * @throws java.net.URISyntaxException 输入的url不合法
-     * @throws java.io.IOException         其他IO错误
+     * @throws URISyntaxException 输入的url不合法
+     * @throws IOException         其他IO错误
      */
     public String form(String url, List<NameValuePair> params) throws URISyntaxException, IOException {
         return this.form(url, params, DEFAULT_CONTENT_TYPE);
@@ -414,8 +414,8 @@ public abstract class HttpRequester {
      * @param params      请求参数
      * @param contentType 请求数据类型
      * @return url响应结果，java.lang.String类型。
-     * @throws java.net.URISyntaxException 输入的url不合法
-     * @throws java.io.IOException         其他IO错误
+     * @throws URISyntaxException 输入的url不合法
+     * @throws IOException         其他IO错误
      */
     public String form(String url, List<NameValuePair> params, String contentType)
             throws URISyntaxException, IOException {
@@ -436,8 +436,8 @@ public abstract class HttpRequester {
      * @param httpHost    包含HTTP连接所需参数（远端Host名、端口、scheme）的对象
      * @param httpRequest 包含从客户端到服务端的请求信息
      * @return url响应结果
-     * @throws java.io.IOException         其他IO错误
-     * @throws java.net.URISyntaxException 如果返回为301或302跳转，则会调用GET请求，如果返回的url不正确，会抛出该异常。
+     * @throws IOException         其他IO错误
+     * @throws URISyntaxException 如果返回为301或302跳转，则会调用GET请求，如果返回的url不正确，会抛出该异常。
      */
     protected String execute(CloseableHttpClient client, HttpHost httpHost, HttpRequest httpRequest)
             throws IOException, URISyntaxException {

@@ -1,4 +1,4 @@
-package cn.howardliu.gear.commons.httpclient.simple;
+package cn.howardliu.gear.httpclient.simple;
 
 import org.apache.http.Consts;
 import org.apache.http.HttpHost;
@@ -79,8 +79,8 @@ public class PoolingHttpRequester extends HttpRequester {
      * @param url    请求地址
      * @param params 请求参数
      * @return url响应结果，java.lang.String类型。
-     * @throws java.net.URISyntaxException 输入的url不合法
-     * @throws java.io.IOException
+     * @throws URISyntaxException 输入的url不合法
+     * @throws IOException
      */
     public String get(String url, List<NameValuePair> params) throws URISyntaxException, IOException {
         // 1. 验证输入url的有效性：url没有有效的host或url为相对路径，则url无效。

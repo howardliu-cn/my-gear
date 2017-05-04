@@ -2,6 +2,7 @@ package cn.howardliu.gear.kafka;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Properties;
@@ -14,6 +15,7 @@ import static org.apache.kafka.clients.producer.ProducerConfig.*;
  * @author liuxh
  * @since 1.0.1
  */
+@Ignore
 public class KafkaProducerWrapperTest {
     private KafkaProducerWrapper<String, String> wrapper;
 

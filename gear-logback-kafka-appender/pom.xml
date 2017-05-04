@@ -17,6 +17,18 @@
 
     <dependencies>
         <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${dependency.logback.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${dependency.logback.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>cn.howardliu</groupId>
             <artifactId>gear-kafka</artifactId>
         </dependency>

@@ -1,4 +1,4 @@
-package cn.howardliu.gear.commons.controller;
+package cn.howardliu.gear.springEx.controller;
 
 import cn.howardliu.gear.commons.utils.SystemInfo;
 import org.springframework.stereotype.Controller;

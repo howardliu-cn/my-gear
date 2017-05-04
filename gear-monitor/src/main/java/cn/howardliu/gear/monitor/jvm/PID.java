@@ -37,7 +37,7 @@ public class PID {
         return pid;
     }
 
-    public static Integer getPidByName() {
+    private static Integer getPidByName() {
         String xPid = ManagementFactory.getRuntimeMXBean().getName();
         try {
             xPid = xPid.split("@")[0];
@@ -47,7 +47,7 @@ public class PID {
         }
     }
 
-    public static Integer getPidByReflect() {
+    private static Integer getPidByReflect() {
         try {
             RuntimeMXBean runtime = ManagementFactory.getRuntimeMXBean();
             Field jvm = runtime.getClass().getDeclaredField("jvm");
@@ -68,7 +68,7 @@ public class PID {
         return 0;
     }
 
-    public static Integer getPidByCmd() {
+    private static Integer getPidByCmd() {
         try {
             String[] cmd;
             String osName = System.getProperty("os.name");

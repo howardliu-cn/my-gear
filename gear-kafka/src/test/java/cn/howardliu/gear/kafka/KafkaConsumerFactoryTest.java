@@ -4,6 +4,7 @@ import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
 import kafka.message.MessageAndMetadata;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -23,6 +24,7 @@ import static org.apache.kafka.clients.producer.ProducerConfig.*;
  * @author liuxh
  * @since 1.0.1
  */
+@Ignore
 public class KafkaConsumerFactoryTest {
     private KafkaConsumerFactory factory;
     private KafkaProducerWrapper<String, String> wrapper;

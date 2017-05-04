@@ -1,4 +1,4 @@
-package cn.howardliu.gear.commons.server;
+package cn.howardliu.gear.monitor.os;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +17,10 @@ import java.util.Set;
  * @author liuxh
  * @since 1.0.1
  */
-public class ServerInfo {
-    private static final Logger logger = LoggerFactory.getLogger(ServerInfo.class);
+public class NetworkInfo {
+    private static final Logger logger = LoggerFactory.getLogger(NetworkInfo.class);
 
-    public static Set<NetWorkInterfaceInfo> getNetworkInfo() {
+    public static Set<NetworkInterfaceInfo> getNetworkInfo() {
         try {
             return getNetWorkInfo(NetworkInterface.getNetworkInterfaces());
         } catch (SocketException e) {
@@ -29,7 +29,7 @@ public class ServerInfo {
         return new HashSet<>();
     }
 
-    public static NetWorkInterfaceInfo getNetWorkInfo(String name) {
+    public static NetworkInterfaceInfo getNetWorkInfo(String name) {
         try {
             return getNetWorkInfo(NetworkInterface.getByName(name));
         } catch (SocketException e) {
@@ -38,22 +38,22 @@ public class ServerInfo {
         return null;
     }
 
-    public static Set<NetWorkInterfaceInfo> getNetWorkInfo(@NotNull Enumeration<NetworkInterface> interfaces) {
-        Set<NetWorkInterfaceInfo> netWorkInterfaceInfoSet = new HashSet<>();
+    private static Set<NetworkInterfaceInfo> getNetWorkInfo(@NotNull Enumeration<NetworkInterface> interfaces) {
+        Set<NetworkInterfaceInfo> networkInterfaceInfoSet = new HashSet<>();
         try {
             while (interfaces.hasMoreElements()) {
-                NetWorkInterfaceInfo netWorkInterfaceInfo = getNetWorkInfo(interfaces.nextElement());
-                if (netWorkInterfaceInfo != null) {
-                    netWorkInterfaceInfoSet.add(netWorkInterfaceInfo);
+                NetworkInterfaceInfo networkInterfaceInfo = getNetWorkInfo(interfaces.nextElement());
+                if (networkInterfaceInfo != null) {
+                    networkInterfaceInfoSet.add(networkInterfaceInfo);
                 }
             }
         } catch (SocketException e) {
             logger.error("获取网络设备信息失败", e);
         }
-        return netWorkInterfaceInfoSet;
+        return networkInterfaceInfoSet;
     }
 
-    private static NetWorkInterfaceInfo getNetWorkInfo(@NotNull NetworkInterface networkInterface)
+    private static NetworkInterfaceInfo getNetWorkInfo(@NotNull NetworkInterface networkInterface)
             throws SocketException {
         if (networkInterface == null
                 || networkInterface.isLoopback()
@@ -61,7 +61,7 @@ public class ServerInfo {
                 || !networkInterface.isUp()) {
             return null;
         }
-        return new NetWorkInterfaceInfo.Builder()
+        return new NetworkInterfaceInfo.Builder()
                 .name(getName(networkInterface))
                 .displayName(getDisplayName(networkInterface))
                 .mac(getMac(networkInterface))
@@ -99,13 +99,13 @@ public class ServerInfo {
     private static Set<String> getAddresses(@NotNull NetworkInterface networkInterface) {
         Set<String> hostAddresses = new HashSet<>();
         Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
-        InetAddress ip;
+        InetAddress address;
         while (addresses.hasMoreElements()) {
-            ip = addresses.nextElement();
-            if (!ip.isSiteLocalAddress()) {
+            address = addresses.nextElement();
+            if (!address.isSiteLocalAddress()) {
                 continue;
             }
-            hostAddresses.add(ip.getHostAddress());
+            hostAddresses.add(address.getHostAddress());
         }
         return hostAddresses;
     }

@@ -4,6 +4,7 @@ import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
 import kafka.message.MessageAndMetadata;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ import java.util.concurrent.ThreadFactory;
  * @author liuxh
  * @since 1.0.0
  */
+@Ignore
 public class KafkaConsumerTest {
     private static final Logger logger = LoggerFactory.getLogger(KafkaConsumerTest.class);
     private Properties properties;

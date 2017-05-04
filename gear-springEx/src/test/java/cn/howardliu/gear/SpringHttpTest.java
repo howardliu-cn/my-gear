@@ -1,6 +1,7 @@
 package cn.howardliu.gear;
 
 import org.apache.commons.io.Charsets;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import java.net.URI;
  * @author liuxh
  * @since 1.0.0
  */
+@Ignore
 public class SpringHttpTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 

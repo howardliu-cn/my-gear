@@ -45,7 +45,7 @@ public final class Constants {
     public static final String OS_VERSION = System.getProperty("os.version");
 
     static {
-        final StringTokenizer st = new StringTokenizer(JVM_SPEC_NAME, ".");
+        final StringTokenizer st = new StringTokenizer(JAVA_SPEC_VERSION, ".");
         JVM_MAJOR_VERSION = Integer.parseInt(st.nextToken());
         if (st.hasMoreTokens()) {
             JVM_MINOR_VERSION = Integer.parseInt(st.nextToken());

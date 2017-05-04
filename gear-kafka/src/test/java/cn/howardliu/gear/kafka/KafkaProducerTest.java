@@ -6,6 +6,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import static org.apache.kafka.clients.producer.ProducerConfig.*;
  * @author liuxh
  * @since 1.0.0
  */
+@Ignore
 public class KafkaProducerTest {
     private static final Logger logger = LoggerFactory.getLogger(KafkaProducerTest.class);
     private KafkaProducer<String, String> kafkaProducer;

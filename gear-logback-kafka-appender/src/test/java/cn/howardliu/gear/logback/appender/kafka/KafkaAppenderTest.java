@@ -5,6 +5,7 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.classic.spi.LoggingEvent;
 import cn.howardliu.gear.logback.appender.kafka.encode.LayoutKafkaMessageEncoder;
 import cn.howardliu.gear.logback.appender.kafka.key.RoundRobinKeyingStrategy;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -15,6 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @author liuxh
  * @since 1.0.1
  */
+@Ignore
 public class KafkaAppenderTest {
 
     @Test

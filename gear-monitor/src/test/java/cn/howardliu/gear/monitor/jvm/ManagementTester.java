@@ -42,7 +42,9 @@ public class ManagementTester {
         System.out.println("Compilation Management:");
         CompilationMXBean mxBean = ManagementFactory.getCompilationMXBean();
         System.out.println("name: " + mxBean.getName());
-        System.out.println("total compilation time: " + mxBean.getTotalCompilationTime());
+        if (mxBean.isCompilationTimeMonitoringSupported()) {
+            System.out.println("total compilation time: " + mxBean.getTotalCompilationTime());
+        }
         System.out.println("canonical name: " + mxBean.getObjectName().getCanonicalName());
     }
 
@@ -230,7 +232,7 @@ public class ManagementTester {
             System.out.println("==========================================");
             System.out.println("name: " + option.getName());
             System.out.println("origin: " + option.getOrigin());
-            System.out.println("value: "+ option.getValue());
+            System.out.println("value: " + option.getValue());
             System.out.println("isWriteable: " + option.isWriteable());
         }
     }

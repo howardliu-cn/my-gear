@@ -1,6 +1,7 @@
 package cn.howardliu.gear.zk;
 
 import org.apache.curator.framework.CuratorFramework;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -9,6 +10,7 @@ import org.junit.Test;
  * @author liuxh
  * @since 1.0.1
  */
+@Ignore
 public class ZkClientFactoryTest {
     @Test
     public void test() throws Exception {

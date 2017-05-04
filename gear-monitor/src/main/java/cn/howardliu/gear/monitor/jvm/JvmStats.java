@@ -22,6 +22,7 @@ public class JvmStats {
     private static final MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
     private static final ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
     private static final ClassLoadingMXBean classLoadingMXBean = ManagementFactory.getClassLoadingMXBean();
+    private static final CompilationMXBean compilationMXBean = ManagementFactory.getCompilationMXBean();
 
     private final long timestamp;
     private final long uptime;
@@ -30,9 +31,10 @@ public class JvmStats {
     private final List<GarbageCollector> gc;
     private final List<BufferPool> bufferPools;
     private final Classes classes;
+    private final CompilationInfo compilationInfo;
 
     private JvmStats(long timestamp, long uptime, Mem mem, Threads threads,
-            List<GarbageCollector> gc, List<BufferPool> bufferPools, Classes classes) {
+            List<GarbageCollector> gc, List<BufferPool> bufferPools, Classes classes, CompilationInfo compilationInfo) {
         this.timestamp = timestamp;
         this.uptime = uptime;
         this.mem = mem;
@@ -40,6 +42,7 @@ public class JvmStats {
         this.gc = gc;
         this.bufferPools = bufferPools;
         this.classes = classes;
+        this.compilationInfo = compilationInfo;
     }
 
     public static JvmStats jvmStats() {
@@ -50,7 +53,8 @@ public class JvmStats {
                 threads(),
                 garbageCollectors(),
                 bufferPoolsList(),
-                classes()
+                classes(),
+                compilationInfo()
         );
     }
 
@@ -85,7 +89,14 @@ public class JvmStats {
     }
 
     private static Threads threads() {
-        return new Threads(threadMXBean.getThreadCount(), threadMXBean.getPeakThreadCount());
+        return new Threads(
+                threadMXBean.getThreadCount(),
+                threadMXBean.getPeakThreadCount(),
+                threadMXBean.getTotalStartedThreadCount(),
+                threadMXBean.getDaemonThreadCount(),
+                threadMXBean.getCurrentThreadCpuTime(),
+                threadMXBean.getCurrentThreadUserTime()
+        );
     }
 
     private static List<GarbageCollector> garbageCollectors() {
@@ -135,6 +146,10 @@ public class JvmStats {
         return new JvmMemoryInfo(totalMemory, freeMemory, usedMemory, maxMemory);
     }
 
+    private static CompilationInfo compilationInfo() {
+        return new CompilationInfo(compilationMXBean.getName(), compilationMXBean.getTotalCompilationTime());
+    }
+
     public long getTimestamp() {
         return timestamp;
     }
@@ -161,6 +176,10 @@ public class JvmStats {
 
     public Classes getClasses() {
         return classes;
+    }
+
+    public CompilationInfo getCompilationInfo() {
+        return compilationInfo;
     }
 
     public static class Classes {
@@ -286,10 +305,19 @@ public class JvmStats {
     public static class Threads {
         private final int count;
         private final int peakCount;
+        private final long totalStartedCount;
+        private final int daemonCount;
+        private final long currentCpuTime;
+        private final long currentUserTime;
 
-        Threads(int count, int peakCount) {
+        Threads(int count, int peakCount, long totalStartedCount, int daemonCount,
+                long currentCpuTime, long currentUserTime) {
             this.count = count;
             this.peakCount = peakCount;
+            this.totalStartedCount = totalStartedCount;
+            this.daemonCount = daemonCount;
+            this.currentCpuTime = currentCpuTime;
+            this.currentUserTime = currentUserTime;
         }
 
         public int getCount() {
@@ -298,6 +326,22 @@ public class JvmStats {
 
         public int getPeakCount() {
             return peakCount;
+        }
+
+        public long getTotalStartedCount() {
+            return totalStartedCount;
+        }
+
+        public int getDaemonCount() {
+            return daemonCount;
+        }
+
+        public long getCurrentCpuTime() {
+            return currentCpuTime;
+        }
+
+        public long getCurrentUserTime() {
+            return currentUserTime;
         }
     }
 
@@ -333,6 +377,8 @@ public class JvmStats {
 
     public static class MemoryPool {
         private final String name;
+        // TODO remove memoryManagerNames field
+        private final String memoryManagerNames;
         private final String gcName;
         private final String type;
         private final MemoryUsage usage;
@@ -341,6 +387,7 @@ public class JvmStats {
 
         MemoryPool(String name, String type, MemoryUsage usage, MemoryUsage peakUsage, MemoryUsage collectionUsage) {
             this.name = name;
+            this.memoryManagerNames = name;
             this.gcName = GcNames.getByMemoryPoolName(this.name, null);
             this.type = type;
             this.usage = usage;
@@ -350,6 +397,10 @@ public class JvmStats {
 
         public String getName() {
             return this.name;
+        }
+
+        public String getMemoryManagerNames() {
+            return memoryManagerNames;
         }
 
         public String getGcName() {
@@ -394,6 +445,24 @@ public class JvmStats {
 
         public ByteSizeValue getCollectionMax() {
             return new ByteSizeValue(collectionUsage.getMax());
+        }
+    }
+
+    public static class CompilationInfo {
+        private final String name;
+        private final long compilationTime;
+
+        CompilationInfo(String name, long compilationTime) {
+            this.name = name;
+            this.compilationTime = compilationTime;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public long getCompilationTime() {
+            return compilationTime;
         }
     }
 }

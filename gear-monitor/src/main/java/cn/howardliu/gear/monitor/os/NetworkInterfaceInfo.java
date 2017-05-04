@@ -1,4 +1,4 @@
-package cn.howardliu.gear.commons.server;
+package cn.howardliu.gear.monitor.os;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,21 +9,29 @@ import java.util.Set;
  * @author liuxh
  * @since 1.0.1
  */
-public class NetWorkInterfaceInfo {
+public class NetworkInterfaceInfo {
     private String name;
     private String displayName;
     private String mac;
     private Set<String> hostAddresses = new HashSet<>();
-    private Set<NetWorkInterfaceInfo> children = new HashSet<>();
+    private Set<NetworkInterfaceInfo> children = new HashSet<>();
 
-    public NetWorkInterfaceInfo(){
+    public NetworkInterfaceInfo() {
+    }
+
+    private NetworkInterfaceInfo(Builder builder) {
+        this.name = builder.name;
+        this.displayName = builder.displayName;
+        this.mac = builder.mac;
+        this.hostAddresses.addAll(builder.hostAddresses);
+        this.children.addAll(builder.children);
     }
 
     public String getName() {
         return name;
     }
 
-    public NetWorkInterfaceInfo setName(String name) {
+    public NetworkInterfaceInfo setName(String name) {
         this.name = name;
         return this;
     }
@@ -32,7 +40,7 @@ public class NetWorkInterfaceInfo {
         return displayName;
     }
 
-    public NetWorkInterfaceInfo setDisplayName(String displayName) {
+    public NetworkInterfaceInfo setDisplayName(String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -41,7 +49,7 @@ public class NetWorkInterfaceInfo {
         return mac;
     }
 
-    public NetWorkInterfaceInfo setMac(String mac) {
+    public NetworkInterfaceInfo setMac(String mac) {
         this.mac = mac;
         return this;
     }
@@ -50,16 +58,16 @@ public class NetWorkInterfaceInfo {
         return hostAddresses;
     }
 
-    public NetWorkInterfaceInfo setHostAddresses(Set<String> hostAddresses) {
+    public NetworkInterfaceInfo setHostAddresses(Set<String> hostAddresses) {
         this.hostAddresses = hostAddresses;
         return this;
     }
 
-    public Set<NetWorkInterfaceInfo> getChildren() {
+    public Set<NetworkInterfaceInfo> getChildren() {
         return children;
     }
 
-    public NetWorkInterfaceInfo setChildren(Set<NetWorkInterfaceInfo> children) {
+    public NetworkInterfaceInfo setChildren(Set<NetworkInterfaceInfo> children) {
         this.children = children;
         return this;
     }
@@ -72,7 +80,7 @@ public class NetWorkInterfaceInfo {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        NetWorkInterfaceInfo that = (NetWorkInterfaceInfo) o;
+        NetworkInterfaceInfo that = (NetworkInterfaceInfo) o;
         return displayName.equals(that.displayName) && mac.equals(that.mac) && name.equals(that.name);
     }
 
@@ -95,48 +103,40 @@ public class NetWorkInterfaceInfo {
                 '}';
     }
 
-    public static class Builder {
+    static class Builder {
+        private final Set<String> hostAddresses = new HashSet<>();
+        private final Set<NetworkInterfaceInfo> children = new HashSet<>();
         private String name;
         private String displayName;
         private String mac;
-        private final Set<String> hostAddresses = new HashSet<>();
-        private final Set<NetWorkInterfaceInfo> children = new HashSet<>();
 
-        public Builder name(String name) {
+        Builder name(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder displayName(String displayName) {
+        Builder displayName(String displayName) {
             this.displayName = displayName;
             return this;
         }
 
-        public Builder mac(String mac) {
+        Builder mac(String mac) {
             this.mac = mac;
             return this;
         }
 
-        public Builder hostAddresses(Set<String> hostAddresses) {
+        Builder hostAddresses(Set<String> hostAddresses) {
             this.hostAddresses.addAll(hostAddresses);
             return this;
         }
 
-        public Builder children(Set<NetWorkInterfaceInfo> children) {
+        Builder children(Set<NetworkInterfaceInfo> children) {
             this.children.addAll(children);
             return this;
         }
 
-        public NetWorkInterfaceInfo build() {
-            return new NetWorkInterfaceInfo(this);
+        NetworkInterfaceInfo build() {
+            return new NetworkInterfaceInfo(this);
         }
-    }
-
-    private NetWorkInterfaceInfo(Builder builder) {
-        this.name = builder.name;
-        this.displayName = builder.displayName;
-        this.mac = builder.mac;
-        this.hostAddresses.addAll(builder.hostAddresses);
-        this.children.addAll(builder.children);
     }
 }

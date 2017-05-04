@@ -1,6 +1,6 @@
 package cn.howardliu.gear.toolkit.server;
 
-import cn.howardliu.gear.commons.server.ServerInfo;
+import cn.howardliu.gear.monitor.os.NetworkInfo;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -12,11 +12,11 @@ import org.apache.commons.lang3.StringUtils;
 public class ServerInfoMain {
     public static void main(String[] args) {
         if (args == null || args.length == 0) {
-            System.out.println(ServerInfo.getNetworkInfo());
+            System.out.println(NetworkInfo.getNetworkInfo());
         } else {
             for (String arg : args) {
                 if (StringUtils.isNotBlank(arg)) {
-                    System.out.println(ServerInfo.getNetWorkInfo(arg.trim()));
+                    System.out.println(NetworkInfo.getNetWorkInfo(arg.trim()));
                 }
             }
         }

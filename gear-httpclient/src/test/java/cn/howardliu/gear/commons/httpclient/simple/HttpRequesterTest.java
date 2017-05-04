@@ -20,6 +20,7 @@ import static org.junit.Assert.assertNotNull;
  * @author liuxh
  * @since 1.0.0
  */
+@Ignore
 public class HttpRequesterTest {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -33,7 +34,7 @@ public class HttpRequesterTest {
 
     @Test
     public void testPost() throws Exception {
-        ExecutorService executorService = Executors.newFixedThreadPool(1000, r -> {
+        ExecutorService executorService = Executors.newFixedThreadPool(10, r -> {
             Thread t = new Thread(r);
             t.setDaemon(true);
             t.setName("post-request-thread-" + t.getId());

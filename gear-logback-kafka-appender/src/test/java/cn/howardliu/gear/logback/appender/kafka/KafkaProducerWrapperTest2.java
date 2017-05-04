@@ -3,6 +3,7 @@ package cn.howardliu.gear.logback.appender.kafka;
 import cn.howardliu.gear.kafka.KafkaProducerWrapper;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -11,6 +12,7 @@ import org.junit.Test;
  * @author liuxh
  * @since 1.0.1
  */
+@Ignore
 public class KafkaProducerWrapperTest2 {
     private KafkaProducerWrapper<String, String> wrapper;
 

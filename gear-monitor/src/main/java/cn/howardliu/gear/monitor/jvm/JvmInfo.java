@@ -105,7 +105,7 @@ public class JvmInfo {
         private final long startTime;
         private String bootClassPath = "";
 
-        {
+        private RuntimeInfo() {
             RuntimeMXBean mxBean = ManagementFactory.getRuntimeMXBean();
             name = mxBean.getName();
             managementSpecVersion = mxBean.getManagementSpecVersion();
@@ -116,9 +116,6 @@ public class JvmInfo {
                 bootClassPath = mxBean.getBootClassPath();
             }
             systemProperties = mxBean.getSystemProperties();
-        }
-
-        private RuntimeInfo() {
         }
 
         static RuntimeInfo instance() {

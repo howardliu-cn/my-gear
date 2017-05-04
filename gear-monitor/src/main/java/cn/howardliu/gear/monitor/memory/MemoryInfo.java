@@ -33,12 +33,7 @@ public class MemoryInfo {
     private List<JvmStats.GarbageCollector> gcInfoList;
     private List<JvmStats.BufferPool> bufferPools;
 
-    public MemoryInfo() {
-    }
-
-    public MemoryInfo refresh() {
-        JvmStats jvmStats = JvmStats.jvmStats();
-
+    public MemoryInfo(JvmStats jvmStats) {
         jvmMemoryInfo = jvmStats.getMem().getJvmMemoryInfo();
         permGenMemoryUsage = permGenMemoryUsage();
 
@@ -60,8 +55,6 @@ public class MemoryInfo {
         }
 
         bufferPools = jvmStats.getBufferPools();
-
-        return this;
     }
 
     public JvmStats.JvmMemoryInfo getJvmMemoryInfo() {

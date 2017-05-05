@@ -14,15 +14,9 @@ public class OsInfo {
     private final String name = OS_NAME;
     private final String arch = OS_ARCH;
     private final String version = OS_VERSION;
-    private final int availableProcessors;
-    private final long processCpuTime;
-    // TODO system cpu load
-    // TODO process cpu load
     private final Set<NetworkInterfaceInfo> inetAddress;
 
     public OsInfo() {
-        availableProcessors = OSMxBeanAction.getAvailableProcessors();
-        processCpuTime = OSMxBeanAction.getProcessCpuTime();
         inetAddress = NetworkInfo.getNetworkInfo();
     }
 
@@ -36,14 +30,6 @@ public class OsInfo {
 
     public String getVersion() {
         return version;
-    }
-
-    public int getAvailableProcessors() {
-        return availableProcessors;
-    }
-
-    public long getProcessCpuTime() {
-        return processCpuTime;
     }
 
     public Set<NetworkInterfaceInfo> getInetAddress() {

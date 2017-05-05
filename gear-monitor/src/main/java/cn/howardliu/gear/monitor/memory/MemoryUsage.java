@@ -1,6 +1,8 @@
 package cn.howardliu.gear.monitor.memory;
 
 /**
+ * the copy of {@link java.lang.management.MemoryUsage}
+ * <p>
  * <br>created at 17-5-3
  *
  * @author liuxh

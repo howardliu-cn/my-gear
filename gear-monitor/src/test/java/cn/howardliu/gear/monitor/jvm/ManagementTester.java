@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.management.*;
 import java.lang.management.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -124,6 +125,13 @@ public class ManagementTester {
         System.out.println("system version: " + mxBean.getVersion());
         System.out.println("system load average: " + mxBean.getSystemLoadAverage());
         System.out.println("canonical name: " + mxBean.getObjectName().getCanonicalName());
+        try {
+            System.out.println("process cpu time: " +
+                    Class.forName("com.sun.management.OperatingSystemMXBean").getMethod("getProcessCpuTime")
+                            .invoke(mxBean));
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test

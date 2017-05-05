@@ -17,6 +17,7 @@ import java.util.List;
  * @author liuxh
  * @version 1.0.0
  * @since 1.0.0
+ * @deprecated Use {@link cn.howardliu.gear.monitor.jvm.JvmStats} or {@link cn.howardliu.gear.monitor.os.OsStats}
  */
 public class MemoryInfo {
     private static final Logger logger = LoggerFactory.getLogger(MemoryInfo.class);

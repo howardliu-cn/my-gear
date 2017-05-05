@@ -2,6 +2,7 @@ package cn.howardliu.gear.monitor;
 
 import org.apache.commons.lang3.SystemUtils;
 
+import java.util.Date;
 import java.util.StringTokenizer;
 
 /**
@@ -14,6 +15,8 @@ public final class Constants {
     private Constants() {
         // TODO 可以与 org.apache.commons.lang3.SystemUtils 进行对比优化
     }
+
+    public static final Date START_TIME = new Date();
 
     public static final String JVM_VENDOR = System.getProperty("java.vm.vendor");
     public static final String JVM_VERSION = System.getProperty("java.vm.version");

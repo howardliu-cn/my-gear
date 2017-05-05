@@ -1,5 +1,6 @@
 package cn.howardliu.gear.monitor.jvm;
 
+import cn.howardliu.gear.monitor.Stats;
 import cn.howardliu.gear.monitor.memory.MemoryUsage;
 import cn.howardliu.gear.monitor.unit.ByteSizeValue;
 import cn.howardliu.gear.monitor.unit.TimeValue;
@@ -17,14 +18,13 @@ import java.util.concurrent.TimeUnit;
  * @author liuxh
  * @since 1.0.2
  */
-public class JvmStats {
+public class JvmStats extends Stats {
     private static final RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
     private static final MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
     private static final ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
     private static final ClassLoadingMXBean classLoadingMXBean = ManagementFactory.getClassLoadingMXBean();
     private static final CompilationMXBean compilationMXBean = ManagementFactory.getCompilationMXBean();
 
-    private final long timestamp;
     private final long uptime;
     private final Mem mem;
     private final Threads threads;
@@ -35,7 +35,7 @@ public class JvmStats {
 
     private JvmStats(long timestamp, long uptime, Mem mem, Threads threads,
             List<GarbageCollector> gc, List<BufferPool> bufferPools, Classes classes, CompilationInfo compilationInfo) {
-        this.timestamp = timestamp;
+        super(timestamp);
         this.uptime = uptime;
         this.mem = mem;
         this.threads = threads;
@@ -45,7 +45,7 @@ public class JvmStats {
         this.compilationInfo = compilationInfo;
     }
 
-    public static JvmStats jvmStats() {
+    public static JvmStats stats() {
         return new JvmStats(
                 System.currentTimeMillis(),
                 runtimeMXBean.getUptime(),
@@ -148,10 +148,6 @@ public class JvmStats {
 
     private static CompilationInfo compilationInfo() {
         return new CompilationInfo(compilationMXBean.getName(), compilationMXBean.getTotalCompilationTime());
-    }
-
-    public long getTimestamp() {
-        return timestamp;
     }
 
     public TimeValue getUptime() {

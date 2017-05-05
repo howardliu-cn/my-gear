@@ -70,28 +70,42 @@ public class OsProbe extends OperatingSystemProbe {
      */
     public double[] getSystemLoadAverage() {
         if (Constants.WINDOWS) {
-            // TODO get windows' load avg
+            return getSystemLoadAverageOnWindows();
         } else if (Constants.LINUX) {
-            try {
-                final String procLoadAvg = readProcLoadavg();
-                assert procLoadAvg.matches("(\\d+\\.\\d+\\s+){3}\\d+/\\d+\\s+\\d+");
-                final String[] fields = procLoadAvg.split("\\s+");
-                return new double[]{
-                        Double.parseDouble(fields[0]),
-                        Double.parseDouble(fields[1]),
-                        Double.parseDouble(fields[2])
-                };
-            } catch (IOException e) {
-                if (logger.isDebugEnabled()) {
-                    logger.debug("error reading file /proc/loadavg", e);
-                }
-            }
+            return getSystemLoadAverageOnLinux();
         } else if (Constants.MAC_OS_X) {
-            double oneMinuteLoadAvg = Probes.getDouble(getSystemLoadAverage, osMxBean);
-            assert oneMinuteLoadAvg != -1;
-            return new double[]{oneMinuteLoadAvg >= 0 ? oneMinuteLoadAvg : -1, -1, -1};
+            return getSystemLoadAverageOnMacOS();
         }
         return null;
+    }
+
+    private double[] getSystemLoadAverageOnWindows(){
+        // TODO get windows' load avg
+        return null;
+    }
+
+    private double[] getSystemLoadAverageOnLinux() {
+        try {
+            final String procLoadAvg = readProcLoadavg();
+            assert procLoadAvg.matches("(\\d+\\.\\d+\\s+){3}\\d+/\\d+\\s+\\d+");
+            final String[] fields = procLoadAvg.split("\\s+");
+            return new double[]{
+                    Double.parseDouble(fields[0]),
+                    Double.parseDouble(fields[1]),
+                    Double.parseDouble(fields[2])
+            };
+        } catch (IOException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("error reading file /proc/loadavg", e);
+            }
+        }
+        return null;
+    }
+
+    private double[] getSystemLoadAverageOnMacOS() {
+        double oneMinuteLoadAvg = Probes.getDouble(getSystemLoadAverage, osMxBean);
+        assert oneMinuteLoadAvg != -1;
+        return new double[]{oneMinuteLoadAvg >= 0 ? oneMinuteLoadAvg : -1, -1, -1};
     }
 
     @SuppressWarnings("WeakerAccess")

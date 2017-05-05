@@ -1,9 +1,12 @@
 package cn.howardliu.gear.monitor.jvm;
 
+import cn.howardliu.gear.monitor.Constants;
 import cn.howardliu.gear.monitor.Stats;
 import cn.howardliu.gear.monitor.memory.MemoryUsage;
 import cn.howardliu.gear.monitor.unit.ByteSizeValue;
 import cn.howardliu.gear.monitor.unit.TimeValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.management.*;
 import java.util.ArrayList;
@@ -19,6 +22,7 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0.2
  */
 public class JvmStats extends Stats {
+    private static final Logger logger = LoggerFactory.getLogger(JvmStats.class);
     private static final RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
     private static final MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
     private static final ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
@@ -63,8 +67,38 @@ public class JvmStats extends Stats {
                 getJvmMemoryInfo(),
                 new MemoryUsage().clone(memoryMXBean.getHeapMemoryUsage()),
                 new MemoryUsage().clone(memoryMXBean.getNonHeapMemoryUsage()),
+                permGenMemoryUsage(),
                 getMemoryPools()
         );
+    }
+
+    private static MemoryUsage permGenMemoryUsage() {
+        MemoryPoolMXBean memoryPoolMXBeanByName = null;
+        if (Constants.IS_JAVA_1_7) {
+            memoryPoolMXBeanByName = getMemoryPoolMXBeanByName("Perm Gen");
+        } else if (Constants.IS_JAVA_1_8) {
+            memoryPoolMXBeanByName = getMemoryPoolMXBeanByName("Metaspace");
+        }
+        if (memoryPoolMXBeanByName == null) {
+            return MemoryUsage.negative();
+        } else {
+            return new MemoryUsage().clone(memoryPoolMXBeanByName.getUsage());
+        }
+    }
+
+    private static MemoryPoolMXBean getMemoryPoolMXBeanByName(String name) {
+        try {
+            for (MemoryPoolMXBean mxBean : ManagementFactory.getMemoryPoolMXBeans()) {
+                if (mxBean.getName().endsWith(name)) {
+                    return mxBean;
+                }
+            }
+        } catch (Throwable t) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("Please check your JVM version and vendor", t);
+            }
+        }
+        return null;
     }
 
     private static List<MemoryPool> getMemoryPools() {
@@ -236,13 +270,15 @@ public class JvmStats extends Stats {
         private final JvmMemoryInfo jvmMemoryInfo;
         private final MemoryUsage heapMemoryUsage;
         private final MemoryUsage nonHeapMemoryUsage;
+        private final MemoryUsage permGenMemoryUsage;
         private final List<MemoryPool> pools;
 
         Mem(JvmMemoryInfo jvmMemoryInfo, MemoryUsage heapMemoryUsage, MemoryUsage nonHeapMemoryUsage,
-                List<MemoryPool> pools) {
+                MemoryUsage permGenMemoryUsage, List<MemoryPool> pools) {
             this.jvmMemoryInfo = jvmMemoryInfo;
             this.heapMemoryUsage = heapMemoryUsage;
             this.nonHeapMemoryUsage = nonHeapMemoryUsage;
+            this.permGenMemoryUsage = permGenMemoryUsage;
             this.pools = pools;
         }
 
@@ -265,6 +301,10 @@ public class JvmStats extends Stats {
 
         public MemoryUsage getNonHeapMemoryUsage() {
             return nonHeapMemoryUsage;
+        }
+
+        public MemoryUsage getPermGenMemoryUsage() {
+            return permGenMemoryUsage;
         }
     }
 

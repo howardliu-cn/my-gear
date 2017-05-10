@@ -1,6 +1,6 @@
 package cn.howardliu.gear.toolkit.server;
 
-import cn.howardliu.gear.monitor.os.NetworkInfo;
+import cn.howardliu.gear.monitor.core.os.NetworkInfo;
 import org.apache.commons.lang3.StringUtils;
 
 /**

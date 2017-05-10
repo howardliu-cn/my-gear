@@ -22,7 +22,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>gear-monitor</artifactId>
+            <artifactId>gear-monitor-core</artifactId>
         </dependency>
     </dependencies>
 

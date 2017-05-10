@@ -1,6 +1,6 @@
 package cn.howardliu.gear.springEx;
 
-import cn.howardliu.gear.commons.server.TomcatInfoUtils;
+import cn.howardliu.gear.monitor.tomcat.TomcatInfoUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.curator.framework.CuratorFramework;
@@ -19,8 +19,8 @@ import java.io.IOException;
  * @since 1.0.0
  */
 public class SpringMvcRegisterWrapper implements ISpringMvcRegister {
-    private static final Logger logger = LoggerFactory.getLogger(SpringMvcRegisterWrapper.class);
     public static final String DEFAULT_IP_ENV_NAME = "LOCAL_IP_ADDRESS";
+    private static final Logger logger = LoggerFactory.getLogger(SpringMvcRegisterWrapper.class);
     private String ipEnvName = DEFAULT_IP_ENV_NAME;
 
     private SpringMvcRegister springMvcRegister;
@@ -68,6 +68,10 @@ public class SpringMvcRegisterWrapper implements ISpringMvcRegister {
         return Validate.notNull(localIp, "本地IP地址不能为空，请检查！");
     }
 
+    public void setLocalIp(String localIp) {
+        this.localIp = localIp;
+    }
+
     public Integer getPort() throws Exception {
         if (localPort != null) {
             return localPort;
@@ -102,10 +106,6 @@ public class SpringMvcRegisterWrapper implements ISpringMvcRegister {
 
     public void setPreServiceName(String preServiceName) {
         this.preServiceName = preServiceName;
-    }
-
-    public void setLocalIp(String localIp) {
-        this.localIp = localIp;
     }
 
     public void setLocalPort(Integer localPort) {

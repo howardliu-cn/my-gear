@@ -8,15 +8,17 @@
         <version>1.0.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>gear-monitor</artifactId>
-    <modules>
-        <module>gear-monitor-core</module>
-        <module>gear-monitor-tomcat</module>
-        <module>gear-monitor-custom</module>
-    </modules>
-    <packaging>pom</packaging>
+    <artifactId>gear-monitor-core</artifactId>
+    <packaging>jar</packaging>
 
     <name>${project.artifactId}</name>
     <description>监控工具包</description>
     <url>https://github.com/howardliu-cn/my-gear</url>
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.howardliu</groupId>
+            <artifactId>gear-commons</artifactId>
+        </dependency>
+    </dependencies>
 </project>

@@ -38,7 +38,7 @@ public class ConfigParamServiceImpl implements ConfigParamService {
     @Override
     @CachePut(value = GEAR_CONFIG_PARAM_INFO, key = "'['+#name+']'", condition = "#name != null")
     public ConfigParam setConfigParam(String name, String type, String value) throws Exception {
-        if (StringUtils.isBlank(name) || StringUtils.isBlank(value)) {
+        if (StringUtils.isBlank(name) || value == null) {
             logger.error("参数[name={}, type={}, value={}]不符合要求", name, type, value);
             throw new IllegalArgumentException("输入参数有误，请检查！");
         }

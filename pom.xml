@@ -19,6 +19,7 @@
         <module>gear-logback-kafka-appender</module>
         <module>gear-storm</module>
         <module>gear-monitor</module>
+        <module>gear-spring-boot</module>
     </modules>
     <packaging>pom</packaging>
 

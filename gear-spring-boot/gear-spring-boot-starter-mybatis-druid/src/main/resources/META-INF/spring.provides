@@ -1,0 +1,1 @@
+provides: gear-spring-boot-autoconfigure-mybatis-druid,mybatis-spring-boot-autoconfigure,mybatis,mybatis-spring

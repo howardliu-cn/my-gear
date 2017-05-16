@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>gear-spring-boot</artifactId>
+        <groupId>cn.howardliu</groupId>
+        <version>1.0.2-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>gear-spring-boot-starter-mybatis-druid</artifactId>
+    <packaging>jar</packaging>
+
+    <name>${project.artifactId}</name>
+    <description>the starter module for spring-jdbc integrate with mybatis</description>
+    <url>https://github.com/howardliu-cn/my-gear</url>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>gear-spring-boot-autoconfigure-jdbc-mybatis</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+</project>

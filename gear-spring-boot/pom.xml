@@ -14,11 +14,15 @@
     <modules>
         <module>spring-boot-starter-mybatis-druid</module>
         <module>spring-boot-autoconfigure-mybatis-druid</module>
+        <module>spring-boot-starter-data-redis-lettuce</module>
+        <module>spring-boot-autoconfigure-data-redis-lettuce</module>
     </modules>
     <properties>
         <mybatis-spring-boot-starter.version>1.1.1</mybatis-spring-boot-starter.version>
+        <spring-boot-starter-data-redis.version>1.5.2.RELEASE</spring-boot-starter-data-redis.version>
         <spring-boot-configuration-processor.version>1.5.3.RELEASE</spring-boot-configuration-processor.version>
         <druid.version>1.0.27</druid.version>
+        <lettuce.version>3.4.2.Final</lettuce.version>
     </properties>
 
     <name>${project.artifactId}</name>
@@ -33,9 +37,19 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>cn.howardliu</groupId>
+                <artifactId>spring-boot-autoconfigure-data-redis-lettuce</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis-spring-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -44,9 +58,26 @@
                 <optional>true</optional>
             </dependency>
             <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid</artifactId>
-                <version>${druid.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${spring-boot-starter-data-redis.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>redis.clients</groupId>
+                        <artifactId>jedis</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>biz.paluch.redis</groupId>
+                <artifactId>lettuce</artifactId>
+                <version>${lettuce.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>guava</artifactId>
+                        <groupId>com.google.guava</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>

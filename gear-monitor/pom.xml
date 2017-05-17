@@ -9,12 +9,13 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>gear-monitor</artifactId>
+    <packaging>pom</packaging>
+
     <modules>
         <module>gear-monitor-core</module>
         <module>gear-monitor-tomcat</module>
         <module>gear-monitor-custom</module>
     </modules>
-    <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
     <description>监控工具包</description>

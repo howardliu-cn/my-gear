@@ -19,13 +19,15 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>gear-monitor-core</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
             <version>8.5.2</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>

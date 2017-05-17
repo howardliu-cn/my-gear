@@ -95,7 +95,7 @@ public class MyBatisDruidAutoConfiguration {
     public static class DruidDataSourceNotCreateConfiguration {
         @PostConstruct
         public void afterPropertiesSet() {
-            logger.debug("No {} bean create.", DruidDataSource.class.getName());
+            logger.debug("No {} bean created.", DruidDataSource.class.getName());
         }
     }
 }

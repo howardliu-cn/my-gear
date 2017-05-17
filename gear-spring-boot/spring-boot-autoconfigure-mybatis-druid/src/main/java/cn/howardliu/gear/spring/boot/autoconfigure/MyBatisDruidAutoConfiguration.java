@@ -26,7 +26,7 @@ import java.sql.SQLException;
  * Contributes:
  * <ul>
  * <li>{@link DruidDataSource}</li>
- * <li>{@link org.springframework.jdbc.datasource.DataSourceTransactionManager}</li>
+ * <li>{@link DataSourceTransactionManager}</li>
  * </ul>
  * <p>
  * If {@link org.mybatis.spring.annotation.MapperScan} is used, or a
@@ -39,8 +39,8 @@ import java.sql.SQLException;
  * @since 1.0.0
  */
 @Configuration
-@ConditionalOnClass(DataSource.class)
-@ConditionalOnProperty(name = "spring.datasource.type", havingValue = "com.alibaba.druid.pool.DruidDataSource", matchIfMissing = true)
+@ConditionalOnClass({DataSource.class, DruidDataSource.class, DataSourceTransactionManager.class})
+@ConditionalOnProperty(prefix = "mybatis.druid", name = {"jdbcUrl", "username", "password"})
 @EnableConfigurationProperties(MybatisDruidProperties.class)
 @AutoConfigureBefore({MybatisAutoConfiguration.class, DataSourceAutoConfiguration.class})
 public class MyBatisDruidAutoConfiguration {
@@ -82,7 +82,7 @@ public class MyBatisDruidAutoConfiguration {
     }
 
     @Configuration
-    @ConditionalOnMissingClass
+    @ConditionalOnMissingClass("com.alibaba.druid.pool.DruidDataSource")
     public static class DruidDataSourceNotFoundConfiguration {
         @PostConstruct
         public void afterPropertiesSet() {
@@ -91,7 +91,7 @@ public class MyBatisDruidAutoConfiguration {
     }
 
     @Configuration
-    @ConditionalOnMissingClass("com.alibaba.druid.pool.DruidDataSource")
+    @ConditionalOnMissingBean(DruidDataSource.class)
     public static class DruidDataSourceNotCreateConfiguration {
         @PostConstruct
         public void afterPropertiesSet() {

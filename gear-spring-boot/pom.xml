@@ -12,8 +12,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>gear-spring-boot-starter-mybatis-druid</module>
-        <module>gear-spring-boot-autoconfigure-mybatis-druid</module>
+        <module>spring-boot-starter-mybatis-druid</module>
+        <module>spring-boot-autoconfigure-mybatis-druid</module>
     </modules>
     <properties>
         <mybatis-spring-boot-starter.version>1.1.1</mybatis-spring-boot-starter.version>
@@ -24,6 +24,32 @@
     <name>${project.artifactId}</name>
     <description>spring boot定制模块</description>
     <url>https://github.com/howardliu-cn/my-gear</url>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>cn.howardliu</groupId>
+                <artifactId>spring-boot-autoconfigure-mybatis-druid</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
+                <version>${spring-boot-configuration-processor.version}</version>
+                <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>

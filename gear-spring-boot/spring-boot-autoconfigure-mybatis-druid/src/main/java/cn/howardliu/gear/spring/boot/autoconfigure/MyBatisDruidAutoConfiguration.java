@@ -19,6 +19,8 @@ import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
+import static cn.howardliu.gear.spring.boot.autoconfigure.MybatisDruidProperties.MYBATIS_DRUID_PREFIX;
+
 /**
  * <p>
  * {@link org.springframework.boot.autoconfigure.EnableAutoConfiguration Auto-Configuration} for Mybatis integrate with Druid.
@@ -40,7 +42,7 @@ import java.sql.SQLException;
  */
 @Configuration
 @ConditionalOnClass({DataSource.class, DruidDataSource.class, DataSourceTransactionManager.class})
-@ConditionalOnProperty(prefix = "mybatis.druid", name = {"jdbcUrl", "username", "password"})
+@ConditionalOnProperty(prefix = MYBATIS_DRUID_PREFIX, name = {"jdbcUrl", "username", "password"})
 @EnableConfigurationProperties(MybatisDruidProperties.class)
 @AutoConfigureBefore({MybatisAutoConfiguration.class, DataSourceAutoConfiguration.class})
 public class MyBatisDruidAutoConfiguration {

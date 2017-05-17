@@ -13,8 +13,8 @@ import static cn.howardliu.gear.spring.boot.autoconfigure.MybatisDruidProperties
  */
 @ConfigurationProperties(prefix = MYBATIS_DRUID_PREFIX)
 public class MybatisDruidProperties {
-    @SuppressWarnings("WeakerAccess")
     public static final String MYBATIS_DRUID_PREFIX = "mybatis.druid";
+
     private String driverClassName;
     private String jdbcUrl;
     private String username;

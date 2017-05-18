@@ -16,10 +16,12 @@
         <module>spring-boot-autoconfigure-mybatis-druid</module>
         <module>spring-boot-starter-redis-lettuce</module>
         <module>spring-boot-autoconfigure-redis-lettuce</module>
+        <module>spring-boot-starter-web-misc</module>
+        <module>spring-boot-autoconfigure-web-misc</module>
     </modules>
     <properties>
         <mybatis-spring-boot-starter.version>1.1.1</mybatis-spring-boot-starter.version>
-        <spring-boot-starter-data-redis.version>1.5.2.RELEASE</spring-boot-starter-data-redis.version>
+        <spring-boot-starter.version>1.5.2.RELEASE</spring-boot-starter.version>
         <spring-boot-configuration-processor.version>1.5.3.RELEASE</spring-boot-configuration-processor.version>
         <druid.version>1.0.27</druid.version>
         <lettuce.version>3.4.2.Final</lettuce.version>
@@ -42,6 +44,11 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>cn.howardliu</groupId>
+                <artifactId>spring-boot-autoconfigure-web-misc</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis-spring-boot-starter.version}</version>
@@ -60,7 +67,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-redis</artifactId>
-                <version>${spring-boot-starter-data-redis.version}</version>
+                <version>${spring-boot-starter.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>redis.clients</groupId>
@@ -78,6 +85,11 @@
                         <groupId>com.google.guava</groupId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot-starter.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

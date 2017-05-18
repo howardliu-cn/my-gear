@@ -43,10 +43,8 @@ import static cn.howardliu.gear.spring.boot.autoconfigure.RedisLettuceProperties
 @ConditionalOnProperty(prefix = REDIS_LETTUCE_PREFIX, name = "nodes")
 @EnableConfigurationProperties(RedisLettuceProperties.class)
 @AutoConfigureBefore(RedisAutoConfiguration.class)
-@EnableCaching
 public class RedisLettuceAutoConfiguration extends CachingConfigurerSupport {
     private static final Logger logger = LoggerFactory.getLogger(RedisLettuceAutoConfiguration.class);
-
     private RedisLettuceProperties properties;
 
     public RedisLettuceAutoConfiguration(RedisLettuceProperties properties) {

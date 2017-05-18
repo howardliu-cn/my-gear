@@ -1,0 +1,4 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.howardliu.gear.spring.boot.autoconfigure.ViewResolverAutoConfiguration,\
+cn.howardliu.gear.spring.boot.autoconfigure.StatusJsonViewConfigurer

@@ -2,7 +2,9 @@ package cn.howardliu.gear.spring.boot.autoconfigure;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @Configuration
 @ConditionalOnProperty(name = "spring.mvc.index.page", havingValue = "status.json")
+@AutoConfigureAfter(DispatcherServletAutoConfiguration.class)
 public class StatusJsonViewConfigurer extends WebMvcConfigurerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(StatusJsonViewConfigurer.class);
 

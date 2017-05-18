@@ -24,5 +24,9 @@
             <groupId>cn.howardliu</groupId>
             <artifactId>gear-springEx</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.howardliu</groupId>
+            <artifactId>gear-zk</artifactId>
+        </dependency>
     </dependencies>
 </project>

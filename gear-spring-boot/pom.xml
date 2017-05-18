@@ -14,8 +14,8 @@
     <modules>
         <module>spring-boot-starter-mybatis-druid</module>
         <module>spring-boot-autoconfigure-mybatis-druid</module>
-        <module>spring-boot-starter-data-redis-lettuce</module>
-        <module>spring-boot-autoconfigure-data-redis-lettuce</module>
+        <module>spring-boot-starter-redis-lettuce</module>
+        <module>spring-boot-autoconfigure-redis-lettuce</module>
     </modules>
     <properties>
         <mybatis-spring-boot-starter.version>1.1.1</mybatis-spring-boot-starter.version>
@@ -38,7 +38,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.howardliu</groupId>
-                <artifactId>spring-boot-autoconfigure-data-redis-lettuce</artifactId>
+                <artifactId>spring-boot-autoconfigure-redis-lettuce</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

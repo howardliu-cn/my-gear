@@ -8,25 +8,17 @@
         <version>1.0.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>spring-boot-autoconfigure-data-redis-lettuce</artifactId>
+    <artifactId>spring-boot-starter-redis-lettuce</artifactId>
     <packaging>jar</packaging>
 
     <name>${project.artifactId}</name>
-    <description>the autoconfigure module for spring-data-redis integrate with lettuce</description>
+    <description>the starter module for spring-data-redis integrate with lettuce</description>
     <url>https://github.com/howardliu-cn/my-gear</url>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>biz.paluch.redis</groupId>
-            <artifactId>lettuce</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
+            <groupId>cn.howardliu</groupId>
+            <artifactId>spring-boot-autoconfigure-redis-lettuce</artifactId>
         </dependency>
     </dependencies>
 </project>

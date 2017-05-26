@@ -22,7 +22,7 @@ import java.util.Set;
 public class CustomConnectorOperator {
     private static final Logger logger = LoggerFactory.getLogger(CustomConnectorOperator.class);
     private static final String domain = "Custom";
-    private static final String name = domain + ":type=Connector";
+    private static final String name = domain + ":type=Connector,port=";
     private static final CustomConnectorOperator operator = new CustomConnectorOperator();
     private static ServerInfo serverInfo = null;
     private static volatile boolean registered = false;
@@ -44,12 +44,12 @@ public class CustomConnectorOperator {
         Connector connector = new Connector(port).setScheme(scheme).setProtocol(protocol);
         ConnectorMBean connectorMBean = new ConnectorMBean();
         connectorMBean.setManagedResource(connector);
-        Registry.registry().registerComponent(connectorMBean, new ObjectName(name));
+        Registry.registry().registerComponent(connectorMBean, new ObjectName(name + port));
         registered = true;
     }
 
     public Set<ObjectName> getConnector() throws Exception {
-        return Registry.registry().getMBeanServer().queryNames(new ObjectName(name), null);
+        return Registry.registry().getMBeanServer().queryNames(new ObjectName(name + "*"), null);
     }
 
     public MBeanServer getMBeanServer() throws Exception {

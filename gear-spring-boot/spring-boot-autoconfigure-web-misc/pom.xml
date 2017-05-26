@@ -27,6 +27,7 @@
         <dependency>
             <groupId>cn.howardliu</groupId>
             <artifactId>gear-zk</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 </project>

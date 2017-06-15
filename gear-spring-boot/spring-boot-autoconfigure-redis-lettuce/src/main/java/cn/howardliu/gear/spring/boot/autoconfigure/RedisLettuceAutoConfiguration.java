@@ -3,7 +3,6 @@ package cn.howardliu.gear.spring.boot.autoconfigure;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -11,13 +10,14 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 
@@ -70,11 +70,19 @@ public class RedisLettuceAutoConfiguration extends CachingConfigurerSupport {
         return factory;
     }
 
-    @Bean
+    @Bean(name = "stringRedisTemplate")
     @ConditionalOnMissingBean
-    public StringRedisTemplate redisTemplate() {
+    public StringRedisTemplate stringRedisTemplate() {
         StringRedisTemplate redisTemplate = new StringRedisTemplate(lettuceConnectionFactory());
         redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        return redisTemplate;
+    }
+
+    @Bean(name = "redisTemplate")
+    @ConditionalOnMissingBean(name = "redisTemplate")
+    public RedisTemplate redisTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate redisTemplate = new RedisTemplate();
+        redisTemplate.setConnectionFactory(connectionFactory);
         return redisTemplate;
     }
 
@@ -82,7 +90,7 @@ public class RedisLettuceAutoConfiguration extends CachingConfigurerSupport {
     @ConditionalOnMissingBean
     @Override
     public RedisCacheManager cacheManager() {
-        RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate());
+        RedisCacheManager cacheManager = new RedisCacheManager(stringRedisTemplate());
         cacheManager.setLoadRemoteCachesOnStartup(this.properties.isLoadRemoteCachesOnStartup());
         cacheManager.setUsePrefix(this.properties.isUsePrefix());
         cacheManager.setDefaultExpiration(this.properties.getDefaultExpiration());

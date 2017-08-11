@@ -26,7 +26,12 @@ public class TomcatInfoUtilsTest {
         tomcat = new Tomcat();
         tomcat.setPort(port);
         tomcat.start();
-        new Thread(() -> tomcat.getServer().await()).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                tomcat.getServer().await();
+            }
+        }).start();
         for (int i = 0; i < 10; i++) {
             if (tomcat.getServer().getState() == LifecycleState.STARTED) {
                 break;

@@ -80,6 +80,9 @@ public class NetworkInfo {
 
     private static String getMac(@NotNull NetworkInterface networkInterface) throws SocketException {
         byte[] mac = networkInterface.getHardwareAddress();
+        if (mac == null) {
+            return "";
+        }
         StringBuilder sb = new StringBuilder("");
         for (int i = 0; i < mac.length; i++) {
             if (i != 0) {

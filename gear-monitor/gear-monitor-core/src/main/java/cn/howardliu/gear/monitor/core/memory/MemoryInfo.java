@@ -52,7 +52,7 @@ public class MemoryInfo {
 
         garbageCollectionTimeMillis = 0;
         for (JvmStats.GarbageCollector gc : gcInfoList) {
-            garbageCollectionTimeMillis += gc.getCollectionTime().getDuration();
+            garbageCollectionTimeMillis += gc.getCollectionTimeValue().getDuration();
         }
 
         bufferPools = jvmStats.getBufferPools();

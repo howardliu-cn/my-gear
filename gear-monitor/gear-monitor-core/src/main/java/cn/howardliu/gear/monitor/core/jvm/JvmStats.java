@@ -184,7 +184,11 @@ public class JvmStats extends Stats {
         return new CompilationInfo(compilationMXBean.getName(), compilationMXBean.getTotalCompilationTime());
     }
 
-    public TimeValue getUptime() {
+    public long getUptime() {
+        return uptime;
+    }
+
+    public TimeValue getUptimeValue() {
         return new TimeValue(uptime);
     }
 
@@ -257,11 +261,19 @@ public class JvmStats extends Stats {
             return this.count;
         }
 
-        public ByteSizeValue getTotalCapacity() {
+        public long getTotalCapacity() {
+            return totalCapacity;
+        }
+
+        public long getUsed() {
+            return used;
+        }
+
+        public ByteSizeValue getTotalCapacityValue() {
             return new ByteSizeValue(totalCapacity);
         }
 
-        public ByteSizeValue getUsed() {
+        public ByteSizeValue getUsedValue() {
             return new ByteSizeValue(used);
         }
     }
@@ -333,7 +345,11 @@ public class JvmStats extends Stats {
             return this.collectionCount;
         }
 
-        public TimeValue getCollectionTime() {
+        public long getCollectionTime() {
+            return collectionTime;
+        }
+
+        public TimeValue getCollectionTimeValue() {
             return new TimeValue(collectionTime, TimeUnit.MILLISECONDS);
         }
     }
@@ -394,19 +410,35 @@ public class JvmStats extends Stats {
             this.maxMemory = maxMemory;
         }
 
-        public ByteSizeValue getTotalMemory() {
+        public long getTotalMemory() {
+            return totalMemory;
+        }
+
+        public long getFreeMemory() {
+            return freeMemory;
+        }
+
+        public long getUsedMemory() {
+            return usedMemory;
+        }
+
+        public long getMaxMemory() {
+            return maxMemory;
+        }
+
+        public ByteSizeValue getTotalMemoryValue() {
             return new ByteSizeValue(totalMemory);
         }
 
-        public ByteSizeValue getFreeMemory() {
+        public ByteSizeValue getFreeMemoryValue() {
             return new ByteSizeValue(freeMemory);
         }
 
-        public ByteSizeValue getUsedMemory() {
+        public ByteSizeValue getUsedMemoryValue() {
             return new ByteSizeValue(usedMemory);
         }
 
-        public ByteSizeValue getMaxMemory() {
+        public ByteSizeValue getMaxMemoryValue() {
             return new ByteSizeValue(maxMemory);
         }
     }

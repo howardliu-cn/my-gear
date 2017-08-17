@@ -20,15 +20,42 @@ public class MemorySize {
         this.freeSize = freeSize;
     }
 
-    public ByteSizeValue getTotalSize() {
+    public long getTotalSize() {
+        return totalSize;
+    }
+
+    public MemorySize setTotalSize(long totalSize) {
+        this.totalSize = totalSize;
+        return this;
+    }
+
+    public long getUsedSize() {
+        return usedSize;
+    }
+
+    public MemorySize setUsedSize(long usedSize) {
+        this.usedSize = usedSize;
+        return this;
+    }
+
+    public long getFreeSize() {
+        return freeSize;
+    }
+
+    public MemorySize setFreeSize(long freeSize) {
+        this.freeSize = freeSize;
+        return this;
+    }
+
+    public ByteSizeValue getTotalSizeValue() {
         return new ByteSizeValue(totalSize);
     }
 
-    public ByteSizeValue getUsedSize() {
+    public ByteSizeValue getUsedSizeValue() {
         return new ByteSizeValue(usedSize);
     }
 
-    public ByteSizeValue getFreeSize() {
+    public ByteSizeValue getFreeSizeValue() {
         return new ByteSizeValue(freeSize);
     }
 }

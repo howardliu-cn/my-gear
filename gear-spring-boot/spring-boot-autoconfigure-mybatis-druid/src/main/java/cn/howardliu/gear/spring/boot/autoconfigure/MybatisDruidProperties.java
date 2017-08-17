@@ -21,7 +21,7 @@ public class MybatisDruidProperties {
     private String password;
     private int initialPoolSize = 5;
     private int minPoolSize = 5;
-    private int maxPoolWait = 20;
+    private int maxPoolWait = 50;
     // TODO need to complete all field for druid
 
     public String getDriverClassName() {

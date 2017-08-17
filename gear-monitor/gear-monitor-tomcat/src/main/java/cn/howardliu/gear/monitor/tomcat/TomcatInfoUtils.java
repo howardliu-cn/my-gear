@@ -16,6 +16,8 @@ import java.util.Set;
 public class TomcatInfoUtils {
     private static final Logger logger = LoggerFactory.getLogger(TomcatInfoUtils.class);
 
+    public static boolean SERVER_IS_TOMCAT = System.getProperty("catalina.home") != null;
+
     public static Integer getPort() throws Exception {
         MBeanServer server = MBeanServerFactory.findMBeanServer(null).get(0);
         Set<ObjectName> names = server.queryNames(new ObjectName("*:type=Connector,*"), null);

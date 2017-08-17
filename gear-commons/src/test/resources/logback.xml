@@ -6,6 +6,11 @@
         </encoder>
     </appender>
 
+    <logger name="cn.howardliu" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="stdout"/>
+    </logger>
+
     <logger name="org.apache" additivity="false">
         <level value="WARN"/>
         <appender-ref ref="stdout"/>

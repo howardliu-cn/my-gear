@@ -30,10 +30,12 @@ public class MemoryUsage {
     }
 
     public MemoryUsage clone(java.lang.management.MemoryUsage usage) {
-        this.setInit(usage.getInit());
-        this.setUsed(usage.getUsed());
-        this.setCommitted(usage.getCommitted());
-        this.setMax(usage.getMax());
+        if (usage != null) {
+            this.setInit(usage.getInit());
+            this.setUsed(usage.getUsed());
+            this.setCommitted(usage.getCommitted());
+            this.setMax(usage.getMax());
+        }
         return this;
     }
 

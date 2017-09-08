@@ -1,12 +1,13 @@
 package cn.howardliu.gear.storm.spout.scheme;
 
-import backtype.storm.spout.Scheme;
-import backtype.storm.tuple.Fields;
-import backtype.storm.tuple.Values;
+import org.apache.storm.spout.Scheme;
+import org.apache.storm.tuple.Fields;
+import org.apache.storm.tuple.Values;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
 import java.util.List;
 
 /**
@@ -14,16 +15,18 @@ import java.util.List;
  *
  * @author liuxh
  * @since 1.0.2
+ * @deprecated instead of {@code org.apache.storm.kafka.StringScheme}
  */
+@Deprecated
 public class MessageScheme implements Scheme {
     private static final Logger logger = LoggerFactory.getLogger(MessageScheme.class);
     private static long count = 1;
     private static final long step = 10;
 
     @Override
-    public List<Object> deserialize(byte[] ser) {
+    public List<Object> deserialize(ByteBuffer byteBuffer) {
         try {
-            String msg = new String(ser, "UTF-8");
+            String msg = new String(byteBuffer.array(), "UTF-8");
             logger.trace("get one message is {}", msg);
             if (logger.isInfoEnabled()) {
                 if (count % step == 0) {

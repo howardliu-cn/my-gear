@@ -1,6 +1,6 @@
 package cn.howardliu.gear.es.storm;
 
-import backtype.storm.tuple.ITuple;
+import org.apache.storm.tuple.ITuple;
 
 import java.io.Serializable;
 

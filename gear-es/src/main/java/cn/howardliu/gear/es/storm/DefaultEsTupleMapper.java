@@ -1,6 +1,6 @@
 package cn.howardliu.gear.es.storm;
 
-import backtype.storm.tuple.ITuple;
+import org.apache.storm.tuple.ITuple;
 
 /**
  * <br>created at 16-3-8

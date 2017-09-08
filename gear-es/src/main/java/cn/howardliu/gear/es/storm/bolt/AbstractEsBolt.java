@@ -34,6 +34,14 @@ public abstract class AbstractEsBolt extends BaseRichBolt {
         this.esConfig = esConfig;
     }
 
+    static Client getClient() {
+        return AbstractEsBolt.client;
+    }
+
+    static void replaceClient(Client client) {
+        AbstractEsBolt.client = client;
+    }
+
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
         try {
@@ -53,13 +61,5 @@ public abstract class AbstractEsBolt extends BaseRichBolt {
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
-    }
-
-    static Client getClient() {
-        return AbstractEsBolt.client;
-    }
-
-    static void replaceClient(Client client) {
-        AbstractEsBolt.client = client;
     }
 }

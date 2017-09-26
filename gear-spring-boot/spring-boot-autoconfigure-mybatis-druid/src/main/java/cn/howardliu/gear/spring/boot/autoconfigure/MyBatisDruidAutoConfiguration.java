@@ -54,8 +54,8 @@ public class MyBatisDruidAutoConfiguration {
     }
 
     @Bean(initMethod = "init", destroyMethod = "close")
-    @ConditionalOnMissingBean
-    public DataSource dataSource() throws SQLException {
+    @ConditionalOnMissingBean(DataSource.class)
+    public DruidDataSource dataSource() throws SQLException {
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName(this.properties.getDriverClassName());
         dataSource.setUrl(this.properties.getJdbcUrl());

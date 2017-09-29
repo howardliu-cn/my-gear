@@ -12,7 +12,7 @@
     <packaging>jar</packaging>
 
     <name>${project.artifactId}</name>
-    <description>监控工具包</description>
+    <description>监控工具包：核心监控</description>
     <url>https://github.com/howardliu-cn/my-gear</url>
 
     <dependencies>

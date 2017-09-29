@@ -8,8 +8,12 @@
         <version>1.0.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>gear-storm</artifactId>
+    <packaging>jar</packaging>
+
+    <name>${project.artifactId}</name>
+    <description>依赖storm的扩展工具包</description>
+    <url>https://github.com/howardliu-cn/my-gear</url>
 
     <dependencies>
         <dependency>

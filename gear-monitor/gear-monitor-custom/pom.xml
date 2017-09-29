@@ -8,8 +8,12 @@
         <version>1.0.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>gear-monitor-custom</artifactId>
+    <packaging>jar</packaging>
+
+    <name>${project.artifactId}</name>
+    <description>监控工具包：定制监控</description>
+    <url>https://github.com/howardliu-cn/my-gear</url>
 
     <dependencies>
         <dependency>

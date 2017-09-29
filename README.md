@@ -1,4 +1,6 @@
-my-gear: [![Build Status](https://www.travis-ci.org/howardliu-cn/my-gear.svg?branch=master)](https://www.travis-ci.org/howardliu-cn/my-gear)
+[![Build Status](https://www.travis-ci.org/howardliu-cn/my-gear.svg?branch=master)](https://www.travis-ci.org/howardliu-cn/my-gear)
+[![Apache License 2.0](https://img.shields.io/badge/license-Apache%20License%202.0-green.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+![1.0.2-SNAPSHOT](https://img.shields.io/badge/snapshot-1.0.2--SNAPSHOT-green.svg)
 
 自定义工具包项目，封装一些常用的工具。
 

@@ -3,7 +3,7 @@ package cn.howardliu.gear.kafka.utils;
 import kafka.common.Topic;
 
 /**
- * <br/>created at 16-7-12
+ * <br>created at 16-7-12
  *
  * @author liuxh
  * @since 1.0.2

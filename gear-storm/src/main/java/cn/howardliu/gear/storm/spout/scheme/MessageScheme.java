@@ -11,7 +11,7 @@ import java.nio.ByteBuffer;
 import java.util.List;
 
 /**
- * <br/>create at 16-7-12
+ * <br>create at 16-7-12
  *
  * @author liuxh
  * @since 1.0.2

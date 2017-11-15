@@ -25,6 +25,11 @@
             <artifactId>httpclient</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>cn.howardliu</groupId>
             <artifactId>gear-commons</artifactId>
             <scope>test</scope>

@@ -18,11 +18,13 @@
         <module>spring-boot-autoconfigure-redis-lettuce</module>
         <module>spring-boot-starter-web-misc</module>
         <module>spring-boot-autoconfigure-web-misc</module>
+        <module>gear-spring-boot-dependencies</module>
     </modules>
     <properties>
         <mybatis-spring-boot-starter.version>1.1.1</mybatis-spring-boot-starter.version>
         <spring-boot-starter.version>1.5.2.RELEASE</spring-boot-starter.version>
         <spring-boot-configuration-processor.version>1.5.3.RELEASE</spring-boot-configuration-processor.version>
+        <spring-data-redis.version>1.7.1.RELEASE</spring-data-redis.version>
         <druid.version>1.0.27</druid.version>
         <lettuce.version>3.4.2.Final</lettuce.version>
     </properties>
@@ -83,19 +85,23 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-redis</artifactId>
+                <version>${spring-data-redis.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>biz.paluch.redis</groupId>
                 <artifactId>lettuce</artifactId>
                 <version>${lettuce.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>guava</artifactId>
-                        <groupId>com.google.guava</groupId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aop</artifactId>
                 <version>${spring-boot-starter.version}</version>
             </dependency>
         </dependencies>

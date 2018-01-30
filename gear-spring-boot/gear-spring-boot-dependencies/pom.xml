@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>cn.howardliu</groupId>
+    <artifactId>gear-spring-boot-dependencies</artifactId>
+    <version>1.0.2-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>My Gear Spring Boot Dependencies</name>
+    <description>Spring Boot Dependencies</description>
+
+    <properties>
+        <gear-spring-boot.version>1.0.2-SNAPSHOT</gear-spring-boot.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>cn.howardliu</groupId>
+                <artifactId>spring-boot-starter-web-misc</artifactId>
+                <version>${gear-spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.howardliu</groupId>
+                <artifactId>spring-boot-starter-mybatis-druid</artifactId>
+                <version>${gear-spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.howardliu</groupId>
+                <artifactId>spring-boot-starter-redis-lettuce</artifactId>
+                <version>${gear-spring-boot.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>inner</id>
+            <distributionManagement>
+                <repository>
+                    <id>releases</id>
+                    <layout>default</layout>
+                    <name>本地Release仓库</name>
+                    <uniqueVersion>false</uniqueVersion>
+                    <url>http://nexus.dev.com/content/repositories/releases/</url>
+                </repository>
+                <snapshotRepository>
+                    <id>snapshots</id>
+                    <layout>default</layout>
+                    <name>本地Snapshot仓库</name>
+                    <uniqueVersion>false</uniqueVersion>
+                    <url>http://nexus.dev.com/content/repositories/snapshots/</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!-- Javadoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.10.4</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- GPG -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>oss</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>oss</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
+</project>

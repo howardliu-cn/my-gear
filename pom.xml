@@ -283,7 +283,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.2</version>
+                <version>3.5.1</version>
                 <configuration>
                     <source>${jdk.version}</source>
                     <target>${jdk.version}</target>
@@ -292,10 +292,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.4</version>
+                <version>3.0.1</version>
                 <executions>
                     <execution>
-                        <phase>package</phase>
+                        <id>attach-source</id>
+                        <phase>verify</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
@@ -314,14 +315,14 @@
                     <layout>default</layout>
                     <name>本地Release仓库</name>
                     <uniqueVersion>false</uniqueVersion>
-                    <url>http://nexus-server:8081/nexus/content/repositories/releases/</url>
+                    <url>http://nexus.dev.com/content/repositories/releases/</url>
                 </repository>
                 <snapshotRepository>
                     <id>snapshots</id>
                     <layout>default</layout>
                     <name>本地Snapshot仓库</name>
                     <uniqueVersion>false</uniqueVersion>
-                    <url>http://nexus-server:8081/nexus/content/repositories/snapshots/</url>
+                    <url>http://nexus.dev.com/content/repositories/snapshots/</url>
                 </snapshotRepository>
             </distributionManagement>
         </profile>

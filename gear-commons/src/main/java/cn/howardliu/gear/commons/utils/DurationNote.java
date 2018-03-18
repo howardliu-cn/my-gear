@@ -20,8 +20,8 @@ public final class DurationNote {
     private static final Logger logger = LoggerFactory.getLogger(DurationNote.class);
     private final AtomicInteger num = new AtomicInteger();
     private final Duration basic = Duration.ofMillis(System.currentTimeMillis());
-    private final List<String> commentList = Collections.synchronizedList(new ArrayList<>());
-    private final List<Duration> durationList = Collections.synchronizedList(new ArrayList<>());
+    private final List<String> commentList = Collections.synchronizedList(new ArrayList<String>());
+    private final List<Duration> durationList = Collections.synchronizedList(new ArrayList<Duration>());
     private final String name;
 
     public DurationNote() {

@@ -1,30 +1,24 @@
 package cn.howardliu.gear.spring.boot.autoconfigure;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
+import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.MapPropertySource;
+import org.springframework.context.annotation.Import;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
-import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static cn.howardliu.gear.spring.boot.autoconfigure.RedisLettuceProperties.REDIS_LETTUCE_PREFIX;
+import java.net.UnknownHostException;
+import java.time.Duration;
 
 /**
  * <br>created at 17-5-17
@@ -35,66 +29,50 @@ import static cn.howardliu.gear.spring.boot.autoconfigure.RedisLettuceProperties
  */
 @Configuration
 @ConditionalOnClass({
-        RedisClusterConfiguration.class,
-        LettuceConnectionFactory.class,
-        StringRedisTemplate.class,
-        RedisCacheManager.class
+        RedisTemplate.class,
+        RedisCacheManager.class,
+        KeyGenerator.class
 })
-@ConditionalOnProperty(prefix = REDIS_LETTUCE_PREFIX, name = "nodes")
 @EnableConfigurationProperties(RedisLettuceProperties.class)
 @AutoConfigureBefore(RedisAutoConfiguration.class)
+@Import(RedisAutoConfiguration.class)
 public class RedisLettuceAutoConfiguration extends CachingConfigurerSupport {
-    private static final Logger logger = LoggerFactory.getLogger(RedisLettuceAutoConfiguration.class);
+    private RedisConnectionFactory redisConnectionFactory;
     private RedisLettuceProperties properties;
 
-    public RedisLettuceAutoConfiguration(RedisLettuceProperties properties) {
+    public RedisLettuceAutoConfiguration(RedisConnectionFactory redisConnectionFactory,
+            RedisLettuceProperties properties) {
+        this.redisConnectionFactory = redisConnectionFactory;
         this.properties = properties;
     }
 
     @Bean
-    @ConditionalOnMissingBean
-    public RedisClusterConfiguration clusterConfig() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("spring.redis.cluster.nodes", this.properties.getNodes());
-        map.put("spring.redis.cluster.max-redirects", this.properties.getMaxRedirects());
-        return new RedisClusterConfiguration(new MapPropertySource("redis.properties", map));
-    }
-
-    @Bean(destroyMethod = "destroy")
-    @ConditionalOnMissingBean
-    public LettuceConnectionFactory lettuceConnectionFactory() {
-        LettuceConnectionFactory factory = new LettuceConnectionFactory(clusterConfig());
-        if (StringUtils.isNotBlank(this.properties.getPassword())) {
-            factory.setPassword(this.properties.getPassword());
-        }
-        return factory;
-    }
-
-    @Bean(name = "stringRedisTemplate")
-    @ConditionalOnMissingBean
-    public StringRedisTemplate stringRedisTemplate() {
-        StringRedisTemplate redisTemplate = new StringRedisTemplate(lettuceConnectionFactory());
-        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
-        return redisTemplate;
-    }
-
-    @Bean(name = "redisTemplate")
-    @ConditionalOnMissingBean(name = "redisTemplate")
-    public RedisTemplate redisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate redisTemplate = new RedisTemplate();
-        redisTemplate.setConnectionFactory(connectionFactory);
-        return redisTemplate;
+    @ConditionalOnMissingBean(name = {"redisTemplate"})
+    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory)
+            throws UnknownHostException {
+        RedisTemplate<Object, Object> template = new RedisTemplate<>();
+        template.setConnectionFactory(redisConnectionFactory);
+        template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        return template;
     }
 
     @Bean
     @ConditionalOnMissingBean
     @Override
     public RedisCacheManager cacheManager() {
-        RedisCacheManager cacheManager = new RedisCacheManager(stringRedisTemplate());
-        cacheManager.setLoadRemoteCachesOnStartup(this.properties.isLoadRemoteCachesOnStartup());
-        cacheManager.setUsePrefix(this.properties.isUsePrefix());
-        cacheManager.setDefaultExpiration(this.properties.getDefaultExpiration());
-        return cacheManager;
+        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(180));
+        return RedisCacheManager.RedisCacheManagerBuilder
+                .fromConnectionFactory(redisConnectionFactory)
+                .cacheDefaults(
+                        StringUtils.isBlank(this.properties.getPrefix())
+                                ?
+                                redisCacheConfiguration
+                                :
+                                redisCacheConfiguration.prefixKeysWith(this.properties.getPrefix()
+                                )
+                )
+                .build();
     }
 
     @Bean

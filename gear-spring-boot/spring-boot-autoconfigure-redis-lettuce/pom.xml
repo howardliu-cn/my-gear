@@ -5,7 +5,7 @@
     <parent>
         <artifactId>gear-spring-boot</artifactId>
         <groupId>cn.howardliu</groupId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.0.0-RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>spring-boot-autoconfigure-redis-lettuce</artifactId>
@@ -24,14 +24,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>biz.paluch.redis</groupId>
-            <artifactId>lettuce</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>

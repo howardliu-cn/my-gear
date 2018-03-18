@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public final class IntrospectionUtils {
     private static final Logger logger = LoggerFactory.getLogger(IntrospectionUtils.class);
-    private static final Map<Class<?>, Method[]> objectMethods = Collections.synchronizedMap(new HashMap<>());
+    private static final Map<Class<?>, Method[]> objectMethods = Collections.synchronizedMap(new HashMap<Class<?>, Method[]>());
 
     /**
      * Find a method with the right name if found, call the method (if param is

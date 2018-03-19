@@ -1,5 +1,8 @@
 package cn.howardliu.gear.spring.boot.autoconfigure;
 
+import com.lambdaworks.redis.RedisClient;
+import com.lambdaworks.redis.resource.ClientResources;
+import com.lambdaworks.redis.resource.DefaultClientResources;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,9 +38,12 @@ import static cn.howardliu.gear.spring.boot.autoconfigure.RedisLettuceProperties
  */
 @Configuration
 @ConditionalOnClass({
+        RedisClient.class,
         RedisClusterConfiguration.class,
         LettuceConnectionFactory.class,
         StringRedisTemplate.class,
+        RedisTemplate.class,
+        ClientResources.class,
         RedisCacheManager.class
 })
 @ConditionalOnProperty(prefix = REDIS_LETTUCE_PREFIX, name = "nodes")
@@ -49,6 +55,12 @@ public class RedisLettuceAutoConfiguration extends CachingConfigurerSupport {
 
     public RedisLettuceAutoConfiguration(RedisLettuceProperties properties) {
         this.properties = properties;
+    }
+
+    @Bean(destroyMethod = "shutdown")
+    @ConditionalOnMissingBean
+    public ClientResources clientResources() {
+        return DefaultClientResources.create();
     }
 
     @Bean
@@ -64,6 +76,7 @@ public class RedisLettuceAutoConfiguration extends CachingConfigurerSupport {
     @ConditionalOnMissingBean
     public LettuceConnectionFactory lettuceConnectionFactory() {
         LettuceConnectionFactory factory = new LettuceConnectionFactory(clusterConfig());
+        factory.setClientResources(clientResources());
         if (StringUtils.isNotBlank(this.properties.getPassword())) {
             factory.setPassword(this.properties.getPassword());
         }

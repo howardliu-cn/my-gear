@@ -18,6 +18,9 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import static cn.howardliu.gear.spring.boot.autoconfigure.MybatisDruidProperties.MYBATIS_DRUID_PREFIX;
 
@@ -74,7 +77,16 @@ public class MyBatisDruidAutoConfiguration {
         dataSource.setPoolPreparedStatements(true);
         dataSource.setMaxPoolPreparedStatementPerConnectionSize(20);
         dataSource.setFilters("stat");
+        dataSource.setConnectionInitSqls(connectionInitSqls());
         return dataSource;
+    }
+
+    private Collection<String> connectionInitSqls() {
+        Set<String> connectionInitSqls = new HashSet<>(1);
+        if ("utf8mb4".equals(this.properties.getDefaultCharacter())) {
+            connectionInitSqls.add("set names utf8mb4;");
+        }
+        return connectionInitSqls;
     }
 
     @Bean

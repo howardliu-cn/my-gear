@@ -22,6 +22,7 @@ public class MybatisDruidProperties {
     private int initialPoolSize = 5;
     private int minPoolSize = 5;
     private int maxPoolWait = 50;
+    private String defaultCharacter = "utf8";
     // TODO need to complete all field for druid
 
     public String getDriverClassName() {
@@ -84,6 +85,15 @@ public class MybatisDruidProperties {
 
     public MybatisDruidProperties setMaxPoolWait(int maxPoolWait) {
         this.maxPoolWait = maxPoolWait;
+        return this;
+    }
+
+    public String getDefaultCharacter() {
+        return defaultCharacter;
+    }
+
+    public MybatisDruidProperties setDefaultCharacter(String defaultCharacter) {
+        this.defaultCharacter = defaultCharacter;
         return this;
     }
 }

@@ -22,8 +22,7 @@
     </modules>
     <properties>
         <mybatis-spring-boot-starter.version>1.1.1</mybatis-spring-boot-starter.version>
-        <spring-boot-starter.version>1.5.10.RELEASE</spring-boot-starter.version>
-        <spring-boot-configuration-processor.version>1.5.10.RELEASE</spring-boot-configuration-processor.version>
+        <spring-boot-starter.version>1.5.6.RELEASE</spring-boot-starter.version>
         <druid.version>1.0.27</druid.version>
         <lettuce.version>3.4.2.Final</lettuce.version>
     </properties>
@@ -52,7 +51,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot</artifactId>
-                <version>1.5.2.RELEASE</version>
+                <version>${spring-boot-starter.version}</version>
                 <scope>provided</scope>
                 <optional>true</optional>
             </dependency>
@@ -69,7 +68,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-configuration-processor</artifactId>
-                <version>${spring-boot-configuration-processor.version}</version>
+                <version>${spring-boot-starter.version}</version>
                 <optional>true</optional>
             </dependency>
             <dependency>

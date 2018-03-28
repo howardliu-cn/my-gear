@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>gear-spring-boot</artifactId>
     <packaging>pom</packaging>
+    <version>1.0.0-RELEASE</version>
 
     <modules>
         <module>spring-boot-starter-mybatis-druid</module>

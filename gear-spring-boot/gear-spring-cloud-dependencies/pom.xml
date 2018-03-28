@@ -1,43 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.howardliu</groupId>
-    <artifactId>gear-spring-boot-dependencies</artifactId>
+    <artifactId>gear-spring-cloud-dependencies</artifactId>
     <version>1.0.0-RELEASE</version>
     <packaging>pom</packaging>
-    <name>My Gear Spring Boot Dependencies</name>
-    <description>Spring Boot Dependencies</description>
+    <name>My Gear Spring Cloud Dependencies</name>
+    <description>Spring Cloud Dependencies</description>
 
     <properties>
-        <gear-spring-boot.version>1.0.2-SNAPSHOT</gear-spring-boot.version>
-        <spring-boot-starter.version>2.0.0.RELEASE</spring-boot-starter.version>
+        <gear-spring-boot.version>1.0.0-RELEASE</gear-spring-boot.version>
+        <spring-cloud.version>Finchley.M9</spring-cloud.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot-starter.version}</version>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>cn.howardliu</groupId>
-                <artifactId>spring-boot-starter-web-misc</artifactId>
+                <artifactId>gear-spring-boot-dependencies</artifactId>
                 <version>${gear-spring-boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.howardliu</groupId>
-                <artifactId>spring-boot-starter-mybatis-druid</artifactId>
-                <version>${gear-spring-boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.howardliu</groupId>
-                <artifactId>spring-boot-starter-redis-lettuce</artifactId>
-                <version>${gear-spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

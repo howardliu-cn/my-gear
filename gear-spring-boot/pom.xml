@@ -20,12 +20,13 @@
         <module>spring-boot-starter-web-misc</module>
         <module>spring-boot-autoconfigure-web-misc</module>
         <module>gear-spring-boot-dependencies</module>
+        <module>gear-spring-cloud-dependencies</module>
     </modules>
     <properties>
         <mybatis-spring-boot-starter.version>1.1.1</mybatis-spring-boot-starter.version>
-        <spring-boot-starter.version>1.5.6.RELEASE</spring-boot-starter.version>
+        <spring-boot-starter.version>2.0.0.RELEASE</spring-boot-starter.version>
+        <spring-boot-configuration-processor.version>2.0.0.RELEASE</spring-boot-configuration-processor.version>
         <druid.version>1.0.27</druid.version>
-        <lettuce.version>3.4.2.Final</lettuce.version>
     </properties>
 
     <name>${project.artifactId}</name>
@@ -76,11 +77,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-redis</artifactId>
                 <version>${spring-boot-starter.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>biz.paluch.redis</groupId>
-                <artifactId>lettuce</artifactId>
-                <version>${lettuce.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>

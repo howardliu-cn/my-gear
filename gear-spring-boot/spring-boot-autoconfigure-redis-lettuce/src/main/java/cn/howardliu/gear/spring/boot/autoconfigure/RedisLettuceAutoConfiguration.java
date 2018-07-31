@@ -17,7 +17,6 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 
-import java.net.UnknownHostException;
 import java.time.Duration;
 
 /**
@@ -48,8 +47,7 @@ public class RedisLettuceAutoConfiguration extends CachingConfigurerSupport {
 
     @Bean
     @ConditionalOnMissingBean(name = {"redisTemplate"})
-    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory)
-            throws UnknownHostException {
+    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<Object, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory);
         template.setValueSerializer(new GenericJackson2JsonRedisSerializer());

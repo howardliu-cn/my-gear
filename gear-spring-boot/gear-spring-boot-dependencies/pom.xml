@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.howardliu</groupId>
     <artifactId>gear-spring-boot-dependencies</artifactId>
-    <version>1.0.0-RELEASE</version>
+    <version>1.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>My Gear Spring Boot Dependencies</name>
     <description>Spring Boot Dependencies</description>
 
     <properties>
         <gear-spring-boot.version>1.0.2-SNAPSHOT</gear-spring-boot.version>
-        <spring-boot-starter.version>2.0.0.RELEASE</spring-boot-starter.version>
+        <spring-boot-starter.version>2.0.2.RELEASE</spring-boot-starter.version>
     </properties>
 
     <dependencyManagement>
@@ -31,12 +31,27 @@
             </dependency>
             <dependency>
                 <groupId>cn.howardliu</groupId>
+                <artifactId>spring-boot-autoconfigure-web-misc</artifactId>
+                <version>${gear-spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.howardliu</groupId>
                 <artifactId>spring-boot-starter-mybatis-druid</artifactId>
                 <version>${gear-spring-boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.howardliu</groupId>
+                <artifactId>spring-boot-autoconfigure-mybatis-druid</artifactId>
+                <version>${gear-spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.howardliu</groupId>
                 <artifactId>spring-boot-starter-redis-lettuce</artifactId>
+                <version>${gear-spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.howardliu</groupId>
+                <artifactId>spring-boot-autoconfigure-redis-lettuce</artifactId>
                 <version>${gear-spring-boot.version}</version>
             </dependency>
         </dependencies>

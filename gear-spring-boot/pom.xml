@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>gear-spring-boot</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-RELEASE</version>
+    <version>1.0.2-SNAPSHOT</version>
 
     <modules>
         <module>spring-boot-starter-mybatis-druid</module>
@@ -24,8 +24,7 @@
     </modules>
     <properties>
         <mybatis-spring-boot-starter.version>1.1.1</mybatis-spring-boot-starter.version>
-        <spring-boot-starter.version>2.0.0.RELEASE</spring-boot-starter.version>
-        <spring-boot-configuration-processor.version>2.0.0.RELEASE</spring-boot-configuration-processor.version>
+        <spring-boot-starter.version>2.0.2.RELEASE</spring-boot-starter.version>
         <druid.version>1.0.27</druid.version>
     </properties>
 
@@ -37,18 +36,10 @@
         <dependencies>
             <dependency>
                 <groupId>cn.howardliu</groupId>
-                <artifactId>spring-boot-autoconfigure-mybatis-druid</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.howardliu</groupId>
-                <artifactId>spring-boot-autoconfigure-redis-lettuce</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.howardliu</groupId>
-                <artifactId>spring-boot-autoconfigure-web-misc</artifactId>
-                <version>${project.version}</version>
+                <artifactId>gear-spring-boot-dependencies</artifactId>
+                <version>1.0.2-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>

@@ -1,7 +1,7 @@
 package cn.howardliu.gear.spring.boot.autoconfigure.registrable;
 
 import cn.howardliu.gear.springEx.SpringMvcRegisterWrapper;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerInitializedEvent;
+import org.springframework.boot.web.servlet.context.ServletWebServerInitializedEvent;
 import org.springframework.context.ApplicationListener;
 
 /**
@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationListener;
  * @author liuxh
  * @since 1.0.0
  */
-public class ApplicationStartupListener implements ApplicationListener<EmbeddedServletContainerInitializedEvent> {
+public class ApplicationStartupListener implements ApplicationListener<ServletWebServerInitializedEvent> {
     private SpringMvcRegisterWrapper registerWrapper;
 
     public ApplicationStartupListener(SpringMvcRegisterWrapper registerWrapper) {
@@ -18,8 +18,8 @@ public class ApplicationStartupListener implements ApplicationListener<EmbeddedS
     }
 
     @Override
-    public void onApplicationEvent(EmbeddedServletContainerInitializedEvent event) {
-        registerWrapper.setLocalPort(event.getEmbeddedServletContainer().getPort());
+    public void onApplicationEvent(ServletWebServerInitializedEvent event) {
+        registerWrapper.setLocalPort(event.getApplicationContext().getWebServer().getPort());
         try {
             registerWrapper.regist();
         } catch (Exception e) {

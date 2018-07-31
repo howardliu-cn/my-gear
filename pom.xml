@@ -12,13 +12,13 @@
         <module>gear-email</module>
         <module>gear-zk</module>
         <module>gear-springEx</module>
-        <module>gear-es</module>
-        <module>gear-kafka</module>
-        <module>gear-toolkit</module>
+        <!--<module>gear-es</module>-->
+        <!--<module>gear-kafka</module>-->
+        <!--<module>gear-toolkit</module>-->
         <module>gear-config</module>
-        <module>gear-logback-kafka-appender</module>
-        <module>gear-storm</module>
-        <module>gear-monitor</module>
+        <!--<module>gear-logback-kafka-appender</module>-->
+        <!--<module>gear-storm</module>-->
+        <!--<module>gear-monitor</module>-->
         <module>gear-spring-boot</module>
     </modules>
     <packaging>pom</packaging>
@@ -72,6 +72,7 @@
         <dependency.validation-api.version>1.1.0.Final</dependency.validation-api.version>
         <dependency.commons-beanutils.version>1.9.3</dependency.commons-beanutils.version>
         <dependency.mybatis.version>3.3.0</dependency.mybatis.version>
+        <my-gear.version>1.0.2-SNAPSHOT</my-gear.version>
     </properties>
 
     <dependencies>
@@ -111,42 +112,42 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>gear-commons</artifactId>
-                <version>${project.version}</version>
+                <version>${my-gear.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>gear-springEx</artifactId>
-                <version>${project.version}</version>
+                <version>${my-gear.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>gear-zk</artifactId>
-                <version>${project.version}</version>
+                <version>${my-gear.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>gear-es</artifactId>
-                <version>${project.version}</version>
+                <version>${my-gear.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>gear-kafka</artifactId>
-                <version>${project.version}</version>
+                <version>${my-gear.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>gear-logback-kafka-appender</artifactId>
-                <version>${project.version}</version>
+                <version>${my-gear.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>gear-monitor-core</artifactId>
-                <version>${project.version}</version>
+                <version>${my-gear.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>gear-monitor-tomcat</artifactId>
-                <version>${project.version}</version>
+                <version>${my-gear.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.scala-lang</groupId>

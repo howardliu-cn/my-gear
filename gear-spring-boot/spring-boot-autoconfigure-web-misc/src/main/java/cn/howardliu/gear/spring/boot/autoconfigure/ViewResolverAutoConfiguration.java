@@ -1,16 +1,14 @@
 package cn.howardliu.gear.spring.boot.autoconfigure;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.accept.ContentNegotiationManagerFactoryBean;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import java.util.Collections;
@@ -26,11 +24,9 @@ import java.util.Properties;
 @Configuration
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
 public class ViewResolverAutoConfiguration {
-    private static final Logger logger = LoggerFactory.getLogger(ViewResolverAutoConfiguration.class);
-
-    @Bean
+    @Bean(name = "contentNegotiationManager")
     @ConditionalOnMissingBean
-    public ContentNegotiationManagerFactoryBean contentNegotiationManager() {
+    public ContentNegotiationManager contentNegotiationManager() {
         ContentNegotiationManagerFactoryBean factory = new ContentNegotiationManagerFactoryBean();
         factory.setDefaultContentType(MediaType.APPLICATION_JSON_UTF8);
         factory.setFavorParameter(true);
@@ -48,14 +44,14 @@ public class ViewResolverAutoConfiguration {
         mediaTypes.put("ico", "image/bmp");
         mediaTypes.put("js", "text/javascript");
         factory.setMediaTypes(mediaTypes);
-        return factory;
+        return factory.getObject();
     }
 
     @Bean
     @ConditionalOnMissingBean
     public ContentNegotiatingViewResolver viewResolver() {
         ContentNegotiatingViewResolver viewResolver = new ContentNegotiatingViewResolver();
-        viewResolver.setContentNegotiationManager(contentNegotiationManager().getObject());
+        viewResolver.setContentNegotiationManager(contentNegotiationManager());
         viewResolver.setDefaultViews(Collections.singletonList(new MappingJackson2JsonView()));
         return viewResolver;
     }

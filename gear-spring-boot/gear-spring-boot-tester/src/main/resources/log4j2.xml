@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="WARN" monitorInterval="60">
+    <Properties>
+        <property name="log_pattern">%d{yyyy-MM-dd HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n</property>
+        <property name="file_name">/web/webapps/logs/com.hiersun.omni/pcm-admin.log</property>
+        <property name="rolling_file_name">/web/webapps/logs/com.hiersun.omni/pcm-admin-${date:yyyy-MM}/%d{yyyy-MM-dd}-%i.log.gz</property>
+        <property name="every_file_size">100M</property>
+        <property name="output_log_level">DEBUG</property>
+    </Properties>
+    <appenders>
+        <console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${log_pattern}"/>
+        </console>
+    </appenders>
+    <loggers>
+        <logger name="org.springframework" level="WARN"/>
+        <logger name="org.mybatis" level="INFO"/>
+        <logger name="mybatis.mapper" level="DEBUG"/>
+        <logger name="com.hiersun" level="DEBUG"/>
+        <logger name="org.redisson" level="WARN"/>
+        <logger name="org.apache.http.impl.conn.PoolingHttpClientConnectionManager" level="WARN"/>
+        <root level="${output_log_level}">
+            <appender-ref ref="Console"/>
+        </root>
+    </loggers>
+</configuration>

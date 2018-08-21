@@ -15,6 +15,7 @@ import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 
 import java.time.Duration;
@@ -52,6 +53,14 @@ public class RedisLettuceAutoConfiguration extends CachingConfigurerSupport {
         template.setConnectionFactory(redisConnectionFactory);
         template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
         return template;
+    }
+
+    @Bean(name = "stringRedisTemplate")
+    @ConditionalOnMissingBean
+    public StringRedisTemplate stringRedisTemplate() {
+        StringRedisTemplate redisTemplate = new StringRedisTemplate(redisConnectionFactory);
+        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        return redisTemplate;
     }
 
     @Bean

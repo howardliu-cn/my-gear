@@ -5,54 +5,48 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.howardliu</groupId>
     <artifactId>gear-spring-boot-dependencies</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>2.0.4-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>My Gear Spring Boot Dependencies</name>
     <description>Spring Boot Dependencies</description>
 
-    <properties>
-        <gear-spring-boot.version>1.0.2-SNAPSHOT</gear-spring-boot.version>
-        <spring-boot-starter.version>2.0.2.RELEASE</spring-boot-starter.version>
-    </properties>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-parent</artifactId>
+        <version>2.0.4.RELEASE</version>
+    </parent>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot-starter.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
                 <groupId>cn.howardliu</groupId>
                 <artifactId>spring-boot-starter-web-misc</artifactId>
-                <version>${gear-spring-boot.version}</version>
+                <version>1.0.2-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>cn.howardliu</groupId>
                 <artifactId>spring-boot-autoconfigure-web-misc</artifactId>
-                <version>${gear-spring-boot.version}</version>
+                <version>1.0.2-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>cn.howardliu</groupId>
                 <artifactId>spring-boot-starter-mybatis-druid</artifactId>
-                <version>${gear-spring-boot.version}</version>
+                <version>1.0.2-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>cn.howardliu</groupId>
                 <artifactId>spring-boot-autoconfigure-mybatis-druid</artifactId>
-                <version>${gear-spring-boot.version}</version>
+                <version>1.0.2-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>cn.howardliu</groupId>
                 <artifactId>spring-boot-starter-redis-lettuce</artifactId>
-                <version>${gear-spring-boot.version}</version>
+                <version>1.0.2-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>cn.howardliu</groupId>
                 <artifactId>spring-boot-autoconfigure-redis-lettuce</artifactId>
-                <version>${gear-spring-boot.version}</version>
+                <version>1.0.2-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

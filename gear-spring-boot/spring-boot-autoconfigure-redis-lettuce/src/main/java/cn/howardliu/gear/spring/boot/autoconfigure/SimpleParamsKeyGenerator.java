@@ -20,7 +20,7 @@ public class SimpleParamsKeyGenerator implements KeyGenerator {
 
     @Override
     public Object generate(Object target, Method method, Object... params) {
-        if (params == null) {
+        if (params.length == 0) {
             return "[]";
         }
         List<String> list = new ArrayList<>(params.length);

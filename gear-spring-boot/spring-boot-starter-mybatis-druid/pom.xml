@@ -20,6 +20,7 @@
         <dependency>
             <groupId>cn.howardliu</groupId>
             <artifactId>spring-boot-autoconfigure-mybatis-druid</artifactId>
+            <version>1.0.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

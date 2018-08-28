@@ -10,13 +10,13 @@ import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext.SerializationPair;
 
 import java.time.Duration;
 
@@ -35,7 +35,6 @@ import java.time.Duration;
 })
 @EnableConfigurationProperties(RedisLettuceProperties.class)
 @AutoConfigureBefore(RedisAutoConfiguration.class)
-@Import(RedisAutoConfiguration.class)
 public class RedisLettuceAutoConfiguration extends CachingConfigurerSupport {
     private RedisConnectionFactory redisConnectionFactory;
     private RedisLettuceProperties properties;
@@ -46,7 +45,7 @@ public class RedisLettuceAutoConfiguration extends CachingConfigurerSupport {
         this.properties = properties;
     }
 
-    @Bean
+    @Bean(name = "redisTemplate")
     @ConditionalOnMissingBean(name = {"redisTemplate"})
     public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<Object, Object> template = new RedisTemplate<>();
@@ -67,7 +66,9 @@ public class RedisLettuceAutoConfiguration extends CachingConfigurerSupport {
     @ConditionalOnMissingBean
     @Override
     public RedisCacheManager cacheManager() {
+        GenericJackson2JsonRedisSerializer serializer = new GenericJackson2JsonRedisSerializer();
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
+                .serializeValuesWith(SerializationPair.fromSerializer(serializer))
                 .entryTtl(Duration.ofSeconds(180));
         return RedisCacheManager.RedisCacheManagerBuilder
                 .fromConnectionFactory(redisConnectionFactory)

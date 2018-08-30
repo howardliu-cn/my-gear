@@ -1,7 +1,5 @@
 package cn.howardliu.gear.spring.boot.autoconfigure;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
@@ -9,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.web.accept.ContentNegotiationManagerFactoryBean;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
@@ -24,8 +24,12 @@ import java.util.Properties;
  */
 @Configuration
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
-public class ViewResolverAutoConfiguration {
-    private static final Logger logger = LoggerFactory.getLogger(ViewResolverAutoConfiguration.class);
+public class ViewResolverAutoConfiguration extends WebMvcConfigurationSupport {
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+        configurer.setUseSuffixPatternMatch(true);
+        configurer.setUseTrailingSlashMatch(true);
+    }
 
     @Bean
     @ConditionalOnMissingBean

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class StatusController {
-    @RequestMapping("/status")
+    @RequestMapping({"status", "status.json"})
     public String status(Model model) {
         model.addAttribute("system", SystemInfo.getSystemInfo());
         model.addAttribute("jvm", SystemInfo.getJvmInfo());

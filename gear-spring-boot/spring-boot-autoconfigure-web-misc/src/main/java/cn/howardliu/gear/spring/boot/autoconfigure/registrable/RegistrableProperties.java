@@ -16,6 +16,7 @@ public class RegistrableProperties {
     public static final String REGISTRABLE_PREFIX = "spring.mvc.register";
     private String basePath = "register";
     private String preServiceName = "";
+    private String suffix = "";
 
     public String getBasePath() {
         return basePath;
@@ -32,6 +33,15 @@ public class RegistrableProperties {
 
     public RegistrableProperties setPreServiceName(String preServiceName) {
         this.preServiceName = preServiceName;
+        return this;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public RegistrableProperties setSuffix(String suffix) {
+        this.suffix = suffix;
         return this;
     }
 }

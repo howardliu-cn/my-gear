@@ -32,14 +32,14 @@ public class SpringMvcRegisterWrapper implements ISpringMvcRegister {
     private Integer localPort = null;
 
     @Override
-    public void regist() throws Exception {
+    public void regist(String suffix) throws Exception {
         if (this.springMvcRegister != null) {
             this.springMvcRegister.close();
         }
         this.springMvcRegister = new SpringMvcRegister(this.client, this.basePath, this.getLocalIp(), this.getPort());
         this.springMvcRegister.setPreServiceName(this.preServiceName);
         this.springMvcRegister.setSpringMvcServiceScanner(this.springMvcServiceScanner);
-        this.springMvcRegister.regist();
+        this.springMvcRegister.regist(suffix);
     }
 
     @Override

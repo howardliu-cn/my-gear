@@ -39,7 +39,7 @@ public class RegistrableAutoConfiguration {
 
     @Bean
     public ApplicationStartupListener listener(SpringMvcRegisterWrapper springMvcRegister) {
-        return new ApplicationStartupListener(springMvcRegister);
+        return new ApplicationStartupListener(springMvcRegister, properties.getSuffix());
     }
 
     @Bean

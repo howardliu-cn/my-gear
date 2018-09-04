@@ -38,7 +38,10 @@ public class SpringMvcServiceScanner implements ApplicationContextAware, Servlet
         this.contextPath = servletContext.getContextPath();
     }
 
-    public Collection<ServiceDescription> serviceList() throws Exception {
+    Collection<ServiceDescription> serviceList(String suffix) throws Exception {
+        if (suffix == null) {
+            suffix = "";
+        }
         Map<String, ServiceDescription> services = new HashMap<>();
         String serviceRoot = "context-path";
         services.put(serviceRoot, new ServiceDescription(serviceRoot, this.contextPath));
@@ -96,12 +99,12 @@ public class SpringMvcServiceScanner implements ApplicationContextAware, Servlet
                 for (String uriPart : uriParts) {
                     if (uriPres.isEmpty()) {
                         String uri = this.contextPath + "/" + uriPart;
-                        serviceUris.add(uri.replaceAll("//+", "/").replaceAll("/$", "").replaceAll("^/", "") + ".json");
+                        serviceUris.add(uri.replaceAll("//+", "/").replaceAll("/$", "").replaceAll("^/", "") + suffix);
                     } else {
                         for (String uriPre : uriPres) {
                             String uri = this.contextPath + "/" + uriPre + "/" + uriPart;
                             serviceUris.add(uri.replaceAll("//+", "/").replaceAll("/$", "")
-                                    .replaceAll("^/", "") + ".json");
+                                    .replaceAll("^/", "") + suffix);
                         }
                     }
                 }

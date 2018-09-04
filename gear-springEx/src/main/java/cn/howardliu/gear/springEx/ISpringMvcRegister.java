@@ -9,7 +9,7 @@ import java.io.Closeable;
  * @since 1.0.0
  */
 public interface ISpringMvcRegister extends Closeable {
-    public void regist() throws Exception;
+    void regist(String suffix) throws Exception;
 
-    public void refresh() throws Exception;
+    void refresh() throws Exception;
 }

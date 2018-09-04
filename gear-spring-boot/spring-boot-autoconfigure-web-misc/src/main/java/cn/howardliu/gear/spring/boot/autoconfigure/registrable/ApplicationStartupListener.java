@@ -12,16 +12,22 @@ import org.springframework.context.ApplicationListener;
  */
 public class ApplicationStartupListener implements ApplicationListener<ServletWebServerInitializedEvent> {
     private SpringMvcRegisterWrapper registerWrapper;
+    private String suffix;
 
     public ApplicationStartupListener(SpringMvcRegisterWrapper registerWrapper) {
+        this(registerWrapper, "");
+    }
+
+    public ApplicationStartupListener(SpringMvcRegisterWrapper registerWrapper, String suffix) {
         this.registerWrapper = registerWrapper;
+        this.suffix = suffix;
     }
 
     @Override
     public void onApplicationEvent(ServletWebServerInitializedEvent event) {
         registerWrapper.setLocalPort(event.getApplicationContext().getWebServer().getPort());
         try {
-            registerWrapper.regist();
+            registerWrapper.regist(this.suffix);
         } catch (Exception e) {
             throw new RuntimeException("an error occured when registering service", e);
         }

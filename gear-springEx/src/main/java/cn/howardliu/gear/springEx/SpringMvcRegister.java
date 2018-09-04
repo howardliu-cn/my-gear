@@ -27,9 +27,9 @@ public class SpringMvcRegister implements ISpringMvcRegister {
     }
 
     @Override
-    public synchronized void regist() throws Exception {
+    public void regist(String suffix) throws Exception {
         logger.info("注册开始。。。");
-        Collection<ServiceDescription> serviceList = springMvcServiceScanner.serviceList();
+        Collection<ServiceDescription> serviceList = springMvcServiceScanner.serviceList(suffix);
         for (ServiceDescription description : serviceList) {
             String trueServiceName = preServiceName + "-" + description.getServiceName();
             trueServiceName = trueServiceName.replaceAll("--+", "-").replaceAll("-$", "").replaceAll("^-", "");

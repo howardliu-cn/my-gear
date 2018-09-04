@@ -7,8 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.web.accept.ContentNegotiationManagerFactoryBean;
-import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
@@ -24,13 +22,7 @@ import java.util.Properties;
  */
 @Configuration
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
-public class ViewResolverAutoConfiguration extends WebMvcConfigurationSupport {
-    @Override
-    public void configurePathMatch(PathMatchConfigurer configurer) {
-        configurer.setUseSuffixPatternMatch(true);
-        configurer.setUseTrailingSlashMatch(true);
-    }
-
+public class ViewResolverAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public ContentNegotiationManagerFactoryBean contentNegotiationManager() {

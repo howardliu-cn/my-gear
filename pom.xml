@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.howardliu</groupId>
     <artifactId>my-gear</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.3-SNAPSHOT</version>
     <modules>
         <!--<module>gear-commons</module>-->
         <module>gear-httpclient</module>
@@ -14,12 +14,13 @@
         <module>gear-springEx</module>
         <module>gear-es</module>
         <module>gear-kafka</module>
-        <module>gear-toolkit</module>
-        <module>gear-config</module>
-        <module>gear-logback-kafka-appender</module>
-        <module>gear-storm</module>
-        <module>gear-monitor</module>
+        <!--<module>gear-toolkit</module>-->
+        <!--<module>gear-config</module>-->
+        <!--<module>gear-logback-kafka-appender</module>-->
+        <!--<module>gear-storm</module>-->
+        <!--<module>gear-monitor</module>-->
         <module>gear-spring-boot</module>
+        <module>gear-es-5.x</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -63,9 +64,7 @@
         <dependency.mail.version>1.4.7</dependency.mail.version>
         <dependency.commons-lang3.version>3.4</dependency.commons-lang3.version>
         <dependency.httpcomponents.version>4.5.1</dependency.httpcomponents.version>
-        <dependency.curator.version>2.10.0</dependency.curator.version>
         <dependency.servlet-api.version>3.0.1</dependency.servlet-api.version>
-        <dependency.elasticsearch.version>2.2.0</dependency.elasticsearch.version>
         <dependency.storm.version>1.1.1</dependency.storm.version>
         <dependency.kafka_2.10.version>0.8.2.2</dependency.kafka_2.10.version>
         <dependency.fastjson.version>1.2.10</dependency.fastjson.version>
@@ -111,7 +110,7 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>gear-commons</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.2-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
@@ -185,27 +184,6 @@
                 <version>${dependency.httpcomponents.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.curator</groupId>
-                <artifactId>curator-recipes</artifactId>
-                <version>${dependency.curator.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.curator</groupId>
-                <artifactId>curator-x-discovery</artifactId>
-                <version>${dependency.curator.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.curator</groupId>
-                <artifactId>curator-test</artifactId>
-                <version>${dependency.curator.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>guava</artifactId>
-                        <groupId>com.google.guava</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>${dependency.servlet-api.version}</version>
@@ -231,11 +209,6 @@
                 <version>${dependency.mybatis.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.elasticsearch</groupId>
-                <artifactId>elasticsearch</artifactId>
-                <version>${dependency.elasticsearch.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.storm</groupId>
                 <artifactId>storm-core</artifactId>
                 <scope>provided</scope>
@@ -259,6 +232,21 @@
                 <groupId>org.apache.kafka</groupId>
                 <artifactId>kafka_2.10</artifactId>
                 <version>${dependency.kafka_2.10.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka_2.11</artifactId>
+                <version>2.0.0</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.slf4j</groupId>

@@ -20,9 +20,9 @@ public class KafkaProducerWrapperTest {
     private KafkaProducerWrapper<String, String> wrapper;
 
     @Before
-    public void before() throws Exception {
+    public void before() {
         Properties properties = new Properties();
-        properties.put(BOOTSTRAP_SERVERS_CONFIG, "10.6.100.4:9092,10.6.100.5:9092,10.6.100.6:9092");
+        properties.put(BOOTSTRAP_SERVERS_CONFIG, "192.168.7.137:9092,192.168.7.138:9092,192.168.7.139:9092");
         properties.put(ACKS_CONFIG, "all");// 0, 1, all
         properties.put(BUFFER_MEMORY_CONFIG, "33554432");
         properties.put(COMPRESSION_TYPE_CONFIG, "none");// none, gzip, snappy
@@ -33,15 +33,14 @@ public class KafkaProducerWrapperTest {
         properties.put(MAX_REQUEST_SIZE_CONFIG, "1048576");
         properties.put(RECEIVE_BUFFER_CONFIG, "32768");
         properties.put(SEND_BUFFER_CONFIG, "131072");
-        properties.put(TIMEOUT_CONFIG, "30000");
         properties.put(KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         properties.put(VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         wrapper = new KafkaProducerWrapper<>(properties);
     }
 
     @Test
-    public void testSend() throws Exception {
-        for (int i = 0; i < 1; i++) {
+    public void testSend() {
+        for (int i = 0; i < 10; i++) {
             System.out.println(wrapper.send("kafka-appender-topic", null, "测试"));
         }
     }

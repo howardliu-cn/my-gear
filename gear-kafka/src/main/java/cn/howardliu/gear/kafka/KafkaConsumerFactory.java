@@ -1,9 +1,7 @@
 package cn.howardliu.gear.kafka;
 
-import kafka.consumer.Consumer;
-import kafka.consumer.ConsumerConfig;
-import kafka.javaapi.consumer.ConsumerConnector;
 import org.apache.commons.lang3.Validate;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +22,7 @@ public class KafkaConsumerFactory {
         logger.debug("the configuration of consumer is {}", this.config);
     }
 
-    public ConsumerConnector build() {
-        return Consumer.createJavaConsumerConnector(new ConsumerConfig(config));
+    public KafkaConsumer<String, String> build() {
+        return new KafkaConsumer<>(config);
     }
 }

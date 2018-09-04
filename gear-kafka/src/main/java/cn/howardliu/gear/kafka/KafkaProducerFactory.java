@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
-import java.util.UUID;
 
 import static org.apache.kafka.clients.producer.ProducerConfig.*;
 
@@ -32,7 +31,7 @@ public class KafkaProducerFactory<K, V> {
         config.put(MAX_REQUEST_SIZE_CONFIG, "1048576");
         config.put(RECEIVE_BUFFER_CONFIG, "32768");
         config.put(SEND_BUFFER_CONFIG, "131072");
-        config.put(TIMEOUT_CONFIG, "30000");
+        config.put(TRANSACTION_TIMEOUT_CONFIG, "30000");
         config.put(KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         config.put(VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
     }

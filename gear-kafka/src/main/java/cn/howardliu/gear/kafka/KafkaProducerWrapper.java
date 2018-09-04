@@ -29,15 +29,12 @@ public class KafkaProducerWrapper<K, V> implements Closeable {
     }
 
     public boolean send(String topic, K key, V msg) {
-        return send(topic, key, msg, new Callback<K, V>() {
-            @Override
-            public void execute(K key, V value, RecordMetadata metadata, Exception exception) {
-                if (exception == null) {
-                    logger.debug("producer发送消息成功，topic={}, partition={}, offset={}",
-                            metadata.topic(), metadata.partition(), metadata.offset());
-                } else {
-                    logger.error("producer发送消息失败", exception);
-                }
+        return send(topic, key, msg, (key1, value, metadata, exception) -> {
+            if (exception == null) {
+                logger.debug("producer发送消息成功，topic={}, partition={}, offset={}",
+                        metadata.topic(), metadata.partition(), metadata.offset());
+            } else {
+                logger.error("producer发送消息失败", exception);
             }
         });
     }
@@ -50,12 +47,7 @@ public class KafkaProducerWrapper<K, V> implements Closeable {
             } else {
                 record = new ProducerRecord<>(topic, key, value);
             }
-            kafkaProducer.send(record, new org.apache.kafka.clients.producer.Callback() {
-                @Override
-                public void onCompletion(RecordMetadata metadata, Exception exception) {
-                    callback.execute(key, value, metadata, exception);
-                }
-            });
+            kafkaProducer.send(record, (metadata, exception) -> callback.execute(key, value, metadata, exception));
             return true;
         } catch (Exception e) {
             logger.error("消息发送失败, topic={}, key={}, value={}", topic, key, value, e);
@@ -68,7 +60,7 @@ public class KafkaProducerWrapper<K, V> implements Closeable {
         kafkaProducer.close();
     }
 
-    public static interface Callback<K, V> {
+    public interface Callback<K, V> {
         void execute(K key, V value, RecordMetadata metadata, Exception exception);
     }
 }

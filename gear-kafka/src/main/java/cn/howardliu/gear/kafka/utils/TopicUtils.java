@@ -1,6 +1,6 @@
 package cn.howardliu.gear.kafka.utils;
 
-import kafka.common.Topic;
+import org.apache.kafka.common.internals.Topic;
 
 /**
  * <br>created at 16-7-12

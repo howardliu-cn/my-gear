@@ -18,9 +18,10 @@
         <!--<module>gear-config</module>-->
         <!--<module>gear-logback-kafka-appender</module>-->
         <!--<module>gear-storm</module>-->
-        <!--<module>gear-monitor</module>-->
+        <module>gear-monitor</module>
         <module>gear-spring-boot</module>
-        <module>gear-es-5.x</module>
+        <module>gear-mybatis-generator</module>
+        <!--<module>gear-es-5.x</module>-->
     </modules>
     <packaging>pom</packaging>
 

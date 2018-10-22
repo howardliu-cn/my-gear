@@ -70,7 +70,7 @@ public class MyBatisDruidAutoConfiguration {
         dataSource.setMaxWait(60000);
         dataSource.setTimeBetweenEvictionRunsMillis(6000);
         dataSource.setMinEvictableIdleTimeMillis(300000);
-        dataSource.setValidationQuery("SELECT 'x'");
+        dataSource.setValidationQuery("SELECT 'x' FROM dual");
         dataSource.setTestWhileIdle(true);
         dataSource.setTestOnBorrow(false);
         dataSource.setTestOnReturn(false);

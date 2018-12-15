@@ -1,0 +1,1 @@
+provides: spring-boot-autoconfigure-data-redis-lettuce,spring-boot-starter-data-redis,spring-data-redis,lettuce,

@@ -5,28 +5,28 @@
     <parent>
         <artifactId>my-gear</artifactId>
         <groupId>cn.howardliu</groupId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>1.0.4-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>gear-springEx</artifactId>
     <packaging>jar</packaging>
 
-    <name>${project.artifactId}</name>
+    <name>gear-springEx</name>
     <description>spring扩展</description>
     <url>https://github.com/howardliu-cn/my-gear</url>
 
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>cn.howardliu</groupId>
             <artifactId>gear-commons</artifactId>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>cn.howardliu</groupId>
             <artifactId>gear-zk</artifactId>
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>cn.howardliu</groupId>
             <artifactId>gear-monitor-tomcat</artifactId>
         </dependency>
         <dependency>
@@ -44,6 +44,16 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>cn.howardliu</groupId>
+            <artifactId>gear-id</artifactId>
         </dependency>
     </dependencies>
 </project>

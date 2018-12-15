@@ -37,4 +37,15 @@ public class ZkClientFactoryTest {
                 CreateMode.EPHEMERAL_SEQUENTIAL);
         TimeUnit.SECONDS.sleep(60);
     }
+
+    @Test
+    public void test3() throws Exception {
+        ZooKeeper zk = new ZooKeeper("192.168.7.137:2181,192.168.7.138:2181,192.168.7.139:2181", 1000, event -> {
+            ZooKeeperMain.printMessage("WATCHER::");
+            ZooKeeperMain.printMessage(event.toString());
+        });
+        zk.create("/omni-channel-server", "omni-channel-server".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,
+                CreateMode.EPHEMERAL_SEQUENTIAL);
+        TimeUnit.SECONDS.sleep(60);
+    }
 }

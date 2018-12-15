@@ -5,7 +5,7 @@
     <parent>
         <artifactId>my-gear</artifactId>
         <groupId>cn.howardliu</groupId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>1.0.4-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>gear-toolkit</artifactId>
@@ -17,11 +17,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>cn.howardliu</groupId>
             <artifactId>gear-es</artifactId>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>cn.howardliu</groupId>
             <artifactId>gear-monitor-core</artifactId>
         </dependency>
     </dependencies>

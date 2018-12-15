@@ -5,9 +5,9 @@
     <parent>
         <artifactId>gear-spring-boot</artifactId>
         <groupId>cn.howardliu</groupId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.0.4-SNAPSHOT</version>
     </parent>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.4-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>spring-boot-autoconfigure-web-misc</artifactId>
     <packaging>jar</packaging>
@@ -39,12 +39,12 @@
         <dependency>
             <groupId>cn.howardliu</groupId>
             <artifactId>gear-springEx</artifactId>
-            <version>1.0.3-SNAPSHOT</version>
+            <version>1.0.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>cn.howardliu</groupId>
             <artifactId>gear-zk</artifactId>
-            <version>1.0.3-SNAPSHOT</version>
+            <version>1.0.4-SNAPSHOT</version>
             <optional>true</optional>
         </dependency>
     </dependencies>

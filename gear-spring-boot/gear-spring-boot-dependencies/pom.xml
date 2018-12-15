@@ -21,32 +21,37 @@
             <dependency>
                 <groupId>cn.howardliu</groupId>
                 <artifactId>spring-boot-starter-web-misc</artifactId>
-                <version>1.0.2-SNAPSHOT</version>
+                <version>1.0.4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>cn.howardliu</groupId>
                 <artifactId>spring-boot-autoconfigure-web-misc</artifactId>
-                <version>1.0.2-SNAPSHOT</version>
+                <version>1.0.4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>cn.howardliu</groupId>
                 <artifactId>spring-boot-starter-mybatis-druid</artifactId>
-                <version>1.0.2-SNAPSHOT</version>
+                <version>1.0.4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>cn.howardliu</groupId>
                 <artifactId>spring-boot-autoconfigure-mybatis-druid</artifactId>
-                <version>1.0.2-SNAPSHOT</version>
+                <version>1.0.4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>cn.howardliu</groupId>
                 <artifactId>spring-boot-starter-redis-lettuce</artifactId>
-                <version>1.0.2-SNAPSHOT</version>
+                <version>1.0.4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>cn.howardliu</groupId>
                 <artifactId>spring-boot-autoconfigure-redis-lettuce</artifactId>
-                <version>1.0.2-SNAPSHOT</version>
+                <version>1.0.4-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.howardliu</groupId>
+                <artifactId>spring-boot-starter-id</artifactId>
+                <version>1.0.4-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

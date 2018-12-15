@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.howardliu</groupId>
     <artifactId>my-gear</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.4-SNAPSHOT</version>
     <modules>
-        <!--<module>gear-commons</module>-->
+        <module>gear-commons</module>
         <module>gear-httpclient</module>
         <module>gear-email</module>
         <module>gear-zk</module>
@@ -21,6 +21,7 @@
         <module>gear-monitor</module>
         <module>gear-spring-boot</module>
         <module>gear-mybatis-generator</module>
+        <module>gear-id</module>
         <!--<module>gear-es-5.x</module>-->
     </modules>
     <packaging>pom</packaging>
@@ -109,44 +110,49 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>${project.groupId}</groupId>
+                <groupId>cn.howardliu</groupId>
                 <artifactId>gear-commons</artifactId>
                 <version>1.0.2-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>${project.groupId}</groupId>
+                <groupId>cn.howardliu</groupId>
+                <artifactId>gear-id</artifactId>
+                <version>1.0.4-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.howardliu</groupId>
                 <artifactId>gear-springEx</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.4-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>${project.groupId}</groupId>
+                <groupId>cn.howardliu</groupId>
                 <artifactId>gear-zk</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.4-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>${project.groupId}</groupId>
+                <groupId>cn.howardliu</groupId>
                 <artifactId>gear-es</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.4-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>${project.groupId}</groupId>
+                <groupId>cn.howardliu</groupId>
                 <artifactId>gear-kafka</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.4-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>${project.groupId}</groupId>
+                <groupId>cn.howardliu</groupId>
                 <artifactId>gear-logback-kafka-appender</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.4-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>${project.groupId}</groupId>
+                <groupId>cn.howardliu</groupId>
                 <artifactId>gear-monitor-core</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.4-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>${project.groupId}</groupId>
+                <groupId>cn.howardliu</groupId>
                 <artifactId>gear-monitor-tomcat</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.scala-lang</groupId>
@@ -314,31 +320,6 @@
                     <url>http://nexus.dev.com/content/repositories/snapshots/</url>
                 </snapshotRepository>
             </distributionManagement>
-        </profile>
-        <profile>
-            <id>jdk7</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-jar-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                                <configuration>
-                                    <classifier>jdk7</classifier>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-            <properties>
-                <jdk.version>1.7</jdk.version>
-                <jdk.version>1.7</jdk.version>
-            </properties>
         </profile>
         <profile>
             <id>release</id>

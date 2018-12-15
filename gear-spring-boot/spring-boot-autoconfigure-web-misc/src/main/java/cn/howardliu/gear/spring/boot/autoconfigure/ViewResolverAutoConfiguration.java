@@ -2,6 +2,7 @@ package cn.howardliu.gear.spring.boot.autoconfigure;
 
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,7 @@ import java.util.Properties;
  * @since 1.0.0
  */
 @Configuration
+@ConditionalOnProperty(value = "spring.default-json-view.enabled", matchIfMissing = true)
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
 public class ViewResolverAutoConfiguration {
     @Bean

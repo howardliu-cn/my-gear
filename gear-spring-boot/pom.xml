@@ -5,12 +5,12 @@
     <parent>
         <artifactId>my-gear</artifactId>
         <groupId>cn.howardliu</groupId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.0.4-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>gear-spring-boot</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.4-SNAPSHOT</version>
 
     <modules>
         <module>spring-boot-starter-mybatis-druid</module>
@@ -21,6 +21,8 @@
         <module>spring-boot-autoconfigure-web-misc</module>
         <module>gear-spring-boot-dependencies</module>
         <module>gear-spring-cloud-dependencies</module>
+        <module>spring-boot-autoconfigure-id</module>
+        <module>spring-boot-starter-id</module>
         <!--<module>gear-spring-boot-tester</module>-->
     </modules>
     <properties>

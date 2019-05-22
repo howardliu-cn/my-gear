@@ -20,8 +20,8 @@ public class SnowflakeHandler {
 
     public SnowflakeHandler(RedisConnectionFactory redisConnectionFactory) {
         this.redisConnectionFactory = redisConnectionFactory;
-        this.workerId = next(WORKER_SEQUENCE_NAME, 32);
-        this.dataCenterId = next(DATE_CENTER_SEQUENCE_NAME, 32);
+        this.workerId = next(WORKER_SEQUENCE_NAME, 31);
+        this.dataCenterId = next(DATE_CENTER_SEQUENCE_NAME, 31);
         this.snowflakeIdWorker = new SnowflakeIdWorker(workerId, dataCenterId);
     }
 
@@ -43,6 +43,7 @@ public class SnowflakeHandler {
         if (increment == 0) {
             entityIdCounter.set(System.currentTimeMillis() % step);
         }
-        return entityIdCounter.incrementAndGet();
+        increment = entityIdCounter.getAndIncrement() % step;
+        return increment;
     }
 }

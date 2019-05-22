@@ -20,6 +20,32 @@ public class ConfigServiceImpl implements ConfigService {
     @Autowired
     private ConfigParamService configParamService;
 
+    @Override
+    public String getValue(String fieldName) {
+        try {
+            ConfigParam configParam = configParamService.getConfigByName(fieldName);
+            if (configParam != null) {
+                return configParam.getValue();
+            }
+        } catch (Exception e) {
+            logger.error("查询[fieldName={}]配置失败", fieldName, e);
+        }
+        return null;
+    }
+
+    @Override
+    public <T> T getValue(String fieldName, Converter<T> converter) {
+        try {
+            ConfigParam configParam = configParamService.getConfigByName(fieldName);
+            if (configParam != null) {
+                return converter.convert(configParam.getValue());
+            }
+        } catch (Exception e) {
+            logger.error("查询[fieldName={}]配置失败", fieldName, e);
+        }
+        return null;
+    }
+
     public <T> T getValue(String fieldName, T defaultValue, Converter<T> converter) {
         try {
             ConfigParam configParam = configParamService.getConfigByName(fieldName);
@@ -34,13 +60,14 @@ public class ConfigServiceImpl implements ConfigService {
         return defaultValue;
     }
 
-    private boolean setValue(String fieldName, Object defaultValue) {
+    @Override
+    public <T> boolean setValue(String fieldName, T value) {
         try {
-            configParamService.setConfigParam(fieldName, defaultValue.getClass().getName(), defaultValue.toString());
-            logger.info("设置[fieldName={}, defaultValue={}]成功", fieldName, defaultValue);
+            configParamService.setConfigParam(fieldName, value.getClass().getName(), value.toString());
+            logger.info("设置[fieldName={}, defaultValue={}]成功", fieldName, value);
             return true;
         } catch (Exception e) {
-            logger.error("设置[fieldName={}, defaultValue={}]失败", fieldName, defaultValue, e);
+            logger.error("设置[fieldName={}, defaultValue={}]失败", fieldName, value, e);
         }
         return false;
     }

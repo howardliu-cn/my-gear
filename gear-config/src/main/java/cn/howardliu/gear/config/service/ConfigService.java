@@ -7,7 +7,13 @@ package cn.howardliu.gear.config.service;
  * @since 1.0.1
  */
 public interface ConfigService {
+    String getValue(String fieldName);
+
+    <T> T getValue(String fieldName, Converter<T> converter);
+
     <T> T getValue(String fieldName, T defaultValue, Converter<T> converter);
+
+    <T> boolean setValue(String fieldName, T defaultValue);
 
     public static interface Converter<T> {
         T convert(String value);

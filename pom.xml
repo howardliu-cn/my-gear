@@ -15,7 +15,7 @@
         <module>gear-es</module>
         <module>gear-kafka</module>
         <!--<module>gear-toolkit</module>-->
-        <!--<module>gear-config</module>-->
+        <module>gear-config</module>
         <!--<module>gear-logback-kafka-appender</module>-->
         <!--<module>gear-storm</module>-->
         <module>gear-monitor</module>

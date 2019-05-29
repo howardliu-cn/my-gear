@@ -13,16 +13,18 @@
     <version>1.0.4-SNAPSHOT</version>
 
     <modules>
+        <module>gear-spring-boot-dependencies</module>
+        <module>gear-spring-cloud-dependencies</module>
         <module>spring-boot-starter-mybatis-druid</module>
         <module>spring-boot-autoconfigure-mybatis-druid</module>
         <module>spring-boot-starter-redis-lettuce</module>
         <module>spring-boot-autoconfigure-redis-lettuce</module>
         <module>spring-boot-starter-web-misc</module>
         <module>spring-boot-autoconfigure-web-misc</module>
-        <module>gear-spring-boot-dependencies</module>
-        <module>gear-spring-cloud-dependencies</module>
         <module>spring-boot-autoconfigure-id</module>
         <module>spring-boot-starter-id</module>
+        <module>spring-boot-starter-xxl-job</module>
+        <module>spring-boot-autoconfigure-xxl-job</module>
         <!--<module>gear-spring-boot-tester</module>-->
     </modules>
     <properties>
@@ -74,6 +76,11 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-aop</artifactId>
                 <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.8</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

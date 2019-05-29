@@ -53,6 +53,11 @@
                 <artifactId>spring-boot-starter-id</artifactId>
                 <version>1.0.4-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>cn.howardliu</groupId>
+                <artifactId>spring-boot-starter-xxl-job</artifactId>
+                <version>1.0.4-SNAPSHOT</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

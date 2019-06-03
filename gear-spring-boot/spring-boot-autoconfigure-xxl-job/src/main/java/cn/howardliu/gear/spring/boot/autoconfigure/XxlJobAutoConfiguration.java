@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @EnableConfigurationProperties(XxlJobProperties.class)
-@ConditionalOnProperty(prefix = XxlJobProperties.XXL_JOB_PREFIX, name = {"adminAddresses"})
+@ConditionalOnProperty(prefix = XxlJobProperties.XXL_JOB_PREFIX, name = {"admin-addresses"})
 public class XxlJobAutoConfiguration {
     private XxlJobProperties xxlJobProperties;
 

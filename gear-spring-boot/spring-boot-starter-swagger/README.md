@@ -1,0 +1,1 @@
+本模块初始代码来源于<https://github.com/SpringForAll/spring-boot-starter-swagger>项目，根据自己对于spring boot的理解加以改造后，可能会有比较大的出入。--2019-05-22

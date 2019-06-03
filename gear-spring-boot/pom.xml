@@ -25,6 +25,8 @@
         <module>spring-boot-starter-id</module>
         <module>spring-boot-starter-xxl-job</module>
         <module>spring-boot-autoconfigure-xxl-job</module>
+        <module>spring-boot-starter-swagger</module>
+        <module>spring-boot-autoconfigure-swagger</module>
         <!--<module>gear-spring-boot-tester</module>-->
     </modules>
     <properties>
@@ -55,6 +57,12 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
                 <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>${spring-boot.version}</version>
+                <optional>true</optional>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>

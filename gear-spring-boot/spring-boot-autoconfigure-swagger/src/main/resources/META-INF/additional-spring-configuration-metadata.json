@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "spring.mvc.index.page",
+      "type": "java.lang.String"
+    }
+  ]
+}

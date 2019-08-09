@@ -23,6 +23,9 @@ public class MybatisDruidProperties {
     private int minPoolSize = 5;
     private int maxPoolWait = 50;
     private String defaultCharacter = "utf8";
+    private boolean removeAbandoned = true;
+    private int removeAbandonedTimeout = 180;
+    private boolean logAbandoned = true;
     // TODO need to complete all field for druid
 
     public String getDriverClassName() {
@@ -95,5 +98,29 @@ public class MybatisDruidProperties {
     public MybatisDruidProperties setDefaultCharacter(String defaultCharacter) {
         this.defaultCharacter = defaultCharacter;
         return this;
+    }
+
+    public boolean isRemoveAbandoned() {
+        return removeAbandoned;
+    }
+
+    public void setRemoveAbandoned(final boolean removeAbandoned) {
+        this.removeAbandoned = removeAbandoned;
+    }
+
+    public int getRemoveAbandonedTimeout() {
+        return removeAbandonedTimeout;
+    }
+
+    public void setRemoveAbandonedTimeout(final int removeAbandonedTimeout) {
+        this.removeAbandonedTimeout = removeAbandonedTimeout;
+    }
+
+    public boolean isLogAbandoned() {
+        return logAbandoned;
+    }
+
+    public void setLogAbandoned(final boolean logAbandoned) {
+        this.logAbandoned = logAbandoned;
     }
 }

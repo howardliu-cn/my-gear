@@ -78,6 +78,10 @@ public class MyBatisDruidAutoConfiguration {
         dataSource.setMaxPoolPreparedStatementPerConnectionSize(20);
         dataSource.setFilters("stat");
         dataSource.setConnectionInitSqls(connectionInitSqls());
+        dataSource.setRemoveAbandoned(true);
+        dataSource.setRemoveAbandonedTimeout(180);
+        dataSource.setLogAbandoned(true);
+        dataSource.setValidationQueryTimeout(120);
         return dataSource;
     }
 

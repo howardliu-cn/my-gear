@@ -16,7 +16,6 @@ import java.util.List;
  * @since 1.0.0
  */
 public class PaginationPlugin extends PluginAdapter {
-
     @Override
     public boolean validate(List<String> list) {
         return true;
@@ -27,7 +26,6 @@ public class PaginationPlugin extends PluginAdapter {
      */
     @Override
     public boolean modelExampleClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
-
         PrimitiveTypeWrapper integerWrapper = FullyQualifiedJavaType.getIntInstance().getPrimitiveTypeWrapper();
 
         Field limit = new Field();
@@ -69,7 +67,6 @@ public class PaginationPlugin extends PluginAdapter {
         getOffset.setName("getOffset");
         getOffset.addBodyLine("return offset;");
         topLevelClass.addMethod(getOffset);
-
         return true;
     }
 
@@ -77,9 +74,7 @@ public class PaginationPlugin extends PluginAdapter {
      * 为Mapper.xml的selectByExample添加limit,offset
      */
     @Override
-    public boolean sqlMapSelectByExampleWithoutBLOBsElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
-
+    public boolean sqlMapSelectByExampleWithoutBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
         XmlElement ifLimitNotNullElement = new XmlElement("if");
         ifLimitNotNullElement.addAttribute(new Attribute("test", "limit != null"));
 
@@ -97,6 +92,4 @@ public class PaginationPlugin extends PluginAdapter {
 
         return true;
     }
-
-
 }

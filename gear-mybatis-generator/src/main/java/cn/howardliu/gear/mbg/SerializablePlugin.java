@@ -15,8 +15,7 @@ import java.util.Properties;
  */
 public class SerializablePlugin extends PluginAdapter {
     private FullyQualifiedJavaType serializable = new FullyQualifiedJavaType("java.io.Serializable");
-    private FullyQualifiedJavaType gwtSerializable = new FullyQualifiedJavaType(
-            "com.google.gwt.user.client.rpc.IsSerializable");
+    private FullyQualifiedJavaType gwtSerializable = new FullyQualifiedJavaType("com.google.gwt.user.client.rpc.IsSerializable");
     private boolean addGWTInterface;
     private boolean suppressJavaInterface;
 
@@ -29,8 +28,8 @@ public class SerializablePlugin extends PluginAdapter {
 
     public void setProperties(Properties properties) {
         super.setProperties(properties);
-        this.addGWTInterface = Boolean.valueOf(properties.getProperty("addGWTInterface"));
-        this.suppressJavaInterface = Boolean.valueOf(properties.getProperty("suppressJavaInterface"));
+        this.addGWTInterface = Boolean.parseBoolean(properties.getProperty("addGWTInterface"));
+        this.suppressJavaInterface = Boolean.parseBoolean(properties.getProperty("suppressJavaInterface"));
     }
 
     public boolean modelBaseRecordClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
@@ -68,7 +67,6 @@ public class SerializablePlugin extends PluginAdapter {
             this.context.getCommentGenerator().addFieldComment(field, introspectedTable);
             topLevelClass.addField(field);
         }
-
     }
 
     /**
@@ -89,8 +87,6 @@ public class SerializablePlugin extends PluginAdapter {
                 innerClass.addSuperInterface(serializable);
             }
         }
-
         return true;
     }
-
 }

@@ -4,4 +4,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   cn.howardliu.gear.spring.boot.autoconfigure.StatusJsonViewConfigurer,\
   cn.howardliu.gear.spring.boot.autoconfigure.registrable.RegistrableAutoConfiguration,\
   cn.howardliu.gear.spring.boot.autoconfigure.zookeeper.ZookeeperAutoConfiguration,\
-  cn.howardliu.gear.spring.boot.autoconfigure.JacksonAutoConfiguration
+  cn.howardliu.gear.spring.boot.autoconfigure.JacksonAutoConfiguration,\
+  cn.howardliu.gear.spring.boot.metrics.MicrometerAutoConfiguration

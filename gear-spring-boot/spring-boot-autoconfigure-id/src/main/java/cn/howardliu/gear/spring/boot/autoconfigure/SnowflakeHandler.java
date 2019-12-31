@@ -13,31 +13,35 @@ import org.springframework.data.redis.support.atomic.RedisAtomicLong;
 public class SnowflakeHandler {
     public static final String WORKER_SEQUENCE_NAME = "snowflake-worker-sequence";
     public static final String DATE_CENTER_SEQUENCE_NAME = "snowflake-data-center-sequence";
-    private final RedisConnectionFactory redisConnectionFactory;
     private final SnowflakeIdWorker snowflakeIdWorker;
     private final long workerId;
     private final long dataCenterId;
 
     public SnowflakeHandler(RedisConnectionFactory redisConnectionFactory) {
-        this.redisConnectionFactory = redisConnectionFactory;
-        this.workerId = next(WORKER_SEQUENCE_NAME, 31);
-        this.dataCenterId = next(DATE_CENTER_SEQUENCE_NAME, 31);
+        this.workerId = next(redisConnectionFactory, WORKER_SEQUENCE_NAME, 31);
+        this.dataCenterId = next(redisConnectionFactory, DATE_CENTER_SEQUENCE_NAME, 31);
         this.snowflakeIdWorker = new SnowflakeIdWorker(workerId, dataCenterId);
     }
 
-    public long getId() {
+    public SnowflakeHandler(final int nodeId) {
+        this.workerId = (nodeId & 0b1111100000) >> 5;
+        this.dataCenterId = (nodeId & 0b11111);
+        this.snowflakeIdWorker = new SnowflakeIdWorker(workerId, dataCenterId);
+    }
+
+    public synchronized long getId() {
         return this.snowflakeIdWorker.nextId();
     }
 
-    public long getWorkerId() {
+    public synchronized long getWorkerId() {
         return workerId;
     }
 
-    public long getDataCenterId() {
+    public synchronized long getDataCenterId() {
         return dataCenterId;
     }
 
-    private long next(String key, int step) {
+    private long next(final RedisConnectionFactory redisConnectionFactory, String key, int step) {
         RedisAtomicLong entityIdCounter = new RedisAtomicLong(key, redisConnectionFactory);
         long increment = entityIdCounter.getAndIncrement();
         if (increment == 0) {

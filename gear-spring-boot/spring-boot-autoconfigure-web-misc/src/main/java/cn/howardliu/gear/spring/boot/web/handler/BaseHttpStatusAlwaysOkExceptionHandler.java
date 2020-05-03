@@ -69,9 +69,9 @@ public class BaseHttpStatusAlwaysOkExceptionHandler {
     }
 
     @ExceptionHandler(value = CodedBizException.class)
-    public ResponseEntity<Response> handle(final CodedBizException ex, WebRequest request) {
-        final ResponseEntity<Response> responseEntity = this.commonHandling.handle(ex, request);
-        final Response body = responseEntity.getBody();
+    public ResponseEntity<Response<?>> handle(final CodedBizException ex, WebRequest request) {
+        final ResponseEntity<Response<?>> responseEntity = this.commonHandling.handle(ex, request);
+        final Response<?> body = responseEntity.getBody();
         if (body != null) {
             return ResponseEntity.ok(body);
         }
@@ -79,9 +79,9 @@ public class BaseHttpStatusAlwaysOkExceptionHandler {
     }
 
     @ExceptionHandler(value = ConstraintViolationException.class)
-    public ResponseEntity<Response> handle(final ConstraintViolationException ex, WebRequest request) {
-        final ResponseEntity<Response> responseEntity = this.commonHandling.handle(ex, request);
-        final Response body = responseEntity.getBody();
+    public ResponseEntity<Response<?>> handle(final ConstraintViolationException ex, WebRequest request) {
+        final ResponseEntity<Response<?>> responseEntity = this.commonHandling.handle(ex, request);
+        final Response<?> body = responseEntity.getBody();
         if (body != null) {
             return ResponseEntity.ok(body);
         }
@@ -89,9 +89,9 @@ public class BaseHttpStatusAlwaysOkExceptionHandler {
     }
 
     @ExceptionHandler(HystrixRuntimeException.class)
-    public ResponseEntity<Response> handle(@NonNull final HystrixRuntimeException hystrixEx, WebRequest request) {
-        final ResponseEntity<Response> responseEntity = this.commonHandling.handle(hystrixEx, request);
-        final Response body = responseEntity.getBody();
+    public ResponseEntity<Response<?>> handle(@NonNull final HystrixRuntimeException hystrixEx, WebRequest request) {
+        final ResponseEntity<Response<?>> responseEntity = this.commonHandling.handle(hystrixEx, request);
+        final Response<?> body = responseEntity.getBody();
         if (body != null) {
             return ResponseEntity.ok(body);
         }
@@ -99,9 +99,9 @@ public class BaseHttpStatusAlwaysOkExceptionHandler {
     }
 
     @ExceptionHandler(Throwable.class)
-    public ResponseEntity<Response> handle(final Throwable throwable, WebRequest request) {
-        final ResponseEntity<Response> responseEntity = this.commonHandling.handle(throwable, request);
-        final Response body = responseEntity.getBody();
+    public ResponseEntity<Response<?>> handle(final Throwable throwable, WebRequest request) {
+        final ResponseEntity<Response<?>> responseEntity = this.commonHandling.handle(throwable, request);
+        final Response<?> body = responseEntity.getBody();
         if (body != null) {
             return ResponseEntity.ok(body);
         }

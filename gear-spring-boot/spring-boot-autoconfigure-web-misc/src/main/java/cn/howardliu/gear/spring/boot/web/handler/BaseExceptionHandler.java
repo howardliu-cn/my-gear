@@ -1,7 +1,7 @@
 package cn.howardliu.gear.spring.boot.web.handler;
 
-import cn.howardliu.gear.spring.boot.web.exception.CodedBizException;
 import cn.howardliu.gear.spring.boot.web.Response;
+import cn.howardliu.gear.spring.boot.web.exception.CodedBizException;
 import com.netflix.hystrix.exception.HystrixRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +62,7 @@ public class BaseExceptionHandler {
                 request.setAttribute(WebUtils.ERROR_EXCEPTION_ATTRIBUTE, ex, WebRequest.SCOPE_REQUEST);
             }
             final String requestURI = extractRequestURI(request);
-            final Response error = new Response(statusValue, status.getReasonPhrase(), ex.getMessage(), requestURI);
+            final Response<?> error = new Response<>(statusValue, status, ex.getMessage(), requestURI);
             return new ResponseEntity<>(error, headers, status);
         }
     };
@@ -89,11 +89,11 @@ public class BaseExceptionHandler {
     }
 
     @ExceptionHandler(value = CodedBizException.class)
-    public ResponseEntity<Response> handle(final CodedBizException ex, WebRequest request) {
+    public ResponseEntity<Response<?>> handle(final CodedBizException ex, WebRequest request) {
         return codedBizExceptionHandle(ex, request);
     }
 
-    private ResponseEntity<Response> codedBizExceptionHandle(final CodedBizException ex, WebRequest request) {
+    private ResponseEntity<Response<?>> codedBizExceptionHandle(final CodedBizException ex, WebRequest request) {
         final Throwable cause = ex.getCause();
         final String message = ex.getMessage();
         if (ex.isLogging()) {
@@ -104,24 +104,23 @@ public class BaseExceptionHandler {
             }
         }
         final String requestURI = extractRequestURI(request);
-        final Response error;
+        final Response<?> error;
         final int code = ex.getHttpStatus();
         final HttpStatus resolve = HttpStatus.resolve(code);
         final String bizCode = ex.getCode();
         if (cause != null) {
             final String causeMessage = cause.getMessage();
             if (resolve != null) {
-                error = new Response(code, resolve.getReasonPhrase(), causeMessage, requestURI, bizCode, message);
+                error = new Response<>(code, resolve.getReasonPhrase(), causeMessage, requestURI, bizCode, message);
             } else {
-                error = new Response(
-                        code, "", causeMessage, requestURI, bizCode, message);
+                error = new Response<>(code, "", causeMessage, requestURI, bizCode, message);
             }
         } else {
             if (resolve != null) {
-                error = new Response(
+                error = new Response<>(
                         code, resolve.getReasonPhrase(), message, requestURI, bizCode, message);
             } else {
-                error = new Response(
+                error = new Response<>(
                         code, "", message, requestURI, bizCode, message);
             }
         }
@@ -129,10 +128,10 @@ public class BaseExceptionHandler {
     }
 
     @ExceptionHandler(value = ConstraintViolationException.class)
-    public ResponseEntity<Response> handle(final ConstraintViolationException ex, WebRequest request) {
+    public ResponseEntity<Response<?>> handle(final ConstraintViolationException ex, WebRequest request) {
         final HttpStatus status = HttpStatus.BAD_REQUEST;
         final String requestURI = extractRequestURI(request);
-        final Response descriptor = new Response(status.value(), status.getReasonPhrase(),
+        final Response<?> descriptor = new Response<>(status.value(), status,
                 ex.getConstraintViolations().stream()
                         .map(ConstraintViolation::getMessage).reduce((s, s2) -> s + "," + s2).orElse(""),
                 requestURI);
@@ -140,16 +139,16 @@ public class BaseExceptionHandler {
     }
 
     @ExceptionHandler(Throwable.class)
-    public ResponseEntity<Response> handle(final Throwable throwable, WebRequest request) {
+    public ResponseEntity<Response<?>> handle(final Throwable throwable, WebRequest request) {
         logger.error("unexpected exception caught:", throwable);
         final HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         final String requestURI = extractRequestURI(request);
-        final Response error = new Response(status.value(), status.getReasonPhrase(), throwable.getMessage(), requestURI);
+        final Response<?> error = new Response<>(status.value(), status, throwable.getMessage(), requestURI);
         return new ResponseEntity<>(error, status);
     }
 
     @ExceptionHandler(HystrixRuntimeException.class)
-    public ResponseEntity<Response> handle(@NonNull final HystrixRuntimeException hystrixEx, WebRequest request) {
+    public ResponseEntity<Response<?>> handle(@NonNull final HystrixRuntimeException hystrixEx, WebRequest request) {
         final CodedBizException de = tryExtractCodedBizException(hystrixEx);
         if (de != null) {
             return this.handle(de, request);
@@ -183,7 +182,7 @@ public class BaseExceptionHandler {
     private ResponseEntity<Object> handle(final MethodArgumentNotValidException ex, WebRequest request) {
         final HttpStatus status = HttpStatus.BAD_REQUEST;
         final String requestURI = extractRequestURI(request);
-        final Response descriptor = new Response(status.value(), status.getReasonPhrase(),
+        final Response<?> descriptor = new Response<>(status.value(), status,
                 ex.getBindingResult().getAllErrors().stream()
                         .map(DefaultMessageSourceResolvable::getDefaultMessage)
                         .reduce((s, s2) -> s + "," + s2).orElse(""),

@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.boot.info.GitProperties;
@@ -24,6 +25,9 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass({
         MeterRegistry.class,
         MeterRegistryCustomizer.class
+})
+@ConditionalOnProperty({
+        "spring.cloud.client.ip-address"
 })
 public class MicrometerAutoConfiguration {
     @Bean

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>gear-spring-cloud-dependencies</artifactId>
-    <version>Finchley.SR1-SNAPSHOT</version>
+    <version>Hoxton.SR4-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>My Gear Spring Cloud Dependencies</name>
     <description>Spring Cloud Dependencies</description>
@@ -12,7 +12,8 @@
     <parent>
         <groupId>cn.howardliu</groupId>
         <artifactId>gear-spring-boot-dependencies</artifactId>
-        <version>2.0.4-SNAPSHOT</version>
+        <version>2.2.6-SNAPSHOT</version>
+        <relativePath>../gear-spring-boot-dependencies/pom.xml</relativePath>
     </parent>
 
     <dependencyManagement>
@@ -20,7 +21,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Finchley.SR1</version>
+                <version>Hoxton.SR4</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

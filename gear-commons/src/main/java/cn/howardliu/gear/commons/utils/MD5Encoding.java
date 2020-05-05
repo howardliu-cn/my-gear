@@ -9,8 +9,9 @@ import java.security.MessageDigest;
  * @since 1.0.0
  */
 public class MD5Encoding {
+    private final static char[] hexDigits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+
     public static String encoding(String text) {
-        char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
         String encodingStr = null;
         try {
             byte[] strTemp = text.getBytes();
@@ -18,7 +19,7 @@ public class MD5Encoding {
             mdTemp.update(strTemp);
             byte[] md = mdTemp.digest();
             int j = md.length;
-            char str[] = new char[j * 2];
+            char[] str = new char[j * 2];
             int k = 0;
             for (byte byte0 : md) {
                 str[k++] = hexDigits[byte0 >>> 4 & 0xf];
@@ -28,9 +29,5 @@ public class MD5Encoding {
         } catch (Exception ignored) {
         }
         return encodingStr;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(encoding("admin"));
     }
 }

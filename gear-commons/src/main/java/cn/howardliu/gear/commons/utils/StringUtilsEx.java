@@ -2,65 +2,57 @@ package cn.howardliu.gear.commons.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.nio.charset.StandardCharsets;
-import java.util.UUID;
-
 /**
- * <br>created at 18-1-25
+ * <br>created at 2020/5/5
  *
  * @author liuxh
- * @author zhaorunhong
- * @since 0.1.0
+ * @since 1.0.0
  */
 public class StringUtilsEx extends StringUtils {
     /**
-     * 获取输入字符串的utf-8编码格式的byte数组
-     *
-     * @return utf-8编码格式的byte数组,如果输入字符串为空,返回空数组
+     * @see org.apache.commons.lang3.StringUtils#isNumeric
+     * @deprecated
      */
-    public static byte[] bytes(String s) {
-        if (s == null) {
-            return new byte[]{};
-        }
-        return s.getBytes(StandardCharsets.UTF_8);
+    @Deprecated
+    public static boolean isDigits(String x) {
+        return isNumeric(x);
     }
 
-    public static String str(byte[] bytes) {
-        if (bytes == null) {
-            return null;
-        }
-        return new String(bytes, StandardCharsets.UTF_8);
-    }
-
-    /**
-     * 获取uuid
-     * @return UUID
-     */
-    public static  String getUuid(){
-        String uuid = UUID.randomUUID().toString();
-        return uuid.replaceAll("-", "");
-    }
-
-
-    /**
-     * 获取手机号后四位
-     */
-    public static String getFourNumMobile(String mobile) {
-        if(StringUtils.isNotBlank(mobile) && mobile.length()>4) {
-            return mobile.substring(mobile.length()-4,mobile.length());
-        }else{
-            return null;
+    public static String format1Decimals(Double value, String suffix) {
+        String p = String.valueOf(value);
+        int ix = p.indexOf(".") + 1;
+        int ex = p.indexOf("E");
+        char fraction = p.charAt(ix);
+        if (fraction == '0') {
+            if (ex != -1) {
+                return p.substring(0, ix - 1) + p.substring(ex) + suffix;
+            } else {
+                return p.substring(0, ix - 1) + suffix;
+            }
+        } else {
+            if (ex != -1) {
+                return p.substring(0, ix) + fraction + p.substring(ex) + suffix;
+            } else {
+                return p.substring(0, ix) + fraction + suffix;
+            }
         }
     }
 
-    /**
-     * 获取中间四位****的密文手机号
-     */
-    public static String getMarkMobile(String mobile) {
-        if(StringUtils.isNotBlank(mobile)) {
-            return mobile.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
-        }else {
-            return null;
+    public static String unCapitalize(String str) {
+        return changeFirstCharacterCase(str, false);
+    }
+
+    public static String changeFirstCharacterCase(String str, Boolean capitalize) {
+        if (str == null || str.length() == 0) {
+            return str;
         }
+        StringBuilder sb = new StringBuilder(str.length());
+        if (capitalize) {
+            sb.append(Character.toUpperCase(str.charAt(0)));
+        } else {
+            sb.append(Character.toLowerCase(str.charAt(0)));
+        }
+        sb.append(str.substring(1));
+        return sb.toString();
     }
 }

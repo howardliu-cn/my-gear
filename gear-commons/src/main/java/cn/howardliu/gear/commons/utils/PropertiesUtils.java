@@ -1,6 +1,7 @@
 package cn.howardliu.gear.commons.utils;
 
 import cn.howardliu.gear.commons.annotation.Key;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -90,7 +91,7 @@ public class PropertiesUtils {
         if (isBlank(value)) {
             _value = 0d;
             logger.warn("{}对应数据为空，将使用默认值0", fieldName);
-        } else if (StringUtilsEx.isDoubleNumber(value)) {
+        } else if (StringUtils.isNumeric(value)) {
             _value = Double.valueOf(value);
         } else {
             throw new IllegalArgumentException("字段" + fieldName + "对应数据不是数字");
@@ -104,7 +105,7 @@ public class PropertiesUtils {
         if (isBlank(value)) {
             _value = 0f;
             logger.warn("{}对应数据为空，将使用默认值0", fieldName);
-        } else if (StringUtilsEx.isDoubleNumber(value)) {
+        } else if (StringUtils.isNumeric(value)) {
             _value = Float.valueOf(value);
         } else {
             throw new IllegalArgumentException("字段" + fieldName + "对应数据不是数字");
@@ -118,7 +119,7 @@ public class PropertiesUtils {
         if (isBlank(value)) {
             _value = 0L;
             logger.warn("{}对应数据为空，将使用默认值0", fieldName);
-        } else if (StringUtilsEx.isDigits(value)) {
+        } else if (StringUtils.isNumeric(value)) {
             _value = Long.valueOf(value);
         } else {
             throw new IllegalArgumentException("字段" + fieldName + "对应数据不是数字");
@@ -144,7 +145,7 @@ public class PropertiesUtils {
         if (isBlank(value)) {
             _value = 0;
             logger.warn("{}对应数据为空，将使用默认值0", fieldName);
-        } else if (StringUtilsEx.isDigits(value)) {
+        } else if (StringUtils.isNumeric(value)) {
             _value = Short.valueOf(value);
         } else {
             throw new IllegalArgumentException("字段" + fieldName + "对应数据不是数字");
@@ -158,7 +159,7 @@ public class PropertiesUtils {
         if (isBlank(value)) {
             _value = 0;
             logger.warn("{}对应数据为空，将使用默认值0", fieldName);
-        } else if (StringUtilsEx.isDigits(value)) {
+        } else if (StringUtils.isNumeric(value)) {
             _value = Byte.valueOf(value);
         } else {
             throw new IllegalArgumentException("字段" + fieldName + "对应数据不是数字");
@@ -172,7 +173,7 @@ public class PropertiesUtils {
         if (isBlank(value)) {
             _value = 0;
             logger.warn("{}对应数据为空，将使用默认值0", fieldName);
-        } else if (StringUtilsEx.isDigits(value)) {
+        } else if (StringUtils.isNumeric(value)) {
             _value = Integer.valueOf(value);
         } else {
             throw new IllegalArgumentException("字段" + fieldName + "对应数据不是数字");

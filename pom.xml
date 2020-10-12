@@ -57,7 +57,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jdk.version>1.8</jdk.version>
-        <dependency.junit.version>4.12</dependency.junit.version>
+        <dependency.junit.version>4.13.1</dependency.junit.version>
         <dependency.slf4j.version>1.7.12</dependency.slf4j.version>
         <dependency.logback.version>1.1.6</dependency.logback.version>
         <dependency.spring.version>4.2.5.RELEASE</dependency.spring.version>

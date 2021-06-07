@@ -59,7 +59,7 @@
         <jdk.version>1.8</jdk.version>
         <dependency.junit.version>4.12</dependency.junit.version>
         <dependency.slf4j.version>1.7.12</dependency.slf4j.version>
-        <dependency.logback.version>1.1.6</dependency.logback.version>
+        <dependency.logback.version>1.2.0</dependency.logback.version>
         <dependency.spring.version>4.2.5.RELEASE</dependency.spring.version>
         <dependency.commons-io.version>2.4</dependency.commons-io.version>
         <dependency.mail.version>1.4.7</dependency.mail.version>
